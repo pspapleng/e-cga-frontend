@@ -39,7 +39,7 @@
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
                               title: ch.ans_title,
-                              u_id: UserId
+                              u_id: UserId,
                             })
                         "
                       >
@@ -85,7 +85,7 @@
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
                               title: ch.ans_title,
-                              u_id: UserId
+                              u_id: UserId,
                             })
                         "
                       >
@@ -190,74 +190,74 @@
   </div>
 </template>
 <script>
-import Sidebar from "@/components/sidebar.vue";
-import { mapState, mapMutations, mapActions } from "vuex";
+import Sidebar from '@/components/sidebar.vue'
+import { mapState, mapMutations, mapActions } from 'vuex'
 
 export default {
   components: {
-    Sidebar
+    Sidebar,
   },
-  name: "Patientlist",
+  name: 'Patientlist',
   data() {
     return {
-      order: "is-right",
-      size: "default",
-      prevIcon: "chevron-left",
-      nextIcon: "chevron-right",
+      order: 'is-right',
+      size: 'default',
+      prevIcon: 'chevron-left',
+      nextIcon: 'chevron-right',
       isEditResult: false,
       ansvalue: 0,
-      anstitle: "",
-      resultans: ""
-    };
+      anstitle: '',
+      resultans: '',
+    }
   },
   computed: {
     ...mapState({
       count: state => state.count,
-      form: "json",
-      ans: "keep_ans",
-      user: "user"
+      form: 'json',
+      ans: 'keep_ans',
+      user: 'user',
     }),
-    ...mapState(["formFinish", "UserId"])
+    ...mapState(['formFinish', 'UserId']),
   },
   methods: {
-    ...mapMutations(["setAns", "setFormFinish", "setMNA"]),
-    ...mapActions(["getUserById"]),
+    ...mapMutations(['setAns', 'setFormFinish', 'setMNA']),
+    ...mapActions(['getUserById']),
     sumResult() {
-      console.log(this.ans);
-      this.isEditResult = true;
-      this.ansvalue = 0;
-      this.anstitle = "";
-      this.resultans = "";
+      console.log(this.ans)
+      this.isEditResult = true
+      this.ansvalue = 0
+      this.anstitle = ''
+      this.resultans = ''
 
       for (var i = 0; i < 7; i++) {
-        this.ansvalue += this.ans[i].ans_value;
+        this.ansvalue += this.ans[i].ans_value
       }
 
       if (this.ansvalue >= 0 && this.ansvalue <= 7) {
-        this.anstitle = "มีภาวะขาดสารอาหาร";
+        this.anstitle = 'มีภาวะขาดสารอาหาร'
       } else if (this.ansvalue >= 8 && this.ansvalue <= 11) {
-        this.anstitle = "มีความเสี่ยงต่อการเกิดภาวะขาดสารอาหาร";
+        this.anstitle = 'มีความเสี่ยงต่อการเกิดภาวะขาดสารอาหาร'
       } else if (this.ansvalue >= 12 && this.ansvalue <= 14) {
-        this.anstitle = "ภาวะโภชนาการปกติ";
+        this.anstitle = 'ภาวะโภชนาการปกติ'
       }
 
-      this.resultans = "ได้คะแนน " + this.ansvalue + " คะแนน " + this.anstitle;
+      this.resultans = 'ได้คะแนน ' + this.ansvalue + ' คะแนน ' + this.anstitle
 
-      this.setMNA(this.resultans);
+      this.setMNA(this.resultans)
     },
     Finish() {
-      this.formFinish.push("MNA");
-      this.setFormFinish(this.formFinish);
-      console.log(this.formFinish);
-    }
+      this.formFinish.push('MNA')
+      this.setFormFinish(this.formFinish)
+      console.log(this.formFinish)
+    },
   },
   beforeRouteEnter(to, from, next) {
-    console.log("before");
+    console.log('before')
     next(vm => {
-      vm.getUserById();
-    });
-  }
-};
+      vm.getUserById()
+    })
+  },
+}
 </script>
 <style>
 h1 {

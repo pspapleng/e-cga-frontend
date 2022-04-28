@@ -572,10 +572,10 @@
 <script>
 export default {
   data() {
-    return {};
+    return {}
   },
-  name: "forNurse"
-};
+  name: 'forNurse',
+}
 </script>
 <style>
 /* .nurse {

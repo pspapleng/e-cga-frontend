@@ -40,7 +40,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -78,7 +78,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -110,7 +110,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -142,7 +142,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -174,7 +174,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -210,7 +210,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -315,64 +315,64 @@
   </div>
 </template>
 <script>
-import Sidebar from "@/components/sidebar.vue";
-import { mapState, mapMutations, mapActions } from "vuex";
+import Sidebar from '@/components/sidebar.vue'
+import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
   components: {
-    Sidebar
+    Sidebar,
   },
-  name: "Patientlist",
+  name: 'Patientlist',
   data() {
     return {
-      order: "is-right",
-      size: "default",
-      prevIcon: "chevron-left",
-      nextIcon: "chevron-right",
+      order: 'is-right',
+      size: 'default',
+      prevIcon: 'chevron-left',
+      nextIcon: 'chevron-right',
       isEditResult: false,
-      anstitle: "",
-      ansvalue: 0
-    };
+      anstitle: '',
+      ansvalue: 0,
+    }
   },
   computed: {
     ...mapState({
       count: state => state.count,
-      form: "json",
-      ans: "keep_ans",
-      user: "user"
+      form: 'json',
+      ans: 'keep_ans',
+      user: 'user',
     }),
-    ...mapState(["formFinish"])
+    ...mapState(['formFinish']),
   },
   methods: {
-    ...mapMutations(["setAns", "setFormFinish", "setUIA"]),
-    ...mapActions(["getUserById"]),
+    ...mapMutations(['setAns', 'setFormFinish', 'setUIA']),
+    ...mapActions(['getUserById']),
     sumResult() {
-      console.log(this.ans);
-      this.isEditResult = true;
-      this.anstitle = "";
-      this.ansvalue = 0;
+      console.log(this.ans)
+      this.isEditResult = true
+      this.anstitle = ''
+      this.ansvalue = 0
 
       if (this.ans[145].ans_value == 3 || this.ans[146].ans_value == 3) {
-        this.anstitle = "มีการกลั้นปัสสาวะไม่อยู่ในระดับรุนแรงมาก";
+        this.anstitle = 'มีการกลั้นปัสสาวะไม่อยู่ในระดับรุนแรงมาก'
       } else if (this.ans[145].ans_value == 2 || this.ans[146].ans_value == 2) {
-        this.anstitle = "มีการกลั้นปัสสาวะไม่อยู่ในระดับรุนแรงปานกลาง";
+        this.anstitle = 'มีการกลั้นปัสสาวะไม่อยู่ในระดับรุนแรงปานกลาง'
       } else if (this.ans[145].ans_value == 1 && this.ans[146].ans_value == 1) {
-        this.anstitle = "มีการกลั้นปัสสาวะไม่อยู่ในระดับรุนแรงน้อย";
+        this.anstitle = 'มีการกลั้นปัสสาวะไม่อยู่ในระดับรุนแรงน้อย'
       }
-      this.setUIA(this.anstitle);
+      this.setUIA(this.anstitle)
     },
     Finish() {
-      this.formFinish.push("UIA");
-      this.setFormFinish(this.formFinish);
-      console.log(this.formFinish);
-    }
+      this.formFinish.push('UIA')
+      this.setFormFinish(this.formFinish)
+      console.log(this.formFinish)
+    },
   },
   beforeRouteEnter(to, from, next) {
-    console.log("before");
+    console.log('before')
     next(vm => {
-      vm.getUserById();
-    });
-  }
-};
+      vm.getUserById()
+    })
+  },
+}
 </script>
 <style>
 h1 {

@@ -183,105 +183,104 @@
   </div>
 </template>
 <script>
-import Sidebar from "@/components/sidebar.vue";
-import { mapState, mapMutations, mapActions } from "vuex";
+import Sidebar from '@/components/sidebar.vue'
+import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
   components: {
-    Sidebar
+    Sidebar,
   },
-  name: "Patientlist",
+  name: 'Patientlist',
   data() {
     return {
-      order: "is-right",
-      size: "default",
-      prevIcon: "chevron-left",
-      nextIcon: "chevron-right",
+      order: 'is-right',
+      size: 'default',
+      prevIcon: 'chevron-left',
+      nextIcon: 'chevron-right',
       isEditResult: false,
-      anssuggest: "",
-      anstitle: "",
+      anssuggest: '',
+      anstitle: '',
       osta: 0,
-      resultans: ""
-    };
+      resultans: '',
+    }
   },
   computed: {
     ...mapState({
       count: state => state.count,
-      form: "json",
-      ans: "keep_ans",
-      user: "user"
+      form: 'json',
+      ans: 'keep_ans',
+      user: 'user',
     }),
     age() {
-      var today = new Date();
-      var birthDate = new Date(this.user.date_of_birth);
-      var age = today.getFullYear() - birthDate.getFullYear();
-      var m = today.getMonth() - birthDate.getMonth();
+      var today = new Date()
+      var birthDate = new Date(this.user.date_of_birth)
+      var age = today.getFullYear() - birthDate.getFullYear()
+      var m = today.getMonth() - birthDate.getMonth()
       if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
+        age--
       }
-      return age;
+      return age
     },
-    ...mapState(["formFinish"])
+    ...mapState(['formFinish']),
   },
   methods: {
-    ...mapMutations(["setAns", "setFormFinish", "setOSTA"]),
-    ...mapActions(["getUserById", "submitAll"]),
+    ...mapMutations(['setAns', 'setFormFinish', 'setOSTA']),
+    ...mapActions(['getUserById', 'submitAll']),
     sumResult() {
-      this.osta = 0;
-      this.anstitle = "";
-      this.anssuggest = "";
-      this.resultans = "";
-      this.isEditResult = true;
+      this.osta = 0
+      this.anstitle = ''
+      this.anssuggest = ''
+      this.resultans = ''
+      this.isEditResult = true
 
-      this.osta = 0.2 * (this.user.weight - this.age);
-      this.osta = this.osta.toFixed(2);
+      this.osta = 0.2 * (this.user.weight - this.age)
+      this.osta = this.osta.toFixed(2)
       if (this.osta < -4) {
-        this.anstitle = "ความเสี่ยงสูง";
+        this.anstitle = 'ความเสี่ยงสูง'
         this.anssuggest =
-          "ถ้าเอกซเรย์ TL - spine พบ Osteopenia ไม่สามารถส่งตรวจความหนาแน่นของกระดูกด้วยเครื่อง DXA ได้ อาจพิจารณาให้การรักษา";
+          'ถ้าเอกซเรย์ TL - spine พบ Osteopenia ไม่สามารถส่งตรวจความหนาแน่นของกระดูกด้วยเครื่อง DXA ได้ อาจพิจารณาให้การรักษา'
       } else if (this.osta >= -4 && this.osta <= -1) {
-        this.anstitle = "ความเสี่ยงสูง";
-        this.anssuggest =
-          "ควรส่งตรวจความหนาแน่นของกระดูกก่อนพิจารณาให้การรักษา";
+        this.anstitle = 'ความเสี่ยงสูง'
+        this.anssuggest = 'ควรส่งตรวจความหนาแน่นของกระดูกก่อนพิจารณาให้การรักษา'
       } else if (this.osta >= -1) {
-        this.anstitle = "ความเสี่ยงต่ำ";
-        this.anssuggest = "ยังไม่จำเป็นต้องตรวจความหนาแน่นกระดูก";
+        this.anstitle = 'ความเสี่ยงต่ำ'
+        this.anssuggest = 'ยังไม่จำเป็นต้องตรวจความหนาแน่นกระดูก'
       }
       this.setAns({
         id: 163,
         value: -1,
-        title: this.osta
-      });
+        title: this.osta,
+      })
 
       this.resultans =
-        "ค่าที่คำนวณได้เท่ากับ " +
+        'ค่าที่คำนวณได้เท่ากับ ' +
         this.osta +
-        " มี " +
+        ' มี ' +
         this.anstitle +
-        "ต่อโรคกระดูกพรุน" +
-        " " +
-        this.anssuggest;
-      this.setOSTA(this.resultans);
+        'ต่อโรคกระดูกพรุน' +
+        ' ' +
+        this.anssuggest
+      this.setOSTA(this.resultans)
     },
     Finish() {
-      this.formFinish.push("OSTA");
-      this.setFormFinish(this.formFinish);
-      console.log(this.formFinish);
+      this.formFinish.push('OSTA')
+      this.setFormFinish(this.formFinish)
+      console.log(this.formFinish)
       this.submitAll()
         .then(() => {
-          this.$router.push({ name: "PatientList" });
+          this.$router.push({ name: 'PatientList' })
         })
         .catch(e => {
-          console.log(e);
-        });
-    }
+          console.log(e)
+        })
+    },
   },
   beforeRouteEnter(to, from, next) {
-    console.log("before");
+    console.log('before')
     next(vm => {
-      vm.getUserById();
-    });
-  }
-};
+      vm.getUserById()
+    })
+  },
+}
 </script>
 <style>
 h1 {

@@ -56,7 +56,7 @@
         >
           เข้าสู่ระบบ
         </b-button>
-        <router-link to="/CreateAccNurse">
+        <router-link to="/register">
           <p class="newacc pt-1">
             สมัครบัญชีพยาบาลใหม่
           </p>
@@ -66,52 +66,51 @@
   </div>
 </template>
 <script>
-import { debounce } from "debounce";
-import { required } from "vuelidate/lib/validators";
-import { mapMutations, mapActions } from "vuex";
+import { debounce } from 'debounce'
+import { required } from 'vuelidate/lib/validators'
+import { mapMutations, mapActions } from 'vuex'
 
 export default {
-  name: "Login",
+  name: 'Login',
   data() {
     return {
       login_form: {
-        username: "",
-        password: ""
+        username: '',
+        password: '',
       },
-      error: ""
-    };
+      error: '',
+    }
   },
   validations: {
     login_form: {
       username: { required },
-      password: { required }
-    }
+      password: { required },
+    },
   },
   methods: {
-    ...mapMutations(["setLogin"]),
-    ...mapActions(["createLogin"]),
+    ...mapMutations(['setLogin']),
+    ...mapActions(['createLogin']),
     debounceInput: debounce(function(e) {
-      console.log(e);
-      this.setLogin(e);
+      this.setLogin(e)
     }, 300),
     login() {
       // Validate all fields
-      this.$v.$touch();
+      this.$v.$touch()
       // เช็คว่าในฟอร์มไม่มี error
       if (!this.$v.$invalid) {
         // alert("login");
         this.createLogin()
           .then(() => {
-            this.$router.push({ name: "PatientList" });
+            this.$router.push({ name: 'Dashboard' })
           })
           .catch(e => {
-            console.log(e);
-            this.error = e;
-          });
+            console.log(e)
+            this.error = e
+          })
       } else {
-        alert("โปรดกรอกข้อมูลให้ถูกต้องทุกช่อง");
+        alert('โปรดกรอกข้อมูลให้ถูกต้องทุกช่อง')
       }
-    }
+    },
   },
   watch: {
     login_form: {
@@ -119,12 +118,12 @@ export default {
       deep: true,
       // We have to move our method to a handler field
       handler(val) {
-        this.debounceInput(val);
-        console.log("The form has changed!");
-      }
-    }
-  }
-};
+        this.debounceInput(val)
+        console.log('The form has changed!')
+      },
+    },
+  },
+}
 </script>
 <style>
 .title {

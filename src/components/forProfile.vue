@@ -127,9 +127,9 @@
 <script>
 export default {
   data() {
-    return {};
+    return {}
   },
-  name: "forProfile"
-};
+  name: 'forProfile',
+}
 </script>
 <style></style>

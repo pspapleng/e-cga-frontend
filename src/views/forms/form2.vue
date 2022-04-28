@@ -66,7 +66,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -93,7 +93,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -130,7 +130,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -170,7 +170,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -274,54 +274,54 @@
   </div>
 </template>
 <script>
-import Sidebar from "@/components/sidebar.vue";
-import { mapState, mapMutations, mapActions } from "vuex";
+import Sidebar from '@/components/sidebar.vue'
+import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
   components: {
-    Sidebar
+    Sidebar,
   },
-  name: "Patientlist",
+  name: 'Patientlist',
   data() {
     return {
-      order: "is-right",
-      size: "default",
-      prevIcon: "chevron-left",
-      nextIcon: "chevron-right",
+      order: 'is-right',
+      size: 'default',
+      prevIcon: 'chevron-left',
+      nextIcon: 'chevron-right',
       isEditResult: false,
-      anstitle1: ""
-    };
+      anstitle1: '',
+    }
   },
   computed: {
     ...mapState({
       count: state => state.count,
-      form: "json",
-      ans: "keep_ans",
-      user: "user"
+      form: 'json',
+      ans: 'keep_ans',
+      user: 'user',
     }),
-    ...mapState(["formFinish"])
+    ...mapState(['formFinish']),
   },
   methods: {
-    ...mapMutations(["setAns", "setFormFinish", "setOCA"]),
-    ...mapActions(["getUserById"]),
+    ...mapMutations(['setAns', 'setFormFinish', 'setOCA']),
+    ...mapActions(['getUserById']),
     sumResult() {
-      console.log(this.ans);
-      this.isEditResult = true;
-      this.anstitle1 = "";
+      console.log(this.ans)
+      this.isEditResult = true
+      this.anstitle1 = ''
 
       if (this.ans[11].ans_value == 1) {
-        this.anstitle1 += " เนื้อเยื่อในช่องปากผิดปกติ";
+        this.anstitle1 += ' เนื้อเยื่อในช่องปากผิดปกติ'
       }
       if (this.ans[12].ans_value == 1) {
-        this.anstitle1 += " เหงือกและอวัยวะปริทันต์ผิดปกติ";
+        this.anstitle1 += ' เหงือกและอวัยวะปริทันต์ผิดปกติ'
       }
       if (this.ans[13].ans_value == 1) {
-        this.anstitle1 += " ฟันผิดปกติ";
+        this.anstitle1 += ' ฟันผิดปกติ'
       }
       if (this.ans[14].ans_value == 1) {
-        this.anstitle1 += " ปัญหาการเคี้ยวอาหารผิดปกติ";
+        this.anstitle1 += ' ปัญหาการเคี้ยวอาหารผิดปกติ'
       }
       if (this.ans[15].ans_value == 1) {
-        this.anstitle1 += " ฟันเทียมผิดปกติ";
+        this.anstitle1 += ' ฟันเทียมผิดปกติ'
       } else if (
         this.ans[11].ans_value == 0 &&
         this.ans[12].ans_value == 0 &&
@@ -329,23 +329,23 @@ export default {
         this.ans[14].ans_value == 0 &&
         this.ans[15].ans_value == 0
       ) {
-        this.anstitle1 += "ไม่มีความผิดปกติด้านสุขภาพช่องปาก";
+        this.anstitle1 += 'ไม่มีความผิดปกติด้านสุขภาพช่องปาก'
       }
-      this.setOCA(this.anstitle1);
+      this.setOCA(this.anstitle1)
     },
     Finish() {
-      this.formFinish.push("OCA");
-      this.setFormFinish(this.formFinish);
-      console.log(this.formFinish);
-    }
+      this.formFinish.push('OCA')
+      this.setFormFinish(this.formFinish)
+      console.log(this.formFinish)
+    },
   },
   beforeRouteEnter(to, from, next) {
-    console.log("before");
+    console.log('before')
     next(vm => {
-      vm.getUserById();
-    });
-  }
-};
+      vm.getUserById()
+    })
+  },
+}
 </script>
 <style>
 h1 {

@@ -113,9 +113,9 @@
                     @click="seeResult(user.row)"
                     v-if="
                       user.row.result != null &&
-                      today.getFullYear() -
-                        new Date(user.row.result_date).getFullYear() <
-                        1
+                        today.getFullYear() -
+                          new Date(user.row.result_date).getFullYear() <
+                          1
                     "
                   >
                     ประเมินเมื่อ
@@ -128,9 +128,9 @@
                   @click="seeResult(user.row)"
                   v-if="
                     user.row.result != null &&
-                    today.getFullYear() -
-                      new Date(user.row.result_date).getFullYear() >=
-                      1
+                      today.getFullYear() -
+                        new Date(user.row.result_date).getFullYear() >=
+                        1
                   "
                 >
                   ประเมินเมื่อ
@@ -151,9 +151,9 @@
                     @click="DoForm(user.row)"
                     v-if="
                       user.row.result == null ||
-                      today.getFullYear() -
-                        new Date(user.row.result_date).getFullYear() >=
-                        1
+                        today.getFullYear() -
+                          new Date(user.row.result_date).getFullYear() >=
+                          1
                     "
                   >
                     ทำแบบประเมิน
@@ -161,11 +161,7 @@
                 </router-link>
               </b-table-column>
 
-              <b-table-column
-                width="40"
-                style="padding: 8px 6px"
-                v-slot="user"
-              >
+              <b-table-column width="40" style="padding: 8px 6px" v-slot="user">
                 <b-button
                   type="is-light"
                   icon-right="user"
@@ -727,55 +723,55 @@
       </div>
     </section>
   </div>
-</template> 
- 
+</template>
+
 <script>
-import Sidebar from "@/components/sidebar.vue";
-import { debounce } from "debounce";
-import { mapState, mapActions, mapMutations } from "vuex";
+import Sidebar from '@/components/sidebar.vue'
+import { debounce } from 'debounce'
+import { mapState, mapActions, mapMutations } from 'vuex'
 import {
   required,
   integer,
   minValue,
   decimal,
   minLength,
-} from "vuelidate/lib/validators";
+} from 'vuelidate/lib/validators'
 
 function onlyString(value) {
   if (!value.match(/^[ก-์a-zA-Z]*$/gm)) {
-    return false;
+    return false
   }
-  return true;
+  return true
 }
 
 function GenderOnly(value) {
   if (!value.match(/Male|Female/)) {
-    return false;
+    return false
   }
-  return true;
+  return true
 }
 
 export default {
   components: {
     Sidebar,
   },
-  name: "Patientlist",
+  name: 'dashboard',
   data() {
     return {
       isResult: false,
       isEditResult: false,
       result: {},
       today: new Date(),
-      editFname: "",
-      editLname: "",
-      editGender: "",
-      editBirth: "",
-      editWeight: "",
-      editHeight: "",
-      editWaistline: "",
-      editFall: "",
-      in_search: "",
-    };
+      editFname: '',
+      editLname: '',
+      editGender: '',
+      editBirth: '',
+      editWeight: '',
+      editHeight: '',
+      editWaistline: '',
+      editFall: '',
+      in_search: '',
+    }
   },
   validations: {
     editFname: {
@@ -817,75 +813,75 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(["setSearch", "setUserId", "setResultId"]),
-    ...mapActions(["editUser"]),
-    debounceInput: debounce(function (e) {
-      this.setSearch(this.in_search);
-      this.getUser(e);
-      console.log(e);
-      console.log(this.in_search);
+    ...mapMutations(['setSearch', 'setUserId', 'setResultId']),
+    ...mapActions(['editUser']),
+    debounceInput: debounce(function(e) {
+      this.setSearch(this.in_search)
+      this.getUser(e)
+      console.log(e)
+      console.log(this.in_search)
     }, 300),
     open(id) {
-      var num = this.u_Data.length;
+      var num = this.u_Data.length
       for (var i = 0; i < num; i++) {
         if (parseInt(id) === parseInt(this.u_Data[i].HN)) {
-          this.result = this.u_Data[i];
+          this.result = this.u_Data[i]
         }
       }
     },
     seeResult(id) {
-      console.log(id);
-      this.setUserId(id.u_id);
-      this.setResultId(id.result_id);
-      console.log(this.result_id);
+      console.log(id)
+      this.setUserId(id.u_id)
+      this.setResultId(id.result_id)
+      console.log(this.result_id)
     },
     DoForm(id) {
-      console.log(id.u_id);
-      this.setUserId(id.u_id);
+      console.log(id.u_id)
+      this.setUserId(id.u_id)
     },
     getAge(date) {
-      var today = new Date();
-      var birthDate = new Date(date);
-      var age = today.getFullYear() - birthDate.getFullYear();
-      var m = today.getMonth() - birthDate.getMonth();
+      var today = new Date()
+      var birthDate = new Date(date)
+      var age = today.getFullYear() - birthDate.getFullYear()
+      var m = today.getMonth() - birthDate.getMonth()
       if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
+        age--
       }
-      return age;
+      return age
     },
     DeleteUser(user, index) {
-      this.setUserId(user.u_id);
-      let confirmResult = confirm("are you sure!?");
+      this.setUserId(user.u_id)
+      let confirmResult = confirm('are you sure!?')
       if (confirmResult) {
         this.deleteUser()
-          .then((res) => {
-            console.log(res);
-            var num = this.u_Data.length;
+          .then(res => {
+            console.log(res)
+            var num = this.u_Data.length
             for (var i = 0; i < num; i++) {
               if (parseInt(index) === parseInt(this.u_Data[i].HN)) {
-                this.u_Data.splice(i, 1);
+                this.u_Data.splice(i, 1)
               }
             }
           })
-          .catch((err) => {
-            console.log(err);
-            alert(err.response.data.message);
-          });
+          .catch(err => {
+            console.log(err)
+            alert(err.response.data.message)
+          })
       }
     },
     editHistory(histy) {
-      this.editFname = histy.u_fname;
-      this.editLname = histy.u_lname;
-      this.editGender = histy.gender;
-      this.editBirth = new Date(histy.date_of_birth);
-      this.editWeight = histy.weight;
-      this.editHeight = histy.height;
-      this.editWaistline = histy.waistline;
-      this.editFall = histy.fall_history;
-      this.setUserId(histy.u_id);
+      this.editFname = histy.u_fname
+      this.editLname = histy.u_lname
+      this.editGender = histy.gender
+      this.editBirth = new Date(histy.date_of_birth)
+      this.editWeight = histy.weight
+      this.editHeight = histy.height
+      this.editWaistline = histy.waistline
+      this.editFall = histy.fall_history
+      this.setUserId(histy.u_id)
     },
     saveHistory(histy) {
-      this.$v.$touch();
+      this.$v.$touch()
 
       // เช็คว่าในฟอร์มไม่มี error
       if (!this.$v.$invalid) {
@@ -897,61 +893,61 @@ export default {
           weight: this.editWeight,
           height: this.editHeight,
           bmi: parseFloat(
-            this.editWeight / Math.pow(this.editHeight / 100, 2)
+            this.editWeight / Math.pow(this.editHeight / 100, 2),
           ).toFixed(2),
           waistline: this.editWaistline,
           fall_history: this.editFall,
           n_id: this.who_login.n_id,
-        };
+        }
         this.editUser(payload)
-          .then((res) => {
-            console.log(res);
-            histy.u_fname = this.editFname;
-            histy.u_lname = this.editLname;
-            histy.gender = this.editGender;
-            histy.date_of_birth = this.editBirth;
-            histy.weight = this.editWeight;
-            histy.height = this.editHeight;
-            histy.bmi = payload.bmi;
-            histy.waistline = this.editWaistline;
-            histy.fall_history = this.editFall;
-            this.isEditResult = !this.isEditResult;
+          .then(res => {
+            console.log(res)
+            histy.u_fname = this.editFname
+            histy.u_lname = this.editLname
+            histy.gender = this.editGender
+            histy.date_of_birth = this.editBirth
+            histy.weight = this.editWeight
+            histy.height = this.editHeight
+            histy.bmi = payload.bmi
+            histy.waistline = this.editWaistline
+            histy.fall_history = this.editFall
+            this.isEditResult = !this.isEditResult
           })
-          .catch((err) => {
-            console.log(err);
-            alert("ERROR");
-          });
+          .catch(err => {
+            console.log(err)
+            alert('ERROR')
+          })
       } else {
-        alert("โปรดกรอกข้อมูลให้ถูกต้องทุกช่อง");
+        alert('โปรดกรอกข้อมูลให้ถูกต้องทุกช่อง')
       }
     },
-    ...mapActions(["getUser", "editUser", "deleteUser"]),
+    ...mapActions(['getUser', 'editUser', 'deleteUser']),
   },
   computed: {
     dateResult() {
-      return new Date(this.result.service_date).toLocaleDateString();
+      return new Date(this.result.service_date).toLocaleDateString()
     },
     editDateResult() {
-      return new Date(this.result.service_date);
+      return new Date(this.result.service_date)
     },
-    ...mapState(["u_Data", "UserId", "result_id", "who_login"]),
+    ...mapState(['u_Data', 'UserId', 'result_id', 'who_login']),
   },
   beforeRouteEnter(to, from, next) {
-    console.log("before");
-    next((vm) => {
-      vm.getUser();
-    });
+    console.log('before')
+    next(vm => {
+      vm.getUser()
+    })
   },
   watch: {
     in_search: {
       handler(val) {
-        this.debounceInput();
-        console.log(val);
-        console.log("The form has changed!");
+        this.debounceInput()
+        console.log(val)
+        console.log('The form has changed!')
       },
     },
   },
-};
+}
 </script>
 
 <style>

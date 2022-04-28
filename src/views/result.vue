@@ -19,11 +19,11 @@
                 <div class="card-content">
                   <div class="content has-text-left" style="font-weight: 300;">
                     ผู้ทำแบบประเมิน : คุณ
-                    {{ result_now ? result_now.u_fname : "" }}
-                    {{ result_now ? result_now.u_lname : "" }} <br />
+                    {{ result_now ? result_now.u_fname : '' }}
+                    {{ result_now ? result_now.u_lname : '' }} <br />
                     ประเมินโดย : พยาบาล
-                    {{ result_now ? result_now.n_fname : "" }}
-                    {{ result_now ? result_now.n_lname : "" }} <br />
+                    {{ result_now ? result_now.n_fname : '' }}
+                    {{ result_now ? result_now.n_lname : '' }} <br />
                     วันที่ประเมิน :
                     {{ new Date(result_now.result_date).getDate() }}/{{
                       new Date(result_now.result_date).getMonth()
@@ -38,7 +38,7 @@
                         :disabled="item.result_id === result_id"
                         :class="{
                           'is-info': item.result_id === result_id,
-                          'is-light': item.result_id !== result_id
+                          'is-light': item.result_id !== result_id,
                         }"
                         @click="changeResultTo(item.result_id)"
                       >
@@ -147,69 +147,69 @@
 </template>
 
 <script>
-import Sidebar from "@/components/sidebar.vue";
-import completeChooseBar from "@/components/completeChooseBar.vue";
-import { mapActions, mapState, mapMutations } from "vuex";
+import Sidebar from '@/components/sidebar.vue'
+import completeChooseBar from '@/components/completeChooseBar.vue'
+import { mapActions, mapState, mapMutations } from 'vuex'
 export default {
   components: {
     Sidebar,
-    completeChooseBar
+    completeChooseBar,
   },
-  name: "Result",
+  name: 'Result',
   data() {
-    return {};
+    return {}
   },
   computed: {
-    ...mapState(["result", "UserId", "result_id"]),
+    ...mapState(['result', 'UserId', 'result_id']),
     result_now() {
-      console.log("result", this.result);
+      console.log('result', this.result)
       if (!this.result || this.result.length === 0) {
         return {
           result_id: 0,
           result_date: null,
           result: {
-            MNA: "",
-            OCA: "",
-            UIA: "",
-            EYES: "",
-            KNEE: "",
-            LTTA: "",
-            MMSE: "",
-            OSTA: "",
-            TUGT: "",
-            SLEEP: "",
-            IQCODE: "",
-            TGDS15: "",
-            FallRisk: ""
+            MNA: '',
+            OCA: '',
+            UIA: '',
+            EYES: '',
+            KNEE: '',
+            LTTA: '',
+            MMSE: '',
+            OSTA: '',
+            TUGT: '',
+            SLEEP: '',
+            IQCODE: '',
+            TGDS15: '',
+            FallRisk: '',
           },
-          u_fname: "",
-          u_lname: "",
-          n_fname: "",
-          n_lname: ""
-        };
+          u_fname: '',
+          u_lname: '',
+          n_fname: '',
+          n_lname: '',
+        }
       }
-      console.log("user", this.UserId);
-      console.log("result id", this.result_id);
-      console.log(this.result.find(e => e.result_id === this.result_id));
-      return this.result.find(e => e.result_id === this.result_id);
-    }
+      console.log('user', this.UserId)
+      console.log('result id', this.result_id)
+      console.log(this.result.find(e => e.result_id === this.result_id))
+      return this.result.find(e => e.result_id === this.result_id)
+    },
   },
   methods: {
-    ...mapActions(["getAllResultByUid", "updateResultId"]),
-    ...mapMutations(["setResultId"]),
+    ...mapActions(['getAllResultByUid', 'updateResultId']),
+    ...mapMutations(['setResultId']),
     changeResultTo(id) {
       // console.log("have click result", id);
-      this.setResultId(id);
-    }
+      this.setResultId(id)
+    },
   },
   beforeRouteEnter(to, from, next) {
-    console.log("before");
+    console.log('before')
     next(vm => {
-      console.log("before router enter");
-      vm.getAllResultByUid();
-    });
-  }
-};
+      console.log('before router enter')
+      vm.getAllResultByUid()
+    })
+  },
+}
 </script>
 <style>
 .head {
@@ -220,7 +220,7 @@ export default {
   margin-bottom: 1rem;
 }
 .result_bt {
-  font-family: "Kanit", sans-serif;
+  font-family: 'Kanit', sans-serif;
   font-weight: 500;
   width: 30px;
   height: 30px;

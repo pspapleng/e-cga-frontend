@@ -40,7 +40,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -82,7 +82,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title + ques.ans_input
+                              title: ch.ans_title + ques.ans_input,
                             })
                         "
                       >
@@ -122,7 +122,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -156,7 +156,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title + ques.ans_input
+                              title: ch.ans_title + ques.ans_input,
                             })
                         "
                       >
@@ -211,7 +211,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title + ques.ans_input
+                              title: ch.ans_title + ques.ans_input,
                             })
                         "
                       >
@@ -251,7 +251,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -297,7 +297,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title + ques.ans_input
+                              title: ch.ans_title + ques.ans_input,
                             })
                         "
                       >
@@ -352,7 +352,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title + ques.ans_input
+                              title: ch.ans_title + ques.ans_input,
                             })
                         "
                       >
@@ -395,7 +395,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title + ques.ans_input
+                              title: ch.ans_title + ques.ans_input,
                             })
                         "
                       >
@@ -443,7 +443,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title + ques.ans_input
+                              title: ch.ans_title + ques.ans_input,
                             })
                         "
                       >
@@ -495,7 +495,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title + ques.ans_input
+                              title: ch.ans_title + ques.ans_input,
                             })
                         "
                       >
@@ -542,7 +542,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -589,7 +589,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -636,7 +636,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title + ques.ans_input
+                              title: ch.ans_title + ques.ans_input,
                             })
                         "
                       >
@@ -686,7 +686,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -793,92 +793,92 @@
   </div>
 </template>
 <script>
-import Sidebar from "@/components/sidebar.vue";
-import { mapState, mapMutations, mapActions } from "vuex";
+import Sidebar from '@/components/sidebar.vue'
+import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
   components: {
-    Sidebar
+    Sidebar,
   },
-  name: "Patientlist",
+  name: 'Patientlist',
   data() {
     return {
-      order: "is-right",
-      size: "default",
-      prevIcon: "chevron-left",
-      nextIcon: "chevron-right",
+      order: 'is-right',
+      size: 'default',
+      prevIcon: 'chevron-left',
+      nextIcon: 'chevron-right',
       isEditResult: false,
-      anstitle: "",
+      anstitle: '',
       ansvalue: 0,
-      part1ans: "",
-      calNum: ""
-    };
+      part1ans: '',
+      calNum: '',
+    }
   },
   computed: {
     ...mapState({
       count: state => state.count,
-      form: "json",
-      ans: "keep_ans",
-      user: "user"
+      form: 'json',
+      ans: 'keep_ans',
+      user: 'user',
     }),
-    ...mapState(["formFinish"])
+    ...mapState(['formFinish']),
   },
   methods: {
-    ...mapMutations(["setAns", "setFormFinish", "setMMSE"]),
-    ...mapActions(["getUserById"]),
+    ...mapMutations(['setAns', 'setFormFinish', 'setMMSE']),
+    ...mapActions(['getUserById']),
     sumResult() {
-      console.log(this.ans);
-      this.anstitle = "";
-      this.ansvalue = 0;
-      this.isEditResult = true;
+      console.log(this.ans)
+      this.anstitle = ''
+      this.ansvalue = 0
+      this.isEditResult = true
 
       if (this.ans[70].ans_value == 0) {
         for (var i = 71; i < 85; i++) {
-          this.ansvalue += this.ans[i].ans_value;
+          this.ansvalue += this.ans[i].ans_value
         }
         for (i = 88; i < 95; i++) {
-          this.ansvalue += this.ans[i].ans_value;
+          this.ansvalue += this.ans[i].ans_value
         }
         if (this.ans[97].ans_value == 1) {
-          this.ansvalue += 1;
+          this.ansvalue += 1
         }
       } else if (this.ans[70].ans_value == 1 || this.ans[70].ans_value == 2) {
         for (i = 71; i < 85; i++) {
-          this.ansvalue += this.ans[i].ans_value;
+          this.ansvalue += this.ans[i].ans_value
         }
         if (this.ans[85].ans_value == 1) {
-          this.ansvalue += this.ans[86].ans_value;
+          this.ansvalue += this.ans[86].ans_value
         } else {
-          this.ansvalue += this.ans[87].ans_value;
+          this.ansvalue += this.ans[87].ans_value
         }
         for (i = 88; i < 98; i++) {
-          this.ansvalue += this.ans[i].ans_value;
+          this.ansvalue += this.ans[i].ans_value
         }
       }
 
       if (this.ans[70].ans_value == 0 && this.ansvalue <= 14) {
-        this.anstitle += "เป็นผู้สงสัยว่ามีภาวะสมองเสื่อม";
+        this.anstitle += 'เป็นผู้สงสัยว่ามีภาวะสมองเสื่อม'
       } else if (this.ans[70].ans_value == 1 && this.ansvalue <= 17) {
-        this.anstitle += "เป็นผู้สงสัยว่ามีภาวะสมองเสื่อม";
+        this.anstitle += 'เป็นผู้สงสัยว่ามีภาวะสมองเสื่อม'
       } else if (this.ans[70].ans_value == 2 && this.ansvalue <= 22) {
-        this.anstitle += "เป็นผู้สงสัยว่ามีภาวะสมองเสื่อม";
+        this.anstitle += 'เป็นผู้สงสัยว่ามีภาวะสมองเสื่อม'
       } else {
-        this.anstitle += "ไม่เป็นผู้สงสัยว่ามีภาวะสมองเสื่อม";
+        this.anstitle += 'ไม่เป็นผู้สงสัยว่ามีภาวะสมองเสื่อม'
       }
-      this.setMMSE(this.anstitle);
+      this.setMMSE(this.anstitle)
     },
     Finish() {
-      this.formFinish.push("MMSE");
-      this.setFormFinish(this.formFinish);
-      console.log(this.formFinish);
-    }
+      this.formFinish.push('MMSE')
+      this.setFormFinish(this.formFinish)
+      console.log(this.formFinish)
+    },
   },
   beforeRouteEnter(to, from, next) {
-    console.log("before");
+    console.log('before')
     next(vm => {
-      vm.getUserById();
-    });
-  }
-};
+      vm.getUserById()
+    })
+  },
+}
 </script>
 <style>
 h1 {

@@ -52,7 +52,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -88,7 +88,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -124,7 +124,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -160,7 +160,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -257,64 +257,63 @@
   </div>
 </template>
 <script>
-import Sidebar from "@/components/sidebar.vue";
-import { mapState, mapMutations, mapActions } from "vuex";
+import Sidebar from '@/components/sidebar.vue'
+import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
   components: {
-    Sidebar
+    Sidebar,
   },
-  name: "Patientlist",
+  name: 'Patientlist',
   data() {
     return {
-      order: "is-right",
-      size: "default",
-      prevIcon: "chevron-left",
-      nextIcon: "chevron-right",
+      order: 'is-right',
+      size: 'default',
+      prevIcon: 'chevron-left',
+      nextIcon: 'chevron-right',
       isEditResult: false,
-      anstitle: ""
-    };
+      anstitle: '',
+    }
   },
   computed: {
     ...mapState({
       count: state => state.count,
-      form: "json",
-      ans: "keep_ans",
-      user: "user"
+      form: 'json',
+      ans: 'keep_ans',
+      user: 'user',
     }),
-    ...mapState(["formFinish"])
+    ...mapState(['formFinish']),
   },
   methods: {
-    ...mapMutations(["setAns", "setFormFinish", "setEYES"]),
-    ...mapActions(["getUserById"]),
+    ...mapMutations(['setAns', 'setFormFinish', 'setEYES']),
+    ...mapActions(['getUserById']),
     sumResult() {
-      console.log(this.ans);
-      this.isEditResult = true;
-      this.anstitle = "";
+      console.log(this.ans)
+      this.isEditResult = true
+      this.anstitle = ''
 
       if (this.ans[38].ans_value == 1) {
-        this.anstitle +=
-          " นับนิ้วในระยะ 3 เมตรได้ถูกต้อง น้อยกว่า 3 ใน 4 ครั้ง";
+        this.anstitle += ' นับนิ้วในระยะ 3 เมตรได้ถูกต้อง น้อยกว่า 3 ใน 4 ครั้ง'
       }
       if (this.ans[39].ans_value == 1) {
-        this.anstitle += " อ่านหนังสือพิมพ์หน้าหนึ่งในระยะ 1 ฟุต ไม่ได้";
+        this.anstitle += ' อ่านหนังสือพิมพ์หน้าหนึ่งในระยะ 1 ฟุต ไม่ได้'
       }
       if (this.ans[40].ans_value == 1) {
-        this.anstitle += " ตาข้างซ้ายมัวคล้ายหมอกบัง";
+        this.anstitle += ' ตาข้างซ้ายมัวคล้ายหมอกบัง'
       }
       if (this.ans[41].ans_value == 1) {
-        this.anstitle += " ตาข้างขวามัวคล้ายหมอกบัง";
+        this.anstitle += ' ตาข้างขวามัวคล้ายหมอกบัง'
       }
       if (this.ans[42].ans_value == 1) {
-        this.anstitle += " ตาข้างซ้ายมองเห็นชัดแต่ตรงกลาง";
+        this.anstitle += ' ตาข้างซ้ายมองเห็นชัดแต่ตรงกลาง'
       }
       if (this.ans[43].ans_value == 1) {
-        this.anstitle += " ตาข้างขวามองเห็นชัดแต่ตรงกลาง";
+        this.anstitle += ' ตาข้างขวามองเห็นชัดแต่ตรงกลาง'
       }
       if (this.ans[44].ans_value == 1) {
-        this.anstitle += " ตาข้างซ้ายมองเห็นจุดดำกลางภาพ";
+        this.anstitle += ' ตาข้างซ้ายมองเห็นจุดดำกลางภาพ'
       }
       if (this.ans[45].ans_value == 1) {
-        this.anstitle += " ตาข้างขวามองเห็นจุดดำกลางภาพ";
+        this.anstitle += ' ตาข้างขวามองเห็นจุดดำกลางภาพ'
       } else if (
         this.ans[38].ans_value == 0 &&
         this.ans[39].ans_value == 0 &&
@@ -325,23 +324,23 @@ export default {
         this.ans[44].ans_value == 0 &&
         this.ans[45].ans_value == 0
       ) {
-        this.anstitle += "สุขภาวะทางตาปกติ";
+        this.anstitle += 'สุขภาวะทางตาปกติ'
       }
-      this.setEYES(this.anstitle);
+      this.setEYES(this.anstitle)
     },
     Finish() {
-      this.formFinish.push("EYES");
-      this.setFormFinish(this.formFinish);
-      console.log(this.formFinish);
-    }
+      this.formFinish.push('EYES')
+      this.setFormFinish(this.formFinish)
+      console.log(this.formFinish)
+    },
   },
   beforeRouteEnter(to, from, next) {
-    console.log("before");
+    console.log('before')
     next(vm => {
-      vm.getUserById();
-    });
-  }
-};
+      vm.getUserById()
+    })
+  },
+}
 </script>
 <style>
 h1 {

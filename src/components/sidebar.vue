@@ -84,67 +84,65 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions } from 'vuex'
 export default {
   data() {
     return {
-      checklist: "",
-      checkfrom: ""
-    };
+      checklist: '',
+      checkfrom: '',
+    }
   },
-  name: "Sidebar",
+  name: 'Sidebar',
   methods: {
-    ...mapActions(["createLogout", "resetAns"]),
+    ...mapActions(['createLogout', 'resetAns']),
     logOut() {
       this.createLogout()
         .then(() => {
-          this.$router.push({ name: "Login" });
+          this.$router.push({ name: 'Login' })
         })
         .catch(e => {
-          console.log(e.details);
-        });
+          console.log(e.details)
+        })
     },
     changeToPatient() {
       if (this.haveUserData) {
         // this.keep_ans = JSON.parse(JSON.stringify(this.default_keep_ans));
         // console.log(this.default_keep_ans);
         // console.log(this.keep_ans);
-        this.resetAns();
-        this.keep_result = JSON.parse(
-          JSON.stringify(this.default_keep_results)
-        );
+        this.resetAns()
+        this.keep_result = JSON.parse(JSON.stringify(this.default_keep_results))
 
-        this.$router.push({ name: "PatientList" });
+        this.$router.push({ name: 'PatientList' })
       } else {
-        alert("can't");
+        alert("can't")
       }
-    }
+    },
   },
 
   computed: {
     ...mapState([
-      "default_keep_ans",
-      "default_keep_results",
-      "who_login",
-      "u_Data",
-      "result_id",
-      "keep_ans",
-      "keep_result"
+      'default_keep_ans',
+      'default_keep_results',
+      'who_login',
+      'u_Data',
+      'result_id',
+      'keep_ans',
+      'keep_result',
     ]),
     currentRouteName() {
-      return this.$route.name;
+      return this.$route.name
     },
     isNotAssessment() {
       return (
-        this.$route.name === "PatientList" ||
-        this.$route.name === "CreateAccUser"
-      );
+        this.$route.name === 'PatientList' ||
+        this.$route.name === 'CreateAccUser'
+      )
     },
     haveUserData() {
-      return this.u_Data !== [] || this.result_id !== null;
-    }
-  }
-};
+      return this.u_Data !== [] || this.result_id !== null
+    },
+  },
+}
 </script>
 
 <style>

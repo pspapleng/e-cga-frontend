@@ -100,8 +100,8 @@
 <script>
 export default {
   data() {
-    return {};
+    return {}
   },
-  name: "forUsers"
-};
+  name: 'forUsers',
+}
 </script>

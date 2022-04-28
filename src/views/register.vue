@@ -14,23 +14,25 @@
               <b-field
                 class="mb-2"
                 label="รหัสประจำตัวพยาบาล "
-                :type="{ 'is-danger': $v.form.id.$error }"
+                :type="{ 'is-danger': $v.form.nurseId.$error }"
               >
                 <p class="control">
                   <span class="button is-static"> ว. </span>
                 </p>
-                <b-input v-model="$v.form.id.$model" expanded></b-input>
+                <b-input v-model="$v.form.nurseId.$model" expanded></b-input>
               </b-field>
-              <template v-if="$v.form.id.$error">
-                <p class="help is-danger" v-if="!$v.form.id.required">
+              <template v-if="$v.form.nurseId.$error">
+                <p class="help is-danger" v-if="!$v.form.nurseId.required">
                   * กรุณากรอกรหัสประจำตัว
                 </p>
-                <p class="help is-danger" v-if="!$v.form.id.numeric">
+                <p class="help is-danger" v-if="!$v.form.nurseId.numeric">
                   รหัสต้องเป็นตัวเลขเท่านั้น
                 </p>
                 <p
                   class="help is-danger"
-                  v-if="!($v.form.id.minLength && $v.form.id.maxLength)"
+                  v-if="
+                    !($v.form.nurseId.minLength && $v.form.nurseId.maxLength)
+                  "
                 >
                   รหัสต้องมีความยาว 11 หลัก
                 </p>
@@ -38,36 +40,36 @@
               <b-field
                 class="mb-2"
                 label="ชื่อ"
-                :type="{ 'is-danger': $v.form.n_fname.$error }"
+                :type="{ 'is-danger': $v.form.firstname.$error }"
               >
-                <b-input v-model="$v.form.n_fname.$model" expanded></b-input>
+                <b-input v-model="$v.form.firstname.$model" expanded></b-input>
               </b-field>
-              <template v-if="$v.form.n_fname.$error">
-                <p class="help is-danger" v-if="!$v.form.n_fname.required">
+              <template v-if="$v.form.firstname.$error">
+                <p class="help is-danger" v-if="!$v.form.firstname.required">
                   * กรุณากรอกชื่อ
                 </p>
-                <p class="help is-danger" v-if="!$v.form.n_fname.onlyString">
+                <p class="help is-danger" v-if="!$v.form.firstname.onlyString">
                   ชื่อต้องเป็นตัวอักษรเท่านั้น
                 </p>
-                <p class="help is-danger" v-if="!$v.form.n_fname.minLength">
+                <p class="help is-danger" v-if="!$v.form.firstname.minLength">
                   ชื่อต้องมีความยาวขั้นต่ำ 2 ตัวอักษร
                 </p>
               </template>
               <b-field
                 class="mb-2"
                 label="นามสกุล"
-                :type="{ 'is-danger': $v.form.n_lname.$error }"
+                :type="{ 'is-danger': $v.form.lastname.$error }"
               >
-                <b-input v-model="$v.form.n_lname.$model" expanded></b-input>
+                <b-input v-model="$v.form.lastname.$model" expanded></b-input>
               </b-field>
-              <template v-if="$v.form.n_lname.$error">
-                <p class="help is-danger" v-if="!$v.form.n_lname.required">
+              <template v-if="$v.form.lastname.$error">
+                <p class="help is-danger" v-if="!$v.form.lastname.required">
                   * กรุณากรอกนามสกุล
                 </p>
-                <p class="help is-danger" v-if="!$v.form.n_lname.onlyString">
+                <p class="help is-danger" v-if="!$v.form.lastname.onlyString">
                   นามสกุลต้องเป็นตัวอักษรเท่านั้น
                 </p>
-                <p class="help is-danger" v-if="!$v.form.n_lname.minLength">
+                <p class="help is-danger" v-if="!$v.form.lastname.minLength">
                   นามสกุลต้องมีความยาวขั้นต่ำ 2 ตัวอักษร
                 </p>
               </template>
@@ -168,117 +170,117 @@
 </template>
 
 <script>
-import forNurse from "@/components/forNurse.vue";
-import { debounce } from "debounce";
-import { mapMutations, mapActions } from "vuex";
+import forNurse from '@/components/forNurse.vue'
+import { debounce } from 'debounce'
+import { mapMutations, mapActions } from 'vuex'
 import {
   required,
   minLength,
   maxLength,
   sameAs,
   numeric,
-  alphaNum
-} from "vuelidate/lib/validators";
+  alphaNum,
+} from 'vuelidate/lib/validators'
 
 function onlyString(value) {
   if (!value.match(/^[ก-์a-zA-Z]*$/gm)) {
-    return false;
+    return false
   }
-  return true;
+  return true
 }
 function complexPassword(value) {
   if (!(value.match(/[a-z]/) && value.match(/[0-9]/))) {
-    return false;
+    return false
   }
-  return true;
+  return true
 }
 
 export default {
   components: {
-    forNurse
+    forNurse,
   },
-  name: "CreateAccNurse",
+  name: 'Register',
   data() {
     return {
       form: {
-        id: "00000000004",
-        n_fname: "ณัฐธิดา",
-        n_lname: "ทวีชุติพรกุล",
-        username: "nutthida",
-        password: "nut1234",
-        confirm_password: "nut1234"
-      }
-    };
+        nurseId: '00000000000',
+        firstname: 'firstname',
+        lastname: 'lastname',
+        username: 'testtest',
+        password: 'test1234',
+        confirm_password: 'test1234',
+      },
+    }
   },
   validations: {
     form: {
-      id: {
+      nurseId: {
         required,
         minLength: minLength(11),
         maxLength: maxLength(11),
-        numeric
+        numeric,
       },
-      n_fname: {
+      firstname: {
         required,
         onlyString,
-        minLength: minLength(2)
+        minLength: minLength(2),
       },
-      n_lname: {
+      lastname: {
         required,
         onlyString,
-        minLength: minLength(2)
+        minLength: minLength(2),
       },
       username: {
         required: required,
         minLength: minLength(5),
         maxLength: maxLength(15),
-        alphaNum
+        alphaNum,
       },
       password: {
         required,
         minLength: minLength(6),
         alphaNum,
-        complexPassword
+        complexPassword,
       },
-      confirm_password: { sameAs: sameAs("password") }
-    }
+      confirm_password: { sameAs: sameAs('password') },
+    },
   },
   methods: {
-    ...mapMutations(["setCreateNurse"]),
-    ...mapActions(["createNurse"]),
+    ...mapMutations(['setCreateUser']),
+    ...mapActions(['createUser']),
     debounceInput: debounce(function(e) {
-      console.log(e);
-      this.setCreateNurse(e);
+      console.log(e)
+      this.setCreateUser(e)
     }, 300),
     createN() {
       // Validate all fields
-      this.$v.$touch();
+      this.$v.$touch()
 
       // เช็คว่าในฟอร์มไม่มี error
       if (!this.$v.$invalid) {
         // alert("สร้าง");
-        this.createNurse()
+        this.createUser()
           .then(() => {
-            this.$router.push({ name: "Login" });
+            this.$router.push({ name: 'Login' })
           })
           .catch(e => {
-            console.log(e.details);
+            console.log(e.details)
             if (Array.isArray(e.details)) {
-              console.log("yes");
-              let err = "";
+              console.log('yes')
+              let err = ''
               e.details.forEach(e => {
-                err += " " + e.message;
-              });
-              alert(err);
+                err += ' ' + e.message
+              })
+              alert(err)
             } else {
-              console.log("no");
-              alert(e.details.message);
+              console.log('no')
+              alert(e.details.message)
             }
-          });
+          })
       } else {
-        alert("โปรดกรอกข้อมูลให้ถูกต้องทุกช่อง");
+        alert('โปรดกรอกข้อมูลให้ถูกต้องทุกช่อง')
       }
-    }
+    },
   },
 
   computed: {},
@@ -289,13 +291,13 @@ export default {
 
       // We have to move our method to a handler field
       handler(val) {
-        this.debounceInput(val);
+        this.debounceInput(val)
 
-        console.log("The form has changed!");
-      }
-    }
-  }
-};
+        console.log('The form has changed!')
+      },
+    },
+  },
+}
 </script>
 
 <style>

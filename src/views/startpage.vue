@@ -41,7 +41,7 @@
                   :value="checkForm"
                   show-value
                 >
-                  {{checkForm}} out of 13</b-progress
+                  {{ checkForm }} out of 13</b-progress
                 >
               </div>
             </div>
@@ -56,39 +56,37 @@
 </template>
 
 <script>
-import Sidebar from "@/components/sidebar.vue";
-import startChooseBar from "@/components/startChooseBar.vue";
-import { mapActions, mapState } from "vuex";
+import Sidebar from '@/components/sidebar.vue'
+import startChooseBar from '@/components/startChooseBar.vue'
+import { mapActions, mapState } from 'vuex'
 export default {
   components: {
     Sidebar,
     startChooseBar,
   },
-  name: "startpage",
+  name: 'startpage',
   data() {
-    return {};
+    return {}
   },
   computed: {
-    ...mapState(["user", "formFinish", "checkForm"]),
+    ...mapState(['user', 'formFinish', 'checkForm']),
   },
   methods: {
-    ...mapActions(["getUserById"]),
+    ...mapActions(['getUserById']),
     doc() {
-      console.log(this.formFinish.length);
-      console.log(this.user);
-      console.log(this.checkForm);
+      console.log(this.formFinish.length)
+      console.log(this.user)
+      console.log(this.checkForm)
     },
-    Success() {
-
-    }
+    Success() {},
   },
   beforeRouteEnter(to, from, next) {
-    console.log("before");
-    next((vm) => {
-      vm.getUserById();
-    });
+    console.log('before')
+    next(vm => {
+      vm.getUserById()
+    })
   },
-};
+}
 </script>
 <style>
 #pageHeader {

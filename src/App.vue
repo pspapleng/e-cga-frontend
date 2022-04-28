@@ -9,35 +9,35 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions } from 'vuex'
 
 export default {
   data() {
     return {
-      user: null
-    };
+      user: null,
+    }
   },
   mounted() {
-    this.onAuthChange();
+    this.onAuthChange()
   },
   methods: {
-    ...mapActions(["getWhoLogin"]),
+    ...mapActions(['getWhoLogin']),
     onAuthChange() {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token')
       if (token) {
-        this.getUser();
+        this.getUser()
       }
     },
     getUser() {
-      this.getWhoLogin();
-    }
-  }
-};
+      this.getWhoLogin()
+    },
+  },
+}
 </script>
 
 <style>
 #app {
-  font-family: "Kanit", sans-serif;
+  font-family: 'Kanit', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

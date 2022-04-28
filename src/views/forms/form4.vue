@@ -68,7 +68,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title + concatTimeTUG
+                              title: ch.ans_title + concatTimeTUG,
                             })
                         "
                       >
@@ -107,7 +107,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -141,7 +141,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title + ques.ans_input
+                              title: ch.ans_title + ques.ans_input,
                             })
                         "
                       >
@@ -176,7 +176,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -232,7 +232,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title + concatTimeFull
+                              title: ch.ans_title + concatTimeFull,
                             })
                         "
                       >
@@ -273,7 +273,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -372,109 +372,109 @@
   </div>
 </template>
 <script>
-import Sidebar from "@/components/sidebar.vue";
-import { mapState, mapMutations, mapActions } from "vuex";
+import Sidebar from '@/components/sidebar.vue'
+import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
   components: {
-    Sidebar
+    Sidebar,
   },
-  name: "Patientlist",
+  name: 'Patientlist',
   data() {
     return {
-      order: "is-right",
-      size: "default",
-      prevIcon: "chevron-left",
-      nextIcon: "chevron-right",
+      order: 'is-right',
+      size: 'default',
+      prevIcon: 'chevron-left',
+      nextIcon: 'chevron-right',
       isEditResult: false,
-      minsTUG: "",
-      secTUG: "",
-      minsFull: "",
-      secFull: "",
-      anstitle: "",
+      minsTUG: '',
+      secTUG: '',
+      minsFull: '',
+      secFull: '',
+      anstitle: '',
       ansvalue: 0,
-      resultans: ""
-    };
+      resultans: '',
+    }
   },
   computed: {
     ...mapState({
       count: state => state.count,
-      form: "json",
-      ans: "keep_ans",
-      user: "user"
+      form: 'json',
+      ans: 'keep_ans',
+      user: 'user',
     }),
     concatTimeTUG() {
-      return " " + this.minsTUG + " นาที " + this.secTUG + " วินาที ";
+      return ' ' + this.minsTUG + ' นาที ' + this.secTUG + ' วินาที '
     },
     concatTimeFull() {
-      return " " + this.minsFull + " นาที " + this.secFull + " วินาที ";
+      return ' ' + this.minsFull + ' นาที ' + this.secFull + ' วินาที '
     },
-    ...mapState(["formFinish"])
+    ...mapState(['formFinish']),
   },
   methods: {
-    ...mapMutations(["setAns", "setFormFinish", "setTUGT"]),
-    ...mapActions(["getUserById"]),
+    ...mapMutations(['setAns', 'setFormFinish', 'setTUGT']),
+    ...mapActions(['getUserById']),
     sumResult() {
-      console.log(this.ans);
-      console.log(this.minsTUG, this.secTUG, typeof this.concatTimeTUG);
-      console.log(this.minsFull, this.secFull, typeof this.concatTimeFull);
-      this.anstitle = "";
-      this.ansvalue1 = 0;
-      this.ansvalue2 = 0;
-      this.resultans = "";
+      console.log(this.ans)
+      console.log(this.minsTUG, this.secTUG, typeof this.concatTimeTUG)
+      console.log(this.minsFull, this.secFull, typeof this.concatTimeFull)
+      this.anstitle = ''
+      this.ansvalue1 = 0
+      this.ansvalue2 = 0
+      this.resultans = ''
       // this.minsTUG = 0;
       // this.secTUG = 0;
       // this.minsFull = 0;
       // this.secFull = 0
-      this.isEditResult = true;
+      this.isEditResult = true
 
       if (this.minsTUG == 0) {
         if (this.secTUG > 14) {
-          this.ansvalue1 += 1;
+          this.ansvalue1 += 1
         } else {
-          this.ansvalue1 += 0;
+          this.ansvalue1 += 0
         }
       } else if (this.minsTUG > 0) {
-        this.ansvalue1 += 1;
+        this.ansvalue1 += 1
       }
 
       if (this.minsFull == 0) {
         if (this.secFull < 10) {
-          this.ansvalue2 += 1;
+          this.ansvalue2 += 1
         } else {
-          this.ansvalue2 += 0;
+          this.ansvalue2 += 0
         }
       } else if (this.minsFull > 0) {
-        this.ansvalue2 += 0;
+        this.ansvalue2 += 0
       }
 
       if (this.ansvalue1 == 1 && this.ansvalue2 == 1) {
-        this.anstitle = "มีความเสี่ยงต่อภาวะหกล้ม";
+        this.anstitle = 'มีความเสี่ยงต่อภาวะหกล้ม'
       } else {
-        this.anstitle = "ไม่มีความเสี่ยงต่อภาวะหกล้ม";
+        this.anstitle = 'ไม่มีความเสี่ยงต่อภาวะหกล้ม'
       }
 
       this.resultans =
-        "ใช้เวลาในการเดิน" +
+        'ใช้เวลาในการเดิน' +
         this.concatTimeTUG +
-        " และ ยืนได้" +
+        ' และ ยืนได้' +
         this.concatTimeFull +
-        " " +
-        this.anstitle;
-      this.setTUGT(this.resultans);
+        ' ' +
+        this.anstitle
+      this.setTUGT(this.resultans)
     },
     Finish() {
-      this.formFinish.push("TUGT");
-      this.setFormFinish(this.formFinish);
-      console.log(this.formFinish);
-    }
+      this.formFinish.push('TUGT')
+      this.setFormFinish(this.formFinish)
+      console.log(this.formFinish)
+    },
   },
   beforeRouteEnter(to, from, next) {
-    console.log("before");
+    console.log('before')
     next(vm => {
-      vm.getUserById();
-    });
-  }
-};
+      vm.getUserById()
+    })
+  },
+}
 </script>
 <style>
 h1 {

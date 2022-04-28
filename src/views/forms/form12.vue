@@ -52,7 +52,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -148,69 +148,69 @@
   </div>
 </template>
 <script>
-import Sidebar from "@/components/sidebar.vue";
-import { mapState, mapMutations, mapActions } from "vuex";
+import Sidebar from '@/components/sidebar.vue'
+import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
   components: {
-    Sidebar
+    Sidebar,
   },
-  name: "Patientlist",
+  name: 'Patientlist',
   data() {
     return {
-      order: "is-right",
-      size: "default",
-      prevIcon: "chevron-left",
-      nextIcon: "chevron-right",
+      order: 'is-right',
+      size: 'default',
+      prevIcon: 'chevron-left',
+      nextIcon: 'chevron-right',
       isEditResult: false,
-      anstitle: "",
-      countans: 0
-    };
+      anstitle: '',
+      countans: 0,
+    }
   },
   computed: {
     ...mapState({
       count: state => state.count,
-      form: "json",
-      ans: "keep_ans",
-      user: "user"
+      form: 'json',
+      ans: 'keep_ans',
+      user: 'user',
     }),
-    ...mapState(["formFinish"])
+    ...mapState(['formFinish']),
   },
   methods: {
-    ...mapMutations(["setAns", "setFormFinish", "setKNEE"]),
-    ...mapActions(["getUserById"]),
+    ...mapMutations(['setAns', 'setFormFinish', 'setKNEE']),
+    ...mapActions(['getUserById']),
     sumResult() {
-      this.countans = 0;
-      this.anstitle = "";
-      console.log(this.ans);
-      this.isEditResult = true;
+      this.countans = 0
+      this.anstitle = ''
+      console.log(this.ans)
+      this.isEditResult = true
       for (var i = 157; i < 162; i++) {
         if (this.ans[i].ans_value == 1) {
-          this.countans += 1;
+          this.countans += 1
         }
       }
 
       if (this.countans >= 2) {
         this.anstitle =
-          "มีโอกาสที่จะเป็นโรคข้อเข่าเสื่อม ส่งต่อแพทย์ตรวจวินิจฉัยเพื่อยืนยันผลและทำการรักษา";
+          'มีโอกาสที่จะเป็นโรคข้อเข่าเสื่อม ส่งต่อแพทย์ตรวจวินิจฉัยเพื่อยืนยันผลและทำการรักษา'
       } else {
-        this.anstitle = "ไม่มีความเสี่ยงที่จะเป็นโรคข้อเข่าเสื่อม";
+        this.anstitle = 'ไม่มีความเสี่ยงที่จะเป็นโรคข้อเข่าเสื่อม'
       }
 
-      this.setKNEE(this.anstitle);
+      this.setKNEE(this.anstitle)
     },
     Finish() {
-      this.formFinish.push("KNEE");
-      this.setFormFinish(this.formFinish);
-      console.log(this.formFinish);
-    }
+      this.formFinish.push('KNEE')
+      this.setFormFinish(this.formFinish)
+      console.log(this.formFinish)
+    },
   },
   beforeRouteEnter(to, from, next) {
-    console.log("before");
+    console.log('before')
     next(vm => {
-      vm.getUserById();
-    });
-  }
-};
+      vm.getUserById()
+    })
+  },
+}
 </script>
 <style>
 h1 {

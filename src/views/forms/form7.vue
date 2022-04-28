@@ -62,7 +62,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -166,71 +166,71 @@
   </div>
 </template>
 <script>
-import Sidebar from "@/components/sidebar.vue";
-import { mapState, mapMutations, mapActions } from "vuex";
+import Sidebar from '@/components/sidebar.vue'
+import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
   components: {
-    Sidebar
+    Sidebar,
   },
-  name: "Patientlist",
+  name: 'Patientlist',
   data() {
     return {
-      order: "is-right",
-      size: "default",
-      prevIcon: "chevron-left",
-      nextIcon: "chevron-right",
+      order: 'is-right',
+      size: 'default',
+      prevIcon: 'chevron-left',
+      nextIcon: 'chevron-right',
       isEditResult: false,
-      anstitle: "",
+      anstitle: '',
       ansvalue: 0,
-      resultans: ""
-    };
+      resultans: '',
+    }
   },
   computed: {
     ...mapState({
       count: state => state.count,
-      form: "json",
-      ans: "keep_ans",
-      user: "user"
+      form: 'json',
+      ans: 'keep_ans',
+      user: 'user',
     }),
-    ...mapState(["formFinish"])
+    ...mapState(['formFinish']),
   },
   methods: {
-    ...mapMutations(["setAns", "setFormFinish", "setIQCODE"]),
-    ...mapActions(["getUserById"]),
+    ...mapMutations(['setAns', 'setFormFinish', 'setIQCODE']),
+    ...mapActions(['getUserById']),
     sumResult() {
-      this.isEditResult = true;
-      this.ansvalue = 0;
-      this.anstitle = "";
-      this.resultans = "";
+      this.isEditResult = true
+      this.ansvalue = 0
+      this.anstitle = ''
+      this.resultans = ''
 
       for (var i = 62; i < 70; i++) {
-        this.ansvalue += this.ans[i].ans_value;
+        this.ansvalue += this.ans[i].ans_value
       }
 
-      this.ansvalue = this.ansvalue / 8;
+      this.ansvalue = this.ansvalue / 8
 
       if (this.ansvalue >= 3.44) {
-        this.anstitle = "ผู้สูงอายุน่าจะมีภาวะสมองเสื่อม";
+        this.anstitle = 'ผู้สูงอายุน่าจะมีภาวะสมองเสื่อม'
       } else {
-        this.anstitle = "ผู้สูงอายุอยู่ในเกณฑ์ปกติ";
+        this.anstitle = 'ผู้สูงอายุอยู่ในเกณฑ์ปกติ'
       }
 
-      this.resultans = "ได้คะแนน " + this.ansvalue + " คะแนน " + this.anstitle;
-      this.setIQCODE(this.resultans);
+      this.resultans = 'ได้คะแนน ' + this.ansvalue + ' คะแนน ' + this.anstitle
+      this.setIQCODE(this.resultans)
     },
     Finish() {
-      this.formFinish.push("IQCODE");
-      this.setFormFinish(this.formFinish);
-      console.log(this.formFinish);
-    }
+      this.formFinish.push('IQCODE')
+      this.setFormFinish(this.formFinish)
+      console.log(this.formFinish)
+    },
   },
   beforeRouteEnter(to, from, next) {
-    console.log("before");
+    console.log('before')
     next(vm => {
-      vm.getUserById();
-    });
-  }
-};
+      vm.getUserById()
+    })
+  },
+}
 </script>
 <style>
 h1 {

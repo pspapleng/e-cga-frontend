@@ -161,7 +161,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations } from 'vuex'
 export default {
   data() {
     return {
@@ -179,68 +179,68 @@ export default {
       TGDS15: false,
       FallRisk: false,
       num: 0,
-      linker: "forms/form1",
-    };
+      linker: 'forms/form1',
+    }
   },
   mounted() {
-    this.check();
+    this.check()
   },
   methods: {
-    ...mapMutations(["setCheckForm"]),
+    ...mapMutations(['setCheckForm']),
     check() {
-      var num = this.formFinish.length;
+      var num = this.formFinish.length
       for (var i = 0; i < num; i++) {
-        if (this.formFinish[i] == "MNA") {
-          this.MNA = true;
-          this.linker = "forms/form2";
+        if (this.formFinish[i] == 'MNA') {
+          this.MNA = true
+          this.linker = 'forms/form2'
         }
-        if (this.formFinish[i] == "OCA") {
-          this.OCA = true;
-          this.linker = "forms/form3";
+        if (this.formFinish[i] == 'OCA') {
+          this.OCA = true
+          this.linker = 'forms/form3'
         }
-        if (this.formFinish[i] == "FallRisk") {
-          this.FallRisk = true;
-          this.linker = "forms/form4";
+        if (this.formFinish[i] == 'FallRisk') {
+          this.FallRisk = true
+          this.linker = 'forms/form4'
         }
-        if (this.formFinish[i] == "TUGT") {
-          this.TUGT = true;
-          this.linker = "forms/form5";
+        if (this.formFinish[i] == 'TUGT') {
+          this.TUGT = true
+          this.linker = 'forms/form5'
         }
-        if (this.formFinish[i] == "EYES") {
-          this.EYES = true;
-          this.linker = "forms/form6";
+        if (this.formFinish[i] == 'EYES') {
+          this.EYES = true
+          this.linker = 'forms/form6'
         }
-        if (this.formFinish[i] == "TGDS15") {
-          this.TGDS15 = true;
-          this.linker = "forms/form7";
+        if (this.formFinish[i] == 'TGDS15') {
+          this.TGDS15 = true
+          this.linker = 'forms/form7'
         }
-        if (this.formFinish[i] == "IQCODE") {
-          this.IQCODE = true;
-          this.linker = "forms/form8";
+        if (this.formFinish[i] == 'IQCODE') {
+          this.IQCODE = true
+          this.linker = 'forms/form8'
         }
-        if (this.formFinish[i] == "MMSE") {
-          this.MMSE = true;
-          this.linker = "forms/form9";
+        if (this.formFinish[i] == 'MMSE') {
+          this.MMSE = true
+          this.linker = 'forms/form9'
         }
-        if (this.formFinish[i] == "LTTA") {
-          this.LTTA = true;
-          this.linker = "forms/form10";
+        if (this.formFinish[i] == 'LTTA') {
+          this.LTTA = true
+          this.linker = 'forms/form10'
         }
-        if (this.formFinish[i] == "UIA") {
-          this.UIA = true;
-          this.linker = "forms/form11";
+        if (this.formFinish[i] == 'UIA') {
+          this.UIA = true
+          this.linker = 'forms/form11'
         }
-        if (this.formFinish[i] == "SLEEP") {
-          this.SLEEP = true;
-          this.linker = "forms/form12";
+        if (this.formFinish[i] == 'SLEEP') {
+          this.SLEEP = true
+          this.linker = 'forms/form12'
         }
-        if (this.formFinish[i] == "KNEE") {
-          this.KNEE = true;
-          this.linker = "forms/form13";
+        if (this.formFinish[i] == 'KNEE') {
+          this.KNEE = true
+          this.linker = 'forms/form13'
         }
-        if (this.formFinish[i] == "OSTA") {
-          this.OSTA = true;
-          this.linker = "forms/form13";
+        if (this.formFinish[i] == 'OSTA') {
+          this.OSTA = true
+          this.linker = 'forms/form13'
         }
       }
       this.num =
@@ -256,19 +256,19 @@ export default {
         this.SLEEP +
         this.IQCODE +
         this.TGDS15 +
-        this.FallRisk;
-      this.setCheckForm(num);
-      console.log(this.linker);
+        this.FallRisk
+      this.setCheckForm(num)
+      console.log(this.linker)
     },
     doAssign() {
-      this.router.push({ name: "forms/form1" });
+      this.router.push({ name: 'forms/form1' })
     },
   },
   computed: {
-    ...mapState(["formFinish", "checkForm"]),
+    ...mapState(['formFinish', 'checkForm']),
   },
-  name: "startChooseBar",
-};
+  name: 'startChooseBar',
+}
 </script>
 <style>
 #bigBox {

@@ -39,7 +39,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -68,7 +68,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -97,7 +97,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title + concatYear
+                              title: ch.ans_title + concatYear,
                             })
                         "
                       >
@@ -136,7 +136,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ques.ans_input
+                              title: ques.ans_input,
                             })
                         "
                       />
@@ -170,7 +170,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -267,81 +267,81 @@
   </div>
 </template>
 <script>
-import Sidebar from "@/components/sidebar.vue";
-import { mapState, mapMutations, mapActions } from "vuex";
+import Sidebar from '@/components/sidebar.vue'
+import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
   components: {
-    Sidebar
+    Sidebar,
   },
-  name: "Patientlist",
+  name: 'Patientlist',
   data() {
     return {
-      order: "is-right",
-      size: "default",
-      prevIcon: "chevron-left",
-      nextIcon: "chevron-right",
+      order: 'is-right',
+      size: 'default',
+      prevIcon: 'chevron-left',
+      nextIcon: 'chevron-right',
       isEditResult: false,
-      year: "",
-      month: "",
-      anstitle: "",
-      sleeptime: ""
-    };
+      year: '',
+      month: '',
+      anstitle: '',
+      sleeptime: '',
+    }
   },
   computed: {
     ...mapState({
       count: state => state.count,
-      form: "json",
-      ans: "keep_ans",
-      user: "user"
+      form: 'json',
+      ans: 'keep_ans',
+      user: 'user',
     }),
     concatYear() {
-      return " " + this.year + " ปี " + this.month + " เดือน";
+      return ' ' + this.year + ' ปี ' + this.month + ' เดือน'
     },
-    ...mapState(["formFinish"])
+    ...mapState(['formFinish']),
   },
   methods: {
-    ...mapMutations(["setAns", "setFormFinish", "setSLEEP"]),
-    ...mapActions(["getUserById"]),
+    ...mapMutations(['setAns', 'setFormFinish', 'setSLEEP']),
+    ...mapActions(['getUserById']),
     sumResult() {
-      console.log(this.ans);
-      this.anstitle = "";
-      this.isEditResult = true;
+      console.log(this.ans)
+      this.anstitle = ''
+      this.isEditResult = true
 
       if (this.ans[148].ans_value == 1 || this.ans[156].ans_value == 1) {
-        this.anstitle = "มีปัญหาการนอนหลับ";
+        this.anstitle = 'มีปัญหาการนอนหลับ'
       } else {
-        this.anstitle = "ไม่มีปัญหาการนอนหลับ";
+        this.anstitle = 'ไม่มีปัญหาการนอนหลับ'
       }
 
       for (var i = 149; i < 154; i++) {
         if (this.ans[i].ans_value == 1) {
-          this.anstitle += " " + this.form[i].ques.substring(3);
+          this.anstitle += ' ' + this.form[i].ques.substring(3)
         }
       }
 
       if (this.ans[156].ans_value == 1) {
-        this.anstitle += " " + "ผู้สูงอายุมีอาการง่วง อ่อนเพลีย ตอนกลางวัน";
+        this.anstitle += ' ' + 'ผู้สูงอายุมีอาการง่วง อ่อนเพลีย ตอนกลางวัน'
       }
-      if (this.anstitle != "ไม่มีปัญหาการนอนหลับ") {
+      if (this.anstitle != 'ไม่มีปัญหาการนอนหลับ') {
         this.anstitle +=
-          " โปรดส่งต่อให้แพทย์เพื่อทำการตรวจวินิจฉัยเพื่อยืนยันผล";
+          ' โปรดส่งต่อให้แพทย์เพื่อทำการตรวจวินิจฉัยเพื่อยืนยันผล'
       }
 
-      this.setSLEEP(this.anstitle);
+      this.setSLEEP(this.anstitle)
     },
     Finish() {
-      this.formFinish.push("SLEEP");
-      this.setFormFinish(this.formFinish);
-      console.log(this.formFinish);
-    }
+      this.formFinish.push('SLEEP')
+      this.setFormFinish(this.formFinish)
+      console.log(this.formFinish)
+    },
   },
   beforeRouteEnter(to, from, next) {
-    console.log("before");
+    console.log('before')
     next(vm => {
-      vm.getUserById();
-    });
-  }
-};
+      vm.getUserById()
+    })
+  },
+}
 </script>
 <style>
 h1 {

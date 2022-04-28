@@ -43,7 +43,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -142,68 +142,68 @@
   </div>
 </template>
 <script>
-import Sidebar from "@/components/sidebar.vue";
-import { mapState, mapMutations, mapActions } from "vuex";
+import Sidebar from '@/components/sidebar.vue'
+import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
   components: {
-    Sidebar
+    Sidebar,
   },
-  name: "Patientlist",
+  name: 'Patientlist',
   data() {
     return {
-      order: "is-right",
-      size: "default",
-      prevIcon: "chevron-left",
-      nextIcon: "chevron-right",
+      order: 'is-right',
+      size: 'default',
+      prevIcon: 'chevron-left',
+      nextIcon: 'chevron-right',
       isEditResult: false,
       ansvalue: 0,
-      anstitle: "",
-      resultans: ""
-    };
+      anstitle: '',
+      resultans: '',
+    }
   },
   computed: {
     ...mapState({
       count: state => state.count,
-      form: "json",
-      ans: "keep_ans",
-      user: "user"
+      form: 'json',
+      ans: 'keep_ans',
+      user: 'user',
     }),
-    ...mapState(["formFinish"])
+    ...mapState(['formFinish']),
   },
   methods: {
-    ...mapMutations(["setAns", "setFormFinish", "setTGDS15"]),
-    ...mapActions(["getUserById"]),
+    ...mapMutations(['setAns', 'setFormFinish', 'setTGDS15']),
+    ...mapActions(['getUserById']),
     sumResult() {
-      this.isEditResult = true;
-      this.ansvalue = 0;
-      this.anstitle = "";
+      this.isEditResult = true
+      this.ansvalue = 0
+      this.anstitle = ''
       for (var i = 46; i < 62; i++) {
-        this.ansvalue += this.ans[i].ans_value;
+        this.ansvalue += this.ans[i].ans_value
       }
 
       if (this.ansvalue >= 6 && this.ansvalue < 11) {
         this.anstitle =
-          "บ่งบอกว่ามีภาวะซึมเศร้าควรติดตามหรือส่งพบแพทย์ประเมินอาการทางคลินิก";
+          'บ่งบอกว่ามีภาวะซึมเศร้าควรติดตามหรือส่งพบแพทย์ประเมินอาการทางคลินิก'
       } else if (this.ansvalue >= 11) {
-        this.anstitle = "มีภาวะซึมเศร้าแน่นอน ควรพบจิตแพทย์";
+        this.anstitle = 'มีภาวะซึมเศร้าแน่นอน ควรพบจิตแพทย์'
       }
 
-      this.resultans = "ได้คะแนน " + this.ansvalue + " คะแนน " + this.anstitle;
-      this.setTGDS15(this.resultans);
+      this.resultans = 'ได้คะแนน ' + this.ansvalue + ' คะแนน ' + this.anstitle
+      this.setTGDS15(this.resultans)
     },
     Finish() {
-      this.formFinish.push("TGDS15");
-      this.setFormFinish(this.formFinish);
-      console.log(this.formFinish);
-    }
+      this.formFinish.push('TGDS15')
+      this.setFormFinish(this.formFinish)
+      console.log(this.formFinish)
+    },
   },
   beforeRouteEnter(to, from, next) {
-    console.log("before");
+    console.log('before')
     next(vm => {
-      vm.getUserById();
-    });
-  }
-};
+      vm.getUserById()
+    })
+  },
+}
 </script>
 <style>
 h1 {

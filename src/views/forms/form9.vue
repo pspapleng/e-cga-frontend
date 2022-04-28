@@ -56,7 +56,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -93,7 +93,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -130,7 +130,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -162,7 +162,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -199,7 +199,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -237,7 +237,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -267,7 +267,7 @@
                             setAns({
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
-                              title: ch.ans_title
+                              title: ch.ans_title,
                             })
                         "
                       >
@@ -377,23 +377,23 @@
   </div>
 </template>
 <script>
-import Sidebar from "@/components/sidebar.vue";
+import Sidebar from '@/components/sidebar.vue'
 // import assChooseBar from "@/components/assChooseBar.vue";
-import { mapState, mapMutations, mapActions } from "vuex";
+import { mapState, mapMutations, mapActions } from 'vuex'
 // import question from "../assets/test.json";
 export default {
   components: {
-    Sidebar
+    Sidebar,
     // assChooseBar,
   },
-  name: "Patientlist",
+  name: 'Patientlist',
   data() {
     return {
       // question,
-      order: "is-right",
-      size: "default",
-      prevIcon: "chevron-left",
-      nextIcon: "chevron-right",
+      order: 'is-right',
+      size: 'default',
+      prevIcon: 'chevron-left',
+      nextIcon: 'chevron-right',
       isEditResult: false,
       valuepart1: 0,
       valuepart2: 0,
@@ -401,101 +401,101 @@ export default {
       valuepart4: 0,
       valuepart5: 0,
       anssum: 0,
-      anstitle: "",
-      resultans: ""
-    };
+      anstitle: '',
+      resultans: '',
+    }
   },
   computed: {
     ...mapState({
       count: state => state.count,
-      form: "json",
-      ans: "keep_ans",
-      user: "user"
+      form: 'json',
+      ans: 'keep_ans',
+      user: 'user',
     }),
-    ...mapState(["formFinish"])
+    ...mapState(['formFinish']),
   },
   methods: {
-    ...mapMutations(["setAns", "setFormFinish", "setLTTA"]),
-    ...mapActions(["getUserById"]),
+    ...mapMutations(['setAns', 'setFormFinish', 'setLTTA']),
+    ...mapActions(['getUserById']),
     sumResult() {
-      var i = 0;
-      this.valuepart1 = 0;
-      this.valuepart2 = 0;
-      this.valuepart3 = 0;
-      this.valuepart4 = 0;
-      this.valuepart5 = 0;
-      this.anssum = 0;
-      this.anstitle = "";
-      this.resultans = "";
-      console.log(this.anssum);
-      console.log(this.anstitle);
-      console.log(this.ans);
-      this.isEditResult = true;
+      var i = 0
+      this.valuepart1 = 0
+      this.valuepart2 = 0
+      this.valuepart3 = 0
+      this.valuepart4 = 0
+      this.valuepart5 = 0
+      this.anssum = 0
+      this.anstitle = ''
+      this.resultans = ''
+      console.log(this.anssum)
+      console.log(this.anstitle)
+      console.log(this.ans)
+      this.isEditResult = true
 
       //part1
       for (i = 98; i < 101; i++) {
-        this.valuepart1 += this.ans[i].ans_value;
+        this.valuepart1 += this.ans[i].ans_value
       }
-      this.valuepart1 = 0;
+      this.valuepart1 = 0
 
       //part2
       for (i = 101; i < 103; i++) {
         if (this.ans[i].ans_value < 0) {
-          this.ans[i].ans_value = 0;
-          this.valuepart2 += this.ans[i].ans_value;
+          this.ans[i].ans_value = 0
+          this.valuepart2 += this.ans[i].ans_value
         } else {
-          this.valuepart2 += this.ans[i].ans_value;
+          this.valuepart2 += this.ans[i].ans_value
         }
       }
       if (this.valuepart2 == 0) {
-        this.valuepart2 = 1;
+        this.valuepart2 = 1
       } else if (this.valuepart2 == 1) {
-        this.valuepart2 = 2;
+        this.valuepart2 = 2
       } else if (this.valuepart2 == 2) {
-        this.valuepart2 = 3;
+        this.valuepart2 = 3
       }
 
       //part3
       for (i = 103; i < 106; i++) {
         if (this.ans[104].ans_value == 0 && this.ans[105].ans_value == 0) {
-          this.valuepart3 = this.ans[103].ans_value;
+          this.valuepart3 = this.ans[103].ans_value
         } else if (
           this.ans[104].ans_value == 1 ||
           this.ans[105].ans_value == 1
         ) {
-          this.valuepart3 = this.ans[103].ans_value + 1;
+          this.valuepart3 = this.ans[103].ans_value + 1
         }
       }
       if (this.valuepart3 == 0) {
-        this.valuepart3 = 2;
+        this.valuepart3 = 2
       } else if (this.valuepart3 == 1) {
-        this.valuepart3 = 4;
+        this.valuepart3 = 4
       } else if (this.valuepart3 == 2) {
-        this.valuepart3 = 6;
+        this.valuepart3 = 6
       }
 
       //part4
       for (i = 106; i < 111; i++) {
-        this.valuepart4 += this.ans[i].ans_value;
+        this.valuepart4 += this.ans[i].ans_value
       }
       if (this.valuepart4 == 0) {
-        this.valuepart4 = 4;
+        this.valuepart4 = 4
       } else if (this.valuepart4 >= 1 && this.valuepart4 <= 2) {
-        this.valuepart4 = 8;
+        this.valuepart4 = 8
       } else if (this.valuepart4 >= 3 && this.valuepart4 <= 5) {
-        this.valuepart4 = 12;
+        this.valuepart4 = 12
       }
 
       //part5
       for (i = 111; i < 127; i++) {
-        this.valuepart5 += this.ans[i].ans_value;
+        this.valuepart5 += this.ans[i].ans_value
       }
       if (this.valuepart5 >= 16 && this.valuepart5 <= 20) {
-        this.valuepart5 = 6;
+        this.valuepart5 = 6
       } else if (this.valuepart5 >= 21 && this.valuepart5 <= 35) {
-        this.valuepart5 = 12;
+        this.valuepart5 = 12
       } else if (this.valuepart5 >= 36 && this.valuepart5 <= 48) {
-        this.valuepart5 = 18;
+        this.valuepart5 = 18
       }
 
       //sumall
@@ -504,32 +504,32 @@ export default {
         this.valuepart2 +
         this.valuepart3 +
         this.valuepart4 +
-        this.valuepart5;
+        this.valuepart5
       if (this.anssum >= 0 && this.anssum <= 16) {
-        this.anstitle = "ไม่ต้องดูแลระยะยาว และสนับสนุนการส่งเสริมสุขภาพ";
+        this.anstitle = 'ไม่ต้องดูแลระยะยาว และสนับสนุนการส่งเสริมสุขภาพ'
       } else if (this.anssum >= 17 && this.anssum <= 19) {
-        this.anstitle = "ต้องเฝ้าระวังและประเมินซ้ำทุก 6 เดือนหรือ 1 ปี";
+        this.anstitle = 'ต้องเฝ้าระวังและประเมินซ้ำทุก 6 เดือนหรือ 1 ปี'
       } else if (this.anssum >= 20) {
         this.anstitle =
-          "ต้องได้รับการดูแลระยะยาวและประเมินซ้ำทุกเดือนก่อนพบแพทย์";
+          'ต้องได้รับการดูแลระยะยาวและประเมินซ้ำทุกเดือนก่อนพบแพทย์'
       }
 
-      this.resultans = "ได้คะแนน " + this.anssum + " คะแนน " + this.anstitle;
-      this.setLTTA(this.resultans);
+      this.resultans = 'ได้คะแนน ' + this.anssum + ' คะแนน ' + this.anstitle
+      this.setLTTA(this.resultans)
     },
     Finish() {
-      this.formFinish.push("LTTA");
-      this.setFormFinish(this.formFinish);
-      console.log(this.formFinish);
-    }
+      this.formFinish.push('LTTA')
+      this.setFormFinish(this.formFinish)
+      console.log(this.formFinish)
+    },
   },
   beforeRouteEnter(to, from, next) {
-    console.log("before");
+    console.log('before')
     next(vm => {
-      vm.getUserById();
-    });
-  }
-};
+      vm.getUserById()
+    })
+  },
+}
 </script>
 <style>
 h1 {

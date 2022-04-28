@@ -115,10 +115,10 @@
 <script>
 export default {
   data() {
-    return {};
+    return {}
   },
-  name: "completeChooseBar"
-};
+  name: 'completeChooseBar',
+}
 </script>
 <style>
 .box {

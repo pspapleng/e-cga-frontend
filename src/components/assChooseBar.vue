@@ -97,10 +97,10 @@
 <script>
 export default {
   data() {
-    return {};
+    return {}
   },
-  name: "assChooseBar"
-};
+  name: 'assChooseBar',
+}
 </script>
 <style>
 #bigBox {
