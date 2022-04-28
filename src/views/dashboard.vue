@@ -21,13 +21,13 @@
           <div style="padding: 20px 0px 0px">
             <b-field grouped>
               <b-input
-                v-model="in_search"
+                v-model="search_word"
                 placeholder="Search..."
                 type="search"
                 icon="magnify"
               >
               </b-input>
-              <router-link to="/CreateAccUser">
+              <router-link to="/AddPatient">
                 <b-button
                   type="is-success"
                   icon-left="user-plus"
@@ -45,7 +45,7 @@
             style="padding-right: 30px; padding-left: 0px"
           >
             <b-table
-              :data="u_Data"
+              :data="patientList"
               :paginated="true"
               per-page="10"
               current-page.sync="1"
@@ -61,40 +61,40 @@
               style="text-align: left"
             >
               <b-table-column
-                field="HN"
-                label="HN"
+                field="hn"
+                label="hn"
                 width="40"
                 sortable
                 centered
                 v-slot="user"
               >
-                {{ user.row.HN }}
+                {{ user.row.hn }}
               </b-table-column>
 
               <b-table-column
-                field="u_fname"
+                field="first_name"
                 label="ชื่อ"
                 sortable
                 v-slot="user"
               >
-                <span>{{ user.row.u_fname }}</span>
+                <span>{{ user.row.first_name }}</span>
               </b-table-column>
 
               <b-table-column
-                field="u_lname"
+                field="last_name"
                 label="นามสกุล"
                 sortable
                 v-slot="user"
               >
-                {{ user.row.u_lname }}
+                {{ user.row.last_name }}
               </b-table-column>
 
-              <b-table-column label="เพศ" centered width="110" v-slot="user">
+              <b-table-column label="เพศ" centered width="120" v-slot="user">
                 <span>
-                  {{ user.row.gender }}
+                  {{ user.row.gender === 'MALE' ? 'ชาย' : 'หญิง' }}
                   <b-icon
                     pack="fas"
-                    :icon="user.row.gender === 'Male' ? 'mars' : 'venus'"
+                    :icon="user.row.gender === 'MALE' ? 'mars' : 'venus'"
                   >
                   </b-icon>
                 </span>
@@ -104,7 +104,7 @@
                 field="date"
                 label="สถานะ"
                 centered
-                width="100"
+                width="120"
                 v-slot="user"
               >
                 <router-link to="/results">
@@ -168,9 +168,7 @@
                   icon-pack="fas"
                   size="is-small"
                   @click="
-                    open(user.row.HN),
-                      (isResult = true),
-                      getAge(user.row.date_of_birth)
+                    open(user.row.hn), (isResult = true), getAge(user.row.dob)
                   "
                 />
               </b-table-column>
@@ -182,7 +180,7 @@
                   icon-pack="fas"
                   size="is-small"
                   @click="
-                    open(user.row.HN),
+                    open(user.row.hn),
                       (isEditResult = true),
                       editHistory(user.row)
                   "
@@ -195,12 +193,12 @@
                   icon-right="trash"
                   icon-pack="fas"
                   size="is-small"
-                  @click="DeleteUser(user.row, user.row.HN)"
+                  @click="DeleteUser(user.row, user.row.hn)"
                 />
               </b-table-column>
 
               <template #bottom-left>
-                <b>ทั้งหมด {{ u_Data.length }} รายชื่อ</b>
+                <b>ทั้งหมด {{ patientList.length }} รายชื่อ</b>
               </template>
             </b-table>
           </div>
@@ -231,7 +229,7 @@
                       "
                     >
                       <p style="font-size: 30px">
-                        {{ result.u_fname }} {{ result.u_lname }}
+                        {{ result.first_name }} {{ result.last_name }}
                       </p>
                     </div>
                     <div
@@ -255,7 +253,7 @@
                         color: white;
                       "
                     >
-                      <p>HN {{ result.HN }}</p>
+                      <p>hn {{ result.hn }}</p>
                     </div>
                     <div class="column is-5"></div>
                     <div
@@ -287,14 +285,14 @@
                   <div class="level" style="margin-bottom: 0px">
                     <p class="level-left">ชื่อ</p>
                     <p class="level-right">
-                      <strong> {{ result.u_fname }} </strong>
+                      <strong> {{ result.first_name }} </strong>
                     </p>
                   </div>
                   <hr style="margin-top: 0px; margin-bottom: 20px" />
                   <div class="level" style="margin-bottom: 0px">
                     <p class="level-left">นามสกุล</p>
                     <p class="level-right">
-                      <strong> {{ result.u_lname }} </strong>
+                      <strong> {{ result.last_name }} </strong>
                     </p>
                   </div>
                   <hr style="margin-top: 0px; margin-bottom: 20px" />
@@ -308,7 +306,7 @@
                   <div class="level" style="margin-bottom: 0px">
                     <p class="level-left">อายุ</p>
                     <p class="level-right">
-                      <strong> {{ getAge(result.date_of_birth) }} </strong>
+                      <strong> {{ getAge(result.dob) }} </strong>
                     </p>
                     <p class="level-right">ปี</p>
                   </div>
@@ -317,9 +315,7 @@
                     <p class="level-left">วัน เดือน ปีเกิด</p>
                     <p class="level-right">
                       <strong>
-                        {{
-                          new Date(result.date_of_birth).toLocaleDateString()
-                        }}
+                        {{ new Date(result.dob).toLocaleDateString() }}
                       </strong>
                     </p>
                   </div>
@@ -417,7 +413,7 @@
                       "
                     >
                       <p style="font-size: 30px">
-                        {{ result.u_fname }} {{ result.u_lname }}
+                        {{ result.first_name }} {{ result.last_name }}
                       </p>
                     </div>
                     <div
@@ -441,7 +437,7 @@
                         color: white;
                       "
                     >
-                      <p>HN {{ result.HN }}</p>
+                      <p>hn {{ result.hn }}</p>
                     </div>
                     <div class="column is-5"></div>
                     <div
@@ -542,7 +538,7 @@
                   <div class="level" style="margin-bottom: 0px">
                     <p class="level-left">อายุ</p>
                     <p class="level-right">
-                      <strong> {{ getAge(result.date_of_birth) }} </strong>
+                      <strong> {{ getAge(result.dob) }} </strong>
                     </p>
                     <p class="level-right">ปี</p>
                   </div>
@@ -745,7 +741,7 @@ function onlyString(value) {
 }
 
 function GenderOnly(value) {
-  if (!value.match(/Male|Female/)) {
+  if (!value.match(/MALE|FEMALE/)) {
     return false
   }
   return true
@@ -770,7 +766,7 @@ export default {
       editHeight: '',
       editWaistline: '',
       editFall: '',
-      in_search: '',
+      search_word: '',
     }
   },
   validations: {
@@ -816,16 +812,16 @@ export default {
     ...mapMutations(['setSearch', 'setUserId', 'setResultId']),
     ...mapActions(['editUser']),
     debounceInput: debounce(function(e) {
-      this.setSearch(this.in_search)
+      this.setSearch(this.search_word)
       this.getUser(e)
       console.log(e)
-      console.log(this.in_search)
+      console.log(this.search_word)
     }, 300),
     open(id) {
-      var num = this.u_Data.length
+      var num = this.patientList.length
       for (var i = 0; i < num; i++) {
-        if (parseInt(id) === parseInt(this.u_Data[i].HN)) {
-          this.result = this.u_Data[i]
+        if (parseInt(id) === parseInt(this.patientList[i].hn)) {
+          this.result = this.patientList[i]
         }
       }
     },
@@ -856,10 +852,10 @@ export default {
         this.deleteUser()
           .then(res => {
             console.log(res)
-            var num = this.u_Data.length
+            var num = this.patientList.length
             for (var i = 0; i < num; i++) {
-              if (parseInt(index) === parseInt(this.u_Data[i].HN)) {
-                this.u_Data.splice(i, 1)
+              if (parseInt(index) === parseInt(this.patientList[i].hn)) {
+                this.patientList.splice(i, 1)
               }
             }
           })
@@ -870,10 +866,10 @@ export default {
       }
     },
     editHistory(histy) {
-      this.editFname = histy.u_fname
-      this.editLname = histy.u_lname
+      this.editFname = histy.first_name
+      this.editLname = histy.last_name
       this.editGender = histy.gender
-      this.editBirth = new Date(histy.date_of_birth)
+      this.editBirth = new Date(histy.dob)
       this.editWeight = histy.weight
       this.editHeight = histy.height
       this.editWaistline = histy.waistline
@@ -886,10 +882,10 @@ export default {
       // เช็คว่าในฟอร์มไม่มี error
       if (!this.$v.$invalid) {
         const payload = {
-          u_fname: this.editFname,
-          u_lname: this.editLname,
+          first_name: this.editFname,
+          last_name: this.editLname,
           gender: this.editGender,
-          date_of_birth: this.editBirth.toISOString().substring(0, 10),
+          dob: this.editBirth.toISOString().substring(0, 10),
           weight: this.editWeight,
           height: this.editHeight,
           bmi: parseFloat(
@@ -902,10 +898,10 @@ export default {
         this.editUser(payload)
           .then(res => {
             console.log(res)
-            histy.u_fname = this.editFname
-            histy.u_lname = this.editLname
+            histy.first_name = this.editFname
+            histy.last_name = this.editLname
             histy.gender = this.editGender
-            histy.date_of_birth = this.editBirth
+            histy.dob = this.editBirth
             histy.weight = this.editWeight
             histy.height = this.editHeight
             histy.bmi = payload.bmi
@@ -930,7 +926,10 @@ export default {
     editDateResult() {
       return new Date(this.result.service_date)
     },
-    ...mapState(['u_Data', 'UserId', 'result_id', 'who_login']),
+    ...mapState({
+      patientList: 'patient_mock',
+    }),
+    ...mapState(['patient', 'UserId', 'result_id', 'who_login']),
   },
   beforeRouteEnter(to, from, next) {
     console.log('before')
@@ -939,7 +938,7 @@ export default {
     })
   },
   watch: {
-    in_search: {
+    search_word: {
       handler(val) {
         this.debounceInput()
         console.log(val)

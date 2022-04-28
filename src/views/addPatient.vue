@@ -20,53 +20,53 @@
             <b-field
               class="mb-2"
               label="ชื่อ"
-              :type="{ 'is-danger': $v.form.u_fname.$error }"
+              :type="{ 'is-danger': $v.form.firstname.$error }"
             >
-              <b-input v-model="$v.form.u_fname.$model" expanded></b-input>
+              <b-input v-model="$v.form.firstname.$model" expanded></b-input>
             </b-field>
-            <template v-if="$v.form.u_fname.$error">
-              <p class="help is-danger" v-if="!$v.form.u_fname.required">
+            <template v-if="$v.form.firstname.$error">
+              <p class="help is-danger" v-if="!$v.form.firstname.required">
                 * กรุณากรอกชื่อ
               </p>
-              <p class="help is-danger" v-if="!$v.form.u_fname.onlyString">
+              <p class="help is-danger" v-if="!$v.form.firstname.onlyString">
                 ชื่อต้องเป็นตัวอักษรเท่านั้น
               </p>
-              <p class="help is-danger" v-if="!$v.form.u_fname.minLength">
+              <p class="help is-danger" v-if="!$v.form.firstname.minLength">
                 ชื่อต้องมีความยาวขั้นต่ำ 2 ตัวอักษร
               </p>
             </template>
             <b-field
               class="mb-2"
               label="นามสกุล"
-              :type="{ 'is-danger': $v.form.u_lname.$error }"
+              :type="{ 'is-danger': $v.form.lastname.$error }"
             >
-              <b-input v-model="$v.form.u_lname.$model" expanded></b-input>
+              <b-input v-model="$v.form.lastname.$model" expanded></b-input>
             </b-field>
-            <template v-if="$v.form.u_lname.$error">
-              <p class="help is-danger" v-if="!$v.form.u_lname.required">
+            <template v-if="$v.form.lastname.$error">
+              <p class="help is-danger" v-if="!$v.form.lastname.required">
                 * กรุณากรอกนามสกุล
               </p>
-              <p class="help is-danger" v-if="!$v.form.u_lname.onlyString">
+              <p class="help is-danger" v-if="!$v.form.lastname.onlyString">
                 นามสกุลต้องเป็นตัวอักษรเท่านั้น
               </p>
-              <p class="help is-danger" v-if="!$v.form.u_lname.minLength">
+              <p class="help is-danger" v-if="!$v.form.lastname.minLength">
                 นามสกุลต้องมีความยาวขั้นต่ำ 2 ตัวอักษร
               </p>
             </template>
             <b-field
               label="วัน เดือน ปีเกิด"
-              :type="{ 'is-danger': $v.form.date_of_birth.$error }"
+              :type="{ 'is-danger': $v.form.dob.$error }"
             >
               <b-datepicker
-                v-model="$v.form.date_of_birth.$model"
+                v-model="$v.form.dob.$model"
                 placeholder="Type or select a date..."
                 icon="calendar-today"
                 editable
               >
               </b-datepicker>
             </b-field>
-            <template v-if="$v.form.date_of_birth.$error">
-              <p class="help is-danger" v-if="!$v.form.date_of_birth.required">
+            <template v-if="$v.form.dob.$error">
+              <p class="help is-danger" v-if="!$v.form.dob.required">
                 * กรุณากรอกวันเดือนปีเกิด
               </p>
             </template>
@@ -83,7 +83,7 @@
                     class="mr-5 ml-1 mt-2"
                     v-model="$v.form.gender.$model"
                     name="ชาย"
-                    native-value="2"
+                    native-value="MALE"
                   >
                     ชาย
                   </b-radio>
@@ -91,7 +91,7 @@
                     class="ml-3 mt-2"
                     v-model="$v.form.gender.$model"
                     name="หญิง"
-                    native-value="1"
+                    native-value="FEMALE"
                   >
                     หญิง
                   </b-radio>
@@ -200,7 +200,7 @@
         >
           สร้างบัญชี
         </b-button>
-        <router-link to="/patientlist">
+        <router-link to="/dashboard">
           <p class="cancel pt-1">
             ยกเลิก
           </p>
@@ -234,34 +234,34 @@ export default {
     Sidebar,
     forUsers,
   },
-  name: 'addPatient',
+  name: 'AddPatient',
   data() {
     return {
       form: {
-        u_fname: 'กิตติพงศ์',
-        u_lname: 'สุนทรแตร',
-        gender: 2,
-        date_of_birth: new Date('1954-05-03'), //null new Date()
-        weight: 70,
-        height: 171.5,
-        waistline: 35,
-        fall_history: 2,
+        firstname: '',
+        lastname: '',
+        gender: '',
+        dob: null, //null new Date()
+        weight: null,
+        height: null,
+        waistline: null,
+        fall_history: null,
       },
     }
   },
   validations: {
     form: {
-      u_fname: {
+      firstname: {
         required,
         onlyString,
         minLength: minLength(2),
       },
-      u_lname: {
+      lastname: {
         required,
         onlyString,
         minLength: minLength(2),
       },
-      date_of_birth: { required },
+      dob: { required },
       gender: { required },
       weight: { required, decimal, minValue: minValue(0) },
       height: { required, decimal, minValue: minValue(0) },
@@ -282,11 +282,11 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['setCreateUsers']),
-    ...mapActions(['createUsers']),
+    ...mapMutations(['setCreatePatient']),
+    ...mapActions(['createPatient']),
     debounceInput: debounce(function(e) {
       console.log(e)
-      this.setCreateUsers(e)
+      this.setCreatePatient(e)
     }, 300),
     createU() {
       // Validate all fields
@@ -295,9 +295,9 @@ export default {
       // เช็คว่าในฟอร์มไม่มี error
       if (!this.$v.$invalid) {
         // alert("complete");
-        this.createUsers()
+        this.createPatient()
           .then(() => {
-            this.$router.push({ name: 'PatientList' })
+            this.$router.push({ name: 'Dashboard' })
           })
           .catch(e => {
             console.log(e.details)

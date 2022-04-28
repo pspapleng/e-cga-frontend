@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import patientData from '../assets/patientData.json'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    patient_mock: JSON.parse(JSON.stringify(patientData)),
     login: {
       username: '',
       password: '',
@@ -23,6 +25,16 @@ export default new Vuex.Store({
       username: '',
       password: '',
       confirm_password: '',
+    },
+    createPatient: {
+      firstname: '',
+      lastname: '',
+      gender: '',
+      dob: null,
+      weight: null,
+      height: null,
+      waistline: null,
+      fall_history: null,
     },
   },
   mutations: {
@@ -60,6 +72,21 @@ export default new Vuex.Store({
         confirm_password: '',
       }
     },
+    setCreatePatient(state, payload) {
+      state.createPatient = payload
+    },
+    resetCreatePatient(state) {
+      state.createPatient = {
+        firstname: '',
+        lastname: '',
+        gender: '',
+        dob: null,
+        weight: null,
+        height: null,
+        waistline: null,
+        fall_history: null,
+      }
+    },
   },
   actions: {
     createLogin({ state, commit, dispatch }) {
@@ -92,6 +119,19 @@ export default new Vuex.Store({
         .then(res => {
           console.log(res)
           commit('resetCreateUser')
+          return Promise.resolve()
+        })
+        .catch(e => {
+          console.log(e.response.data)
+          return Promise.reject(e.response.data)
+        })
+    },
+    createPatient({ state, commit }) {
+      return Vue.axios
+        .post(`http://localhost:8081/api/patient`, state.createPatient)
+        .then(res => {
+          console.log(res)
+          commit('resetCreatePatient')
           return Promise.resolve()
         })
         .catch(e => {
