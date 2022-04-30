@@ -62,7 +62,7 @@
             >
               <b-table-column
                 field="hn"
-                label="hn"
+                label="HN"
                 width="40"
                 sortable
                 centered
@@ -148,7 +148,7 @@
                   <b-button
                     style="background-color: #1e3a8a; color: white"
                     size="is-small"
-                    @click="DoForm(user.row)"
+                    @click="doAssessment(user.row.id)"
                     v-if="
                       user.row.result == null ||
                         today.getFullYear() -
@@ -168,7 +168,9 @@
                   icon-pack="fas"
                   size="is-small"
                   @click="
-                    open(user.row.hn), (isResult = true), getAge(user.row.dob)
+                    open(user.row.id),
+                      (openPatient = true),
+                      getAge(user.row.dob)
                   "
                 />
               </b-table-column>
@@ -179,11 +181,7 @@
                   icon-right="pen"
                   icon-pack="fas"
                   size="is-small"
-                  @click="
-                    open(user.row.hn),
-                      (isEditResult = true),
-                      editHistory(user.row)
-                  "
+                  @click="open(user.row.id), (openEditPatient = true)"
                 />
               </b-table-column>
 
@@ -203,9 +201,9 @@
             </b-table>
           </div>
         </div>
+
         <!-- ดูประวัติ -->
-        <b-modal v-model="isResult" :can-cancel="false"
-          >>
+        <b-modal v-model="openPatient" :can-cancel="false">
           <form class="card">
             <div class="column is-full" style="background-color: #1e3a8a">
               <div class="columns">
@@ -229,7 +227,7 @@
                       "
                     >
                       <p style="font-size: 30px">
-                        {{ result.first_name }} {{ result.last_name }}
+                        {{ patient.first_name }} {{ patient.last_name }}
                       </p>
                     </div>
                     <div
@@ -253,7 +251,7 @@
                         color: white;
                       "
                     >
-                      <p>hn {{ result.hn }}</p>
+                      <p>HN {{ patient.hn }}</p>
                     </div>
                     <div class="column is-5"></div>
                     <div
@@ -285,28 +283,28 @@
                   <div class="level" style="margin-bottom: 0px">
                     <p class="level-left">ชื่อ</p>
                     <p class="level-right">
-                      <strong> {{ result.first_name }} </strong>
+                      <strong> {{ patient.first_name }} </strong>
                     </p>
                   </div>
                   <hr style="margin-top: 0px; margin-bottom: 20px" />
                   <div class="level" style="margin-bottom: 0px">
                     <p class="level-left">นามสกุล</p>
                     <p class="level-right">
-                      <strong> {{ result.last_name }} </strong>
+                      <strong> {{ patient.last_name }} </strong>
                     </p>
                   </div>
                   <hr style="margin-top: 0px; margin-bottom: 20px" />
                   <div class="level" style="margin-bottom: 0px">
                     <p class="level-left">เพศ</p>
                     <p class="level-right">
-                      <strong> {{ result.gender }} </strong>
+                      <strong> {{ patient.gender }} </strong>
                     </p>
                   </div>
                   <hr style="margin-top: 0px; margin-bottom: 20px" />
                   <div class="level" style="margin-bottom: 0px">
                     <p class="level-left">อายุ</p>
                     <p class="level-right">
-                      <strong> {{ getAge(result.dob) }} </strong>
+                      <strong> {{ getAge(patient.dob) }} </strong>
                     </p>
                     <p class="level-right">ปี</p>
                   </div>
@@ -315,7 +313,7 @@
                     <p class="level-left">วัน เดือน ปีเกิด</p>
                     <p class="level-right">
                       <strong>
-                        {{ new Date(result.dob).toLocaleDateString() }}
+                        {{ new Date(patient.dob).toLocaleDateString() }}
                       </strong>
                     </p>
                   </div>
@@ -326,7 +324,7 @@
                   <div class="level" style="margin-bottom: 0px">
                     <p class="level-left">น้ำหนัก</p>
                     <p style="padding-left: 30px">
-                      <strong> {{ result.weight }} </strong>
+                      <strong> {{ patient.weight }} </strong>
                     </p>
                     <p class="level-right">กิโลกรัม</p>
                   </div>
@@ -334,7 +332,7 @@
                   <div class="level" style="margin-bottom: 0px">
                     <p class="level-left">ส่วนสูง</p>
                     <p style="padding-left: 30px">
-                      <strong> {{ result.height }} </strong>
+                      <strong> {{ patient.height }} </strong>
                     </p>
                     <p class="level-right">เซนติเมตร</p>
                   </div>
@@ -342,7 +340,7 @@
                   <div class="level" style="margin-bottom: 0px">
                     <p class="level-left">BMI</p>
                     <p>
-                      <strong> {{ result.bmi }} </strong>
+                      <strong> {{ patient.bmi }} </strong>
                     </p>
                     <p class="level-right"></p>
                   </div>
@@ -350,7 +348,7 @@
                   <div class="level" style="margin-bottom: 0px">
                     <p class="level-left">รอบเอว</p>
                     <p style="padding-left: 30px">
-                      <strong> {{ result.waistline }} </strong>
+                      <strong> {{ patient.waistline }} </strong>
                     </p>
                     <p class="level-right">นิ้ว</p>
                   </div>
@@ -358,7 +356,7 @@
                   <div class="level" style="margin-bottom: 0px">
                     <p class="level-left">ประวัติการล้มใน 1 ปี</p>
                     <p style="padding-left: 30px">
-                      <strong> {{ result.fall_history }} </strong>
+                      <strong> {{ patient.fall_history }} </strong>
                     </p>
                     <p class="level-right">ครั้ง</p>
                   </div>
@@ -377,7 +375,7 @@
                       color: white;
                       border-color: #1e3a8a;
                     "
-                    @click="isResult = !isResult"
+                    @click="openPatient = !openPatient"
                     expanded
                     >กลับ
                   </b-button>
@@ -387,8 +385,9 @@
             </div>
           </form>
         </b-modal>
+
         <!-- แก้ไขประว้ติ -->
-        <b-modal v-model="isEditResult" :can-cancel="false"
+        <b-modal v-model="openEditPatient" :can-cancel="false"
           >>
           <form class="card">
             <div class="column is-full" style="background-color: #1e3a8a">
@@ -413,7 +412,7 @@
                       "
                     >
                       <p style="font-size: 30px">
-                        {{ result.first_name }} {{ result.last_name }}
+                        {{ patient.first_name }} {{ patient.last_name }}
                       </p>
                     </div>
                     <div
@@ -437,7 +436,7 @@
                         color: white;
                       "
                     >
-                      <p>hn {{ result.hn }}</p>
+                      <p>HN {{ patient.hn }}</p>
                     </div>
                     <div class="column is-5"></div>
                     <div
@@ -468,21 +467,24 @@
                 >
                   <div class="level" style="margin-bottom: 0px">
                     <p class="level-left">ชื่อ</p>
-                    <b-field :type="{ 'is-danger': $v.editFname.$error }">
-                      <b-input v-model="$v.editFname.$model" />
-                      <template v-if="$v.editFname.$error">
-                        <p class="help is-danger" v-if="!$v.editFname.required">
+                    <b-field :type="{ 'is-danger': $v.editFirstName.$error }">
+                      <b-input v-model="$v.editFirstName.$model" />
+                      <template v-if="$v.editFirstName.$error">
+                        <p
+                          class="help is-danger"
+                          v-if="!$v.editFirstName.required"
+                        >
                           * กรุณากรอกชื่อ
                         </p>
                         <p
                           class="help is-danger"
-                          v-if="!$v.editFname.onlyString"
+                          v-if="!$v.editFirstName.onlyString"
                         >
                           ชื่อต้องเป็นตัวอักษรเท่านั้น
                         </p>
                         <p
                           class="help is-danger"
-                          v-if="!$v.editFname.minLength"
+                          v-if="!$v.editFirstName.minLength"
                         >
                           ชื่อต้องมีความยาวขั้นต่ำ 2 ตัวอักษร
                         </p>
@@ -492,21 +494,24 @@
                   <hr style="margin-top: 0px; margin-bottom: 20px" />
                   <div class="level" style="margin-bottom: 0px">
                     <p class="level-left">นามสกุล</p>
-                    <b-field :type="{ 'is-danger': $v.editLname.$error }">
-                      <b-input v-model="$v.editLname.$model" />
-                      <template v-if="$v.editLname.$error">
-                        <p class="help is-danger" v-if="!$v.editLname.required">
+                    <b-field :type="{ 'is-danger': $v.editLastName.$error }">
+                      <b-input v-model="$v.editLastName.$model" />
+                      <template v-if="$v.editLastName.$error">
+                        <p
+                          class="help is-danger"
+                          v-if="!$v.editLastName.required"
+                        >
                           * กรุณากรอกนามสกุล
                         </p>
                         <p
                           class="help is-danger"
-                          v-if="!$v.editLname.onlyString"
+                          v-if="!$v.editLastName.onlyString"
                         >
                           นามสกุลต้องเป็นตัวอักษรเท่านั้น
                         </p>
                         <p
                           class="help is-danger"
-                          v-if="!$v.editLname.minLength"
+                          v-if="!$v.editLastName.minLength"
                         >
                           นามสกุลต้องมีความยาวขั้นต่ำ 2 ตัวอักษร
                         </p>
@@ -538,7 +543,7 @@
                   <div class="level" style="margin-bottom: 0px">
                     <p class="level-left">อายุ</p>
                     <p class="level-right">
-                      <strong> {{ getAge(result.dob) }} </strong>
+                      <strong> {{ getAge(patient.dob) }} </strong>
                     </p>
                     <p class="level-right">ปี</p>
                   </div>
@@ -546,17 +551,25 @@
                   <div class="level" style="margin-bottom: 0px">
                     <p>ประวัติการล้มใน 1 ปี</p>
                     <b-field
-                      :type="{ 'is-danger': $v.editFall.$error }"
+                      :type="{ 'is-danger': $v.editFallHistory.$error }"
                       style="margin-bottom: 0px"
                     >
-                      <b-input v-model="$v.editFall.$model" />
-                      <template v-if="$v.editFall.$error">
-                        <p class="help is-danger" v-if="!$v.editFall.required">
+                      <b-input v-model="$v.editFallHistory.$model" />
+                      <template v-if="$v.editFallHistory.$error">
+                        <p
+                          class="help is-danger"
+                          v-if="!$v.editFallHistory.required"
+                        >
                           * กรุณากรอกจำนวนครั้ง
                         </p>
                         <p
                           class="help is-danger"
-                          v-if="!($v.editFall.integer && $v.editFall.minValue)"
+                          v-if="
+                            !(
+                              $v.editFallHistory.integer &&
+                              $v.editFallHistory.minValue
+                            )
+                          "
                         >
                           จำนวนครั้งต้องเป็นจำนวนเต็มมากกว่าหรือเท่ากับ 0
                         </p>
@@ -571,17 +584,17 @@
                   <div class="level" style="margin-bottom: 0px">
                     <p class="level-left">วัน เดือน ปีเกิด</p>
                     <p class="level-right">
-                      <b-field :type="{ 'is-danger': $v.editBirth.$error }">
+                      <b-field :type="{ 'is-danger': $v.editDOB.$error }">
                         <b-datepicker
-                          v-model="$v.editBirth.$model"
+                          v-model="$v.editDOB.$model"
                           position="is-right"
                           icon="calendar-today"
                           trap-focus
                         >
                         </b-datepicker>
                       </b-field>
-                      <template v-if="$v.editBirth.$error">
-                        <p class="help is-danger" v-if="!$v.editBirth.required">
+                      <template v-if="$v.editDOB.$error">
+                        <p class="help is-danger" v-if="!$v.editDOB.required">
                           * กรุณากรอกวันเดือนปีเกิด
                         </p>
                       </template>
@@ -645,7 +658,7 @@
                   <div class="level" style="margin-bottom: 0px">
                     <p class="level-left">BMI</p>
                     <p>
-                      <strong> {{ result.bmi }} </strong>
+                      <strong> {{ patient.bmi }} </strong>
                     </p>
                     <p class="level-right"></p>
                   </div>
@@ -706,7 +719,7 @@
                       color: white;
                       border-color: #d12424;
                     "
-                    @click="isEditResult = !isEditResult"
+                    @click="openEditPatient = !openEditPatient"
                     expanded
                     >ยกเลิก
                   </b-button>
@@ -754,28 +767,28 @@ export default {
   name: 'dashboard',
   data() {
     return {
-      isResult: false,
-      isEditResult: false,
+      openPatient: false,
+      openEditPatient: false,
       result: {},
       today: new Date(),
-      editFname: '',
-      editLname: '',
+      editFirstName: '',
+      editLastName: '',
       editGender: '',
-      editBirth: '',
+      editDOB: '',
       editWeight: '',
       editHeight: '',
       editWaistline: '',
-      editFall: '',
+      editFallHistory: '',
       search_word: '',
     }
   },
   validations: {
-    editFname: {
+    editFirstName: {
       required,
       onlyString,
       minLength: minLength(2),
     },
-    editLname: {
+    editLastName: {
       required,
       onlyString,
       minLength: minLength(2),
@@ -784,7 +797,7 @@ export default {
       required,
       GenderOnly,
     },
-    editBirth: {
+    editDOB: {
       required,
     },
     editWeight: {
@@ -802,39 +815,37 @@ export default {
       decimal,
       minValue: minValue(0),
     },
-    editFall: {
+    editFallHistory: {
       required,
       integer,
       minValue: minValue(0),
     },
   },
+  computed: {
+    dateResult() {
+      return new Date(this.patient.created_at).toLocaleDateString()
+    },
+    editDateResult() {
+      return new Date(this.patient.created_at)
+    },
+    ...mapState({
+      patientList: 'patientData',
+    }),
+    ...mapState(['patient']),
+  },
   methods: {
-    ...mapMutations(['setSearch', 'setUserId', 'setResultId']),
-    ...mapActions(['editUser']),
+    ...mapMutations(['setSearch', 'setPatientId', 'setResultId']),
+    ...mapActions([
+      'getAllPatient',
+      'getPatientById',
+      'editUser',
+      'deleteUser',
+    ]),
     debounceInput: debounce(function(e) {
       this.setSearch(this.search_word)
-      this.getUser(e)
+      this.getAllPatient(e)
       console.log(e)
-      console.log(this.search_word)
     }, 300),
-    open(id) {
-      var num = this.patientList.length
-      for (var i = 0; i < num; i++) {
-        if (parseInt(id) === parseInt(this.patientList[i].hn)) {
-          this.result = this.patientList[i]
-        }
-      }
-    },
-    seeResult(id) {
-      console.log(id)
-      this.setUserId(id.u_id)
-      this.setResultId(id.result_id)
-      console.log(this.result_id)
-    },
-    DoForm(id) {
-      console.log(id.u_id)
-      this.setUserId(id.u_id)
-    },
     getAge(date) {
       var today = new Date()
       var birthDate = new Date(date)
@@ -845,96 +856,99 @@ export default {
       }
       return age
     },
-    DeleteUser(user, index) {
-      this.setUserId(user.u_id)
-      let confirmResult = confirm('are you sure!?')
-      if (confirmResult) {
-        this.deleteUser()
-          .then(res => {
-            console.log(res)
-            var num = this.patientList.length
-            for (var i = 0; i < num; i++) {
-              if (parseInt(index) === parseInt(this.patientList[i].hn)) {
-                this.patientList.splice(i, 1)
-              }
-            }
-          })
-          .catch(err => {
-            console.log(err)
-            alert(err.response.data.message)
-          })
-      }
+    open(id) {
+      this.setPatientId(id)
+      this.getPatientById()
+      console.log(id)
     },
-    editHistory(histy) {
-      this.editFname = histy.first_name
-      this.editLname = histy.last_name
-      this.editGender = histy.gender
-      this.editBirth = new Date(histy.dob)
-      this.editWeight = histy.weight
-      this.editHeight = histy.height
-      this.editWaistline = histy.waistline
-      this.editFall = histy.fall_history
-      this.setUserId(histy.u_id)
+    doAssessment(id) {
+      this.setPatientId(id)
     },
-    saveHistory(histy) {
-      this.$v.$touch()
+    // seeResult(id) {
+    //   console.log(id)
+    //   this.setPatientId(id.u_id)
+    //   this.setResultId(id.result_id)
+    //   console.log(this.result_id)
+    // },
 
-      // เช็คว่าในฟอร์มไม่มี error
-      if (!this.$v.$invalid) {
-        const payload = {
-          first_name: this.editFname,
-          last_name: this.editLname,
-          gender: this.editGender,
-          dob: this.editBirth.toISOString().substring(0, 10),
-          weight: this.editWeight,
-          height: this.editHeight,
-          bmi: parseFloat(
-            this.editWeight / Math.pow(this.editHeight / 100, 2),
-          ).toFixed(2),
-          waistline: this.editWaistline,
-          fall_history: this.editFall,
-          n_id: this.who_login.n_id,
-        }
-        this.editUser(payload)
-          .then(res => {
-            console.log(res)
-            histy.first_name = this.editFname
-            histy.last_name = this.editLname
-            histy.gender = this.editGender
-            histy.dob = this.editBirth
-            histy.weight = this.editWeight
-            histy.height = this.editHeight
-            histy.bmi = payload.bmi
-            histy.waistline = this.editWaistline
-            histy.fall_history = this.editFall
-            this.isEditResult = !this.isEditResult
-          })
-          .catch(err => {
-            console.log(err)
-            alert('ERROR')
-          })
-      } else {
-        alert('โปรดกรอกข้อมูลให้ถูกต้องทุกช่อง')
-      }
-    },
-    ...mapActions(['getUser', 'editUser', 'deleteUser']),
+    // DeleteUser(user, index) {
+    //   this.setPatientId(user.u_id)
+    //   let confirmResult = confirm('are you sure!?')
+    //   if (confirmResult) {
+    //     this.deleteUser()
+    //       .then(res => {
+    //         console.log(res)
+    //         var num = this.patientList.length
+    //         for (var i = 0; i < num; i++) {
+    //           if (parseInt(index) === parseInt(this.patientList[i].hn)) {
+    //             this.patientList.splice(i, 1)
+    //           }
+    //         }
+    //       })
+    //       .catch(err => {
+    //         console.log(err)
+    //         alert(err.response.data.message)
+    //       })
+    //   }
+    // },
+    // editHistory(data) {
+    //   this.editFirstName = data.first_name
+    //   this.editLastName = data.last_name
+    //   this.editGender = data.gender
+    //   this.editDOB = new Date(data.dob)
+    //   this.editWeight = data.weight
+    //   this.editHeight = data.height
+    //   this.editWaistline = data.waistline
+    //   this.editFallHistory = data.fall_history
+    //   this.setPatientId(data.id)
+    // },
+    // saveHistory(histy) {
+    //   this.$v.$touch()
+
+    //   // เช็คว่าในฟอร์มไม่มี error
+    //   if (!this.$v.$invalid) {
+    //     const payload = {
+    //       first_name: this.editFirstName,
+    //       last_name: this.editLastName,
+    //       gender: this.editGender,
+    //       dob: this.editDOB.toISOString().substring(0, 10),
+    //       weight: this.editWeight,
+    //       height: this.editHeight,
+    //       bmi: parseFloat(
+    //         this.editWeight / Math.pow(this.editHeight / 100, 2),
+    //       ).toFixed(2),
+    //       waistline: this.editWaistline,
+    //       fall_history: this.editFallHistory,
+    //       n_id: this.who_login.n_id,
+    //     }
+    //     this.editUser(payload)
+    //       .then(res => {
+    //         console.log(res)
+    //         histy.first_name = this.editFirstName
+    //         histy.last_name = this.editLastName
+    //         histy.gender = this.editGender
+    //         histy.dob = this.editDOB
+    //         histy.weight = this.editWeight
+    //         histy.height = this.editHeight
+    //         histy.bmi = payload.bmi
+    //         histy.waistline = this.editWaistline
+    //         histy.fall_history = this.editFallHistory
+    //         this.openEditPatient = !this.openEditPatient
+    //       })
+    //       .catch(err => {
+    //         console.log(err)
+    //         alert('ERROR')
+    //       })
+    //   } else {
+    //     alert('โปรดกรอกข้อมูลให้ถูกต้องทุกช่อง')
+    //   }
+    // },
   },
-  computed: {
-    dateResult() {
-      return new Date(this.result.service_date).toLocaleDateString()
-    },
-    editDateResult() {
-      return new Date(this.result.service_date)
-    },
-    ...mapState({
-      patientList: 'patient_mock',
-    }),
-    ...mapState(['patient', 'UserId', 'result_id', 'who_login']),
-  },
+
   beforeRouteEnter(to, from, next) {
     console.log('before')
     next(vm => {
-      vm.getUser()
+      vm.getAllPatient()
     })
   },
   watch: {

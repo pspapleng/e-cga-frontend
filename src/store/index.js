@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    patient_mock: JSON.parse(JSON.stringify(patientData)),
+    patientData: JSON.parse(JSON.stringify(patientData)),
     login: {
       username: '',
       password: '',
@@ -36,6 +36,10 @@ export default new Vuex.Store({
       waistline: null,
       fall_history: null,
     },
+    search: '',
+    allPatient: [],
+    patientId: '',
+    patient: {},
   },
   mutations: {
     setLogin(state, payload) {
@@ -87,6 +91,24 @@ export default new Vuex.Store({
         fall_history: null,
       }
     },
+    setSearch(state, payload) {
+      state.search = payload
+    },
+    setAllPatient(state, payload) {
+      state.allPatient = payload
+    },
+    setPatientId(state, payload) {
+      state.patientId = payload
+    },
+    resetPatientId(state) {
+      state.patientId = null
+    },
+    setPatient(state, payload) {
+      state.patient = payload
+    },
+    resetPatient(state) {
+      state.patient = null
+    },
   },
   actions: {
     createLogin({ state, commit, dispatch }) {
@@ -137,6 +159,24 @@ export default new Vuex.Store({
         .catch(e => {
           console.log(e.response.data)
           return Promise.reject(e.response.data)
+        })
+    },
+    getAllPatient({ state, commit }) {
+      Vue.axios
+        .get(`http://localhost:8081/api/patient`, {
+          params: {
+            search: state.search,
+          },
+        })
+        .then(data => {
+          commit('setAllPatient', data.data)
+        })
+    },
+    getPatientById({ state, commit }) {
+      Vue.axios
+        .get(`http://localhost:8081/api/patient/${state.patientId}`)
+        .then(data => {
+          commit('setPatient', data.data[0])
         })
     },
   },
