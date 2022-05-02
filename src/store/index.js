@@ -14,21 +14,21 @@ export default new Vuex.Store({
     who_login: {
       id: '',
       nurseId: '',
-      firstname: '',
-      lastname: '',
+      firstName: '',
+      lastName: '',
       username: '',
     },
     createUser: {
       nurseId: '',
-      firstname: '',
-      lastname: '',
+      firstName: '',
+      lastName: '',
       username: '',
       password: '',
       confirm_password: '',
     },
     createPatient: {
-      firstname: '',
-      lastname: '',
+      firstName: '',
+      lastName: '',
       gender: '',
       dob: null,
       weight: null,
@@ -58,8 +58,8 @@ export default new Vuex.Store({
       state.who_login = {
         id: '',
         nurseId: '',
-        firstname: '',
-        lastname: '',
+        firstName: '',
+        lastName: '',
         username: '',
       }
     },
@@ -69,8 +69,8 @@ export default new Vuex.Store({
     resetCreateUser(state) {
       state.createUser = {
         nurseId: '',
-        firstname: '',
-        lastname: '',
+        firstName: '',
+        lastName: '',
         username: '',
         password: '',
         confirm_password: '',
@@ -81,8 +81,8 @@ export default new Vuex.Store({
     },
     resetCreatePatient(state) {
       state.createPatient = {
-        firstname: '',
-        lastname: '',
+        firstName: '',
+        lastName: '',
         gender: '',
         dob: null,
         weight: null,
@@ -113,9 +113,12 @@ export default new Vuex.Store({
   actions: {
     createLogin({ state, commit, dispatch }) {
       return Vue.axios
-        .post(`http://localhost:8081/api/auth/sign-in`, state.login)
+        .post(
+          `https://my-app-krmt9.ondigitalocean.app/api/auth/sign-in`,
+          state.login,
+        )
         .then(res => {
-          const token = res.data.token
+          const token = res.data.accessToken
           localStorage.setItem('token', token)
           dispatch('getWhoLogin')
           commit('resetLogin')
@@ -126,9 +129,9 @@ export default new Vuex.Store({
         })
     },
     getWhoLogin({ commit }) {
-      const token = localStorage.getItem('token')
+      const token = () => localStorage.getItem('token')
       return Vue.axios
-        .get(`http://localhost:8081/api/auth/me`, {
+        .get(`https://my-app-krmt9.ondigitalocean.app/api/auth/me`, {
           headers: { Authorization: 'Bearer ' + token },
         })
         .then(res => {
@@ -137,7 +140,10 @@ export default new Vuex.Store({
     },
     createUser({ state, commit }) {
       return Vue.axios
-        .post(`http://localhost:8081/api/user`, state.createUser)
+        .post(
+          `https://my-app-krmt9.ondigitalocean.app/api/user`,
+          state.createUser,
+        )
         .then(res => {
           console.log(res)
           commit('resetCreateUser')
@@ -149,8 +155,34 @@ export default new Vuex.Store({
         })
     },
     createPatient({ state, commit }) {
+      /*
+            firstName: '',
+      lastName: '',
+      gender: '',
+      dob: null,
+      weight: null,
+      height: null,
+      waistline: null,
+      fall_history: null,
+      */
+      const bodyAdapter = original => ({
+        firstName: original.firstName,
+        lastName: original.lastName,
+        dob: original.dob,
+        gender: original.gender.toLowerCase(),
+        height: +original.height || 0,
+        weight: +original.weight || 0,
+        bmi: +parseFloat(
+          +original.weight / Math.pow(+original.height / 100, 2),
+        ).toFixed(0),
+        waistline: +original.waistline,
+        fallHistory: +original.fall_history,
+      })
       return Vue.axios
-        .post(`http://localhost:8081/api/patient`, state.createPatient)
+        .post(
+          `https://my-app-krmt9.ondigitalocean.app/api/patient`,
+          bodyAdapter(state.createPatient),
+        )
         .then(res => {
           console.log(res)
           commit('resetCreatePatient')
@@ -163,7 +195,7 @@ export default new Vuex.Store({
     },
     getAllPatient({ state, commit }) {
       Vue.axios
-        .get(`http://localhost:8081/api/patient`, {
+        .get(`https://my-app-krmt9.ondigitalocean.app/api/patient`, {
           params: {
             search: state.search,
           },
@@ -174,7 +206,9 @@ export default new Vuex.Store({
     },
     getPatientById({ state, commit }) {
       Vue.axios
-        .get(`http://localhost:8081/api/patient/${state.patientId}`)
+        .get(
+          `https://my-app-krmt9.ondigitalocean.app/api/patient/${state.patientId}`,
+        )
         .then(data => {
           commit('setPatient', data.data[0])
         })

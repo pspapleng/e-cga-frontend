@@ -40,36 +40,36 @@
               <b-field
                 class="mb-2"
                 label="ชื่อ"
-                :type="{ 'is-danger': $v.form.firstname.$error }"
+                :type="{ 'is-danger': $v.form.firstName.$error }"
               >
-                <b-input v-model="$v.form.firstname.$model" expanded></b-input>
+                <b-input v-model="$v.form.firstName.$model" expanded></b-input>
               </b-field>
-              <template v-if="$v.form.firstname.$error">
-                <p class="help is-danger" v-if="!$v.form.firstname.required">
+              <template v-if="$v.form.firstName.$error">
+                <p class="help is-danger" v-if="!$v.form.firstName.required">
                   * กรุณากรอกชื่อ
                 </p>
-                <p class="help is-danger" v-if="!$v.form.firstname.onlyString">
+                <p class="help is-danger" v-if="!$v.form.firstName.onlyString">
                   ชื่อต้องเป็นตัวอักษรเท่านั้น
                 </p>
-                <p class="help is-danger" v-if="!$v.form.firstname.minLength">
+                <p class="help is-danger" v-if="!$v.form.firstName.minLength">
                   ชื่อต้องมีความยาวขั้นต่ำ 2 ตัวอักษร
                 </p>
               </template>
               <b-field
                 class="mb-2"
                 label="นามสกุล"
-                :type="{ 'is-danger': $v.form.lastname.$error }"
+                :type="{ 'is-danger': $v.form.lastName.$error }"
               >
-                <b-input v-model="$v.form.lastname.$model" expanded></b-input>
+                <b-input v-model="$v.form.lastName.$model" expanded></b-input>
               </b-field>
-              <template v-if="$v.form.lastname.$error">
-                <p class="help is-danger" v-if="!$v.form.lastname.required">
+              <template v-if="$v.form.lastName.$error">
+                <p class="help is-danger" v-if="!$v.form.lastName.required">
                   * กรุณากรอกนามสกุล
                 </p>
-                <p class="help is-danger" v-if="!$v.form.lastname.onlyString">
+                <p class="help is-danger" v-if="!$v.form.lastName.onlyString">
                   นามสกุลต้องเป็นตัวอักษรเท่านั้น
                 </p>
-                <p class="help is-danger" v-if="!$v.form.lastname.minLength">
+                <p class="help is-danger" v-if="!$v.form.lastName.minLength">
                   นามสกุลต้องมีความยาวขั้นต่ำ 2 ตัวอักษร
                 </p>
               </template>
@@ -204,8 +204,8 @@ export default {
     return {
       form: {
         nurseId: '00000000000',
-        firstname: 'firstname',
-        lastname: 'lastname',
+        firstName: 'firstName',
+        lastName: 'lastName',
         username: 'testtest',
         password: 'test1234',
         confirm_password: 'test1234',
@@ -220,12 +220,12 @@ export default {
         maxLength: maxLength(11),
         numeric,
       },
-      firstname: {
+      firstName: {
         required,
         onlyString,
         minLength: minLength(2),
       },
-      lastname: {
+      lastName: {
         required,
         onlyString,
         minLength: minLength(2),
