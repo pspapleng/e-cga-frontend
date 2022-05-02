@@ -235,7 +235,6 @@ export default new Vuex.Store({
             result: original.result[0], // TODO: please fix
             result_date: original.createdAt,
           })
-          console.log(data.data.map(e => patientAdapter(e)))
           return commit(
             'setAllPatient',
             data.data.map(e => patientAdapter(e)),
