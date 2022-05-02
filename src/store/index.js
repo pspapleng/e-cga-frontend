@@ -224,10 +224,12 @@ export default new Vuex.Store({
         })
         .then(data => {
           const patientAdapter = original => ({
+            ...original,
             id: original.id,
             hn: String(original.hn).padStart(6, '0'),
             first_name: original.firstName,
             last_name: original.lastName,
+            fall_history: original.fallHistory,
             dob: '2000-11-02',
             gender: original.gender.toUpperCase(),
             result: original.result[0], // TODO: please fix
@@ -248,12 +250,13 @@ export default new Vuex.Store({
         .then(data => {
           const patientAdapter = original => ({
             ...original,
+            hn: String(original.hn).padStart(6, '0'),
             first_name: original.firstName,
             last_name: original.lastName,
             created_at:
               (original.result || []).length > 0
                 ? original.result[0]?.createdAt
-                : undefined,
+                : new Date().toString(),
           })
           commit('setPatient', patientAdapter(data.data))
         })

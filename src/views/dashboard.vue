@@ -181,7 +181,11 @@
                   icon-right="pen"
                   icon-pack="fas"
                   size="is-small"
-                  @click="open(user.row.id), (openEditPatient = true)"
+                  @click="
+                    open(user.row.id),
+                      (openEditPatient = true),
+                      editHistory(user)
+                  "
                 />
               </b-table-column>
 
@@ -891,17 +895,18 @@ export default {
     //       })
     //   }
     // },
-    // editHistory(data) {
-    //   this.editFirstName = data.first_name
-    //   this.editLastName = data.last_name
-    //   this.editGender = data.gender
-    //   this.editDOB = new Date(data.dob)
-    //   this.editWeight = data.weight
-    //   this.editHeight = data.height
-    //   this.editWaistline = data.waistline
-    //   this.editFallHistory = data.fall_history
-    //   this.setPatientId(data.id)
-    // },
+    editHistory({ row: data }) {
+      console.log(data)
+      this.editFirstName = data.first_name
+      this.editLastName = data.last_name
+      this.editGender = data.gender
+      this.editDOB = new Date(data.dob)
+      this.editWeight = data.weight || 0
+      this.editHeight = data.height || 0
+      this.editWaistline = data.waistline || 0
+      this.editFallHistory = data.fall_history || 0
+      this.setPatientId(data.id)
+    },
     // saveHistory(histy) {
     //   this.$v.$touch()
 
