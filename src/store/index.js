@@ -246,7 +246,16 @@ export default new Vuex.Store({
           `https://my-app-krmt9.ondigitalocean.app/api/patient/${state.patientId}`,
         )
         .then(data => {
-          commit('setPatient', data.data[0])
+          const patientAdapter = original => ({
+            ...original,
+            first_name: original.firstName,
+            last_name: original.lastName,
+            created_at:
+              (original.result || []).length > 0
+                ? original.result[0]?.createdAt
+                : undefined,
+          })
+          commit('setPatient', patientAdapter(data.data))
         })
     },
   },
