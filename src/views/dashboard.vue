@@ -144,7 +144,7 @@
               </b-table-column>
 
               <b-table-column width="100" v-slot="user" centered>
-                <router-link to="/startpage">
+                <router-link to="/forms/form1">
                   <b-button
                     style="background-color: #1e3a8a; color: white"
                     size="is-small"
@@ -360,7 +360,7 @@
                   <div class="level" style="margin-bottom: 0px">
                     <p class="level-left">ประวัติการล้มใน 1 ปี</p>
                     <p style="padding-left: 30px">
-                      <strong> {{ patient.fall_history }} </strong>
+                      <strong> {{ patient.fallHistory }} </strong>
                     </p>
                     <p class="level-right">ครั้ง</p>
                   </div>

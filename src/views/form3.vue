@@ -7,19 +7,19 @@
             <Sidebar />
           </div>
         </div>
+
         <div class="column is-11">
           <div class="assName card mt-6 ml-1 mr-6">
             <p
               class="card-header-title"
-              style="color: white; background-color: #1e3a8a"
+              style="color: white; background-color: #1E3A8A"
             >
-              แบบประเมินภาวะโภชนาการ (MNA)
+              แบบประเมินภาวะหกล้ม (Fall Risk Assessment Tool)
             </p>
           </div>
-
           <div
             class="questions"
-            v-for="ques in form.slice(0, 5)"
+            v-for="ques in form.slice(18, 28)"
             :key="ques.ques_id"
           >
             <div class="card mr-6">
@@ -39,7 +39,6 @@
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
                               title: ch.ans_title,
-                              u_id: UserId,
                             })
                         "
                       >
@@ -51,74 +50,25 @@
               </div>
             </div>
           </div>
-
-          <div
-            class="questions"
-            v-for="ques in form.slice(5, 6)"
-            :key="ques.ques_id"
-          >
-            <div class="card mr-6">
-              <div class="card-content">
-                <div class="content">
-                  <p>{{ ques.ques }}</p>
-                  <label for="" style="float: left; margin-left: 2vw"
-                    >BMI
-                  </label>
-                  <input
-                    id="ques.ques_id"
-                    style="float: left; margin-left: 5px"
-                    type="text"
-                    v-model="ques.ans_input"
-                    :placeholder="patient.bmi"
-                    disabled
-                  /><br />
-                  <div v-for="ch in ques.choice" :key="ch.ans_id">
-                    <b-field>
-                      <b-radio
-                        id="ques.ques_id"
-                        v-model="ques.ans"
-                        :native-value="ch.ans_value"
-                        type="is-info"
-                        @change.native="
-                          e =>
-                            setAns({
-                              id: ques.ques_id,
-                              value: parseInt(e.target.value),
-                              title: ch.ans_title,
-                              u_id: UserId,
-                            })
-                        "
-                      >
-                      </b-radio>
-                      <label id="ques.ques_id" for="">{{ ch.ans_title }}</label>
-                    </b-field>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
           <div class="columns mt-4">
             <div class="column is-1">
-              <b-button class="mr-2" disabled>
-                <b-icon icon="chevron-left"> </b-icon>
-              </b-button>
               <router-link to="/forms/form2">
+                <b-button class="mr-2">
+                  <b-icon icon="chevron-left"> </b-icon>
+                </b-button>
+              </router-link>
+              <router-link to="/forms/form4">
                 <b-button>
                   <b-icon icon="chevron-right"> </b-icon>
                 </b-button>
               </router-link>
             </div>
             <div class="column is-11 is-offset-4">
-              <router-link to="/dashboard">
+              <router-link to="/startpage">
                 <b-button
                   class="back mr-2"
                   type="is-light"
-                  style="
-                    font-family: 'Kanit', sans-serif;
-                    font-weight: 400;
-                    color: #1e3a8a;
-                  "
+                  style="font-family: 'Kanit', sans-serif; font-weight: 400; color: #1E3A8A"
                   >กลับสู่หน้าหลัก</b-button
                 >
               </router-link>
@@ -126,35 +76,32 @@
                 class="assess"
                 type="is-light"
                 @click="sumResult()"
-                style="
-                  font-family: 'Kanit', sans-serif;
-                  font-weight: 400;
-                  color: #047857;
-                "
+                style="font-family: 'Kanit', sans-serif; font-weight: 400; color: #047857"
                 >ประเมินผล</b-button
               >
             </div>
           </div>
         </div>
+
         <b-modal v-model="isEditResult" :width="640">
           <div class="card">
             <header class="card-header">
               <p
                 class="card-header-title"
-                style="color: white; background-color: #1e3a8a"
+                style="color: white; background-color: #1E3A8A"
               >
-                ผลการประเมินภาวะโภชนาการ (MNA)
+                ผลการประเมินภาวะหกล้ม (Fall Risk Assessment Tool)
               </p>
             </header>
             <div class="card-content" style="background-color: #f4f4f4">
-              <div class="content has-text-left ml-6">
-                การพิจารณา (คะแนนเต็ม 14 คะแนน)
+              <div class="content has-text-lefts ml-6">
+                การพิจารณา (คะแนนเต็ม 30 คะแนน)
                 <br />
-                12 - 14 คะแนน = ภาวะโภชนาการปกติ
+                18 - 30 คะแนน = มีความเสี่ยงที่จะหกล้มสูง
                 <br />
-                8 - 11 คะแนน = มีความเสี่ยงต่อการเกิดภาวะขาดสารอาหาร
+                8 - 17 คะแนน = มีความเสี่ยงที่จะหกล้มปานกลาง
                 <br />
-                0 - 7 คะแนน = มีภาวะขาดสารอาหาร
+                0 - 7 คะแนน = มีความเสี่ยงที่จะหกล้ม ให้ทำการทดสอบ stan test
               </div>
               <div class="card">
                 <div class="card-content">
@@ -170,11 +117,15 @@
               <p
                 class="card-footer-item"
                 @click="isEditResult = false"
-                style="color: #f90000"
+                style="color: #F90000"
               >
                 ย้อนกลับ
               </p>
-              <router-link class="card-footer-item" to="/forms/form2">
+              <router-link
+                class="card-footer-item"
+                to="/forms/form4"
+                @click="Finish()"
+              >
                 <p style="color: #047857">
                   ทำแบบประเมินถัดไป
                 </p>
@@ -188,13 +139,12 @@
 </template>
 <script>
 import Sidebar from '@/components/sidebar.vue'
-import { mapState, mapMutations, mapActions } from 'vuex'
-
+import { mapState, mapMutations } from 'vuex'
 export default {
   components: {
     Sidebar,
   },
-  name: 'form1',
+  name: 'form3',
   data() {
     return {
       order: 'is-right',
@@ -202,8 +152,8 @@ export default {
       prevIcon: 'chevron-left',
       nextIcon: 'chevron-right',
       isEditResult: false,
-      ansvalue: 0,
       anstitle: '',
+      ansvalue: 0,
       resultans: '',
     }
   },
@@ -215,36 +165,39 @@ export default {
     }),
   },
   methods: {
-    ...mapMutations(['setAns', 'setMNA']),
-    ...mapActions(['getPatientById']),
+    ...mapMutations(['setAns', 'setFallRisk']),
     sumResult() {
-      // console.log(this.ans)
+      console.log(this.ans)
       this.isEditResult = true
-      this.ansvalue = 0
       this.anstitle = ''
+      this.ansvalue = 0
       this.resultans = ''
 
-      for (var i = 0; i < 7; i++) {
+      for (var i = 0; i < 28; i++) {
         this.ansvalue += this.ans[i].ans_value
       }
 
       if (this.ansvalue >= 0 && this.ansvalue <= 7) {
-        this.anstitle = 'มีภาวะขาดสารอาหาร'
-      } else if (this.ansvalue >= 8 && this.ansvalue <= 11) {
-        this.anstitle = 'มีความเสี่ยงต่อการเกิดภาวะขาดสารอาหาร'
-      } else if (this.ansvalue >= 12 && this.ansvalue <= 14) {
-        this.anstitle = 'ภาวะโภชนาการปกติ'
+        this.anstitle = 'มีความเสี่ยงที่จะหกล้ม ให้ทำการทดสอบ stan test'
+      } else if (this.ansvalue >= 8 && this.ansvalue <= 17) {
+        this.anstitle = 'มีความเสี่ยงที่จะหกล้มปานกลาง'
+      } else if (this.ansvalue >= 18 && this.ansvalue <= 30) {
+        this.anstitle = 'มีความเสี่ยงที่จะหกล้มสูง'
       }
 
       this.resultans = 'ได้คะแนน ' + this.ansvalue + ' คะแนน ' + this.anstitle
-
-      this.setMNA(this.resultans)
+      this.setFallRisk(this.resultans)
+    },
+    Finish() {
+      this.formFinish.push('FallRisk')
+      this.setFormFinish(this.formFinish)
+      console.log(this.formFinish)
     },
   },
   beforeRouteEnter(to, from, next) {
     console.log('before')
     next(vm => {
-      vm.getPatientById()
+      vm.getUserById()
     })
   },
 }
@@ -262,6 +215,9 @@ h1 {
 }
 .content {
   font-size: 1rem;
+}
+.quesContent {
+  margin-left: 60px;
 }
 .card {
   margin-top: 3vh;

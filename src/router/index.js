@@ -37,13 +37,6 @@ const routes = [
     component: () => import('../views/addPatient.vue'),
   },
   {
-    path: '/startpage',
-    name: 'startpage',
-    // meta: { guess: true },
-    meta: { login: true },
-    component: () => import('../views/startpage.vue'),
-  },
-  {
     path: '/forms/form1',
     name: 'forms/form1',
     // meta: { guess: true },
@@ -55,14 +48,14 @@ const routes = [
     name: 'forms/form2',
     // meta: { guess: true },
     meta: { login: true },
-    component: () => import('../views/forms/form2.vue'),
+    component: () => import('../views/form2.vue'),
   },
   {
     path: '/forms/form3',
     name: 'forms/form3',
     // meta: { guess: true },
     meta: { login: true },
-    component: () => import('../views/forms/form3.vue'),
+    component: () => import('../views/form3.vue'),
   },
   {
     path: '/forms/form4',

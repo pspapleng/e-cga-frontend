@@ -1,11 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import patientData from '../assets/patientData.json'
+import questions from '../assets/questions.json'
+import keep_ans from '../assets/ans.json'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    questions: questions,
+    keep_ans: keep_ans,
     patientData: [],
     login: {
       username: '',
@@ -40,8 +43,25 @@ export default new Vuex.Store({
     allPatient: [],
     patientId: '',
     patient: {},
+    MNA: '',
   },
   mutations: {
+    setMNA(state, payload) {
+      state.MNA = payload
+      console.log(payload)
+    },
+    setAns(state, payload) {
+      let idd = payload.id
+      // console.log(payload);
+      // console.log(idd);
+      let target = state.keep_ans.find(e => e.ques_id === idd)
+      // console.log(target);
+      target.ans_value = payload.value
+      target.ans_title = payload.title
+      // target.u_id = payload.u_id;
+      target.u_id = state.UserId
+      console.log(target)
+    },
     setLogin(state, payload) {
       state.login = payload
     },
