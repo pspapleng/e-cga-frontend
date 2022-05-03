@@ -291,10 +291,8 @@ export default {
   },
   computed: {
     ...mapState({
-      ...mapState({
-        form: 'questions',
-        ans: 'keep_ans',
-      }),
+      form: 'questions',
+      ans: 'keep_ans',
     }),
   },
   methods: {
@@ -330,12 +328,6 @@ export default {
       this.setOCA(this.anstitle1)
     },
   },
-  // beforeRouteEnter(to, from, next) {
-  //   console.log('before')
-  //   next(vm => {
-  //     vm.getUserById()
-  //   })
-  // },
 }
 </script>
 <style>

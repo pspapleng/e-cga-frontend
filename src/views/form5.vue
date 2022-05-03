@@ -14,110 +14,32 @@
               class="card-header-title"
               style="color: white; background-color: #1e3a8a"
             >
-              แบบประเมินช่องปากผู้สูงอายุ
+              การคัดกรองสุขภาวะทางตา
             </p>
             <div class="card-content">
               <div class="content">
                 <p>
                   <u>ข้อแนะนำ</u>
-                  การประเมินสุขภาพช่องปากผู้สูงอายุเป็นการประเมินพฤติกรรมการดูแลสุขภาพช่องปาก
-                  สภาวะเสี่ยงของสุขภาพช่องปาก
-                  และการส่งต่อเพื่อรับการรักษาทางทันตะกรรม
-                  ตามปัญหาและความต้องการของผู้สูงอายุ
+                  การคัดกรองสุขภาวะทางตาเป็นการคัดกรองการมองเห็น (ระยะไกล -
+                  ใกล้)
+                  ที่มีผลต่อการใช้ชีวิตประจำวันและลักษณะการมองเห็นผิดปกติที่เป็นปัญหาและพบบ่อยในผู้สูงอายุ
+                  ได้แก่ ต้อกระจก ต้อหิน และจอตาเสื่อม
                 </p>
               </div>
             </div>
           </div>
-          <div class="card mt-5 mr-6">
+
+          <div class="card mr-6">
             <div class="card-content">
               <div class="content">
-                <h5 style="text-align: left">
-                  <u>ส่วนที่ 1 ประเมินพฤติกรรมเสี่ยงต่อสุขภาพช่องปาก</u>
-                </h5>
-                <p>
-                  เพื่อให้ผู้สูงอายุทราบถึงพฤติกรรมการดูแลสุขภาพช่องปากของตนเองว่ามีความเสี่ยงต่อการเกิดปัญหาสุขภาพปากหรือไม่
-                  และปรับพฤติกรรมเพื่อดูแลช่องปากที่เหมาะสม
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="questions">
-            <div class="card mr-6">
-              <header class="quesHeader">
-                <u>1. ประเมินพฤติกรรมเสี่ยงต่อสุขภาพช่องปาก</u>
-              </header>
-              <div
-                class="card-content"
-                v-for="ques in form.slice(6, 7)"
-                :key="ques.ques_id"
-              >
-                <div class="quesContent content">
-                  <p>{{ ques.ques }}</p>
-                  <div v-for="ch in ques.choice" :key="ch.ans_id">
-                    <b-field>
-                      <b-radio
-                        id="ques.ques_id"
-                        v-model="ques.ans"
-                        :native-value="ch.ans_value"
-                        type="is-info"
-                        @change.native="
-                          e =>
-                            setAns({
-                              id: ques.ques_id,
-                              value: parseInt(e.target.value),
-                              title: ch.ans_title,
-                            })
-                        "
-                      >
-                      </b-radio>
-                      <label id="ques.ques_id" for="">{{ ch.ans_title }}</label>
-                    </b-field>
-                  </div>
-                </div>
                 <div
-                  class="quesContent content"
-                  v-for="ques in form.slice(7, 9)"
+                  class="questions"
+                  v-for="ques in form.slice(38, 40)"
                   :key="ques.ques_id"
                 >
-                  <p>{{ ques.ques }}</p>
-                  <div v-for="ch in ques.choice" :key="ch.ans_id">
-                    <b-field>
-                      <b-radio
-                        id="ques.ques_id"
-                        v-model="ques.ans"
-                        :native-value="ch.ans_value"
-                        type="is-info"
-                        @change.native="
-                          e =>
-                            setAns({
-                              id: ques.ques_id,
-                              value: parseInt(e.target.value),
-                              title: ch.ans_title,
-                            })
-                        "
-                      >
-                      </b-radio>
-                      <label id="ques.ques_id" for="">{{ ch.ans_title }}</label>
-                    </b-field>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="questions">
-            <div class="card mr-6">
-              <header class="quesHeader">
-                <u>2. ประเมินสภาวะเสี่ยงต่อการเกิดโรคในช่องปาก</u>
-              </header>
-              <div
-                class="card-content"
-                v-for="ques in form.slice(9, 11)"
-                :key="ques.ques_id"
-              >
-                <div class="quesContent content">
-                  <p>{{ ques.ques }}</p>
+                  <p id="ques_title">
+                    {{ ques.ques }}
+                  </p>
                   <div v-for="ch in ques.choice" :key="ch.ans_id">
                     <b-field>
                       <b-radio
@@ -145,19 +67,15 @@
 
           <div class="card mr-6">
             <div class="card-content">
-              <p><u>ส่วนที่ 2 ประเมินสุขภาพช่องปากผู้สูงอายุ</u></p>
-            </div>
-          </div>
-
-          <div
-            class="questions"
-            v-for="ques in form.slice(11, 18)"
-            :key="ques.ques_id"
-          >
-            <div class="card mr-6">
-              <div class="card-content">
-                <div class="partTwoQues content">
-                  <p>{{ ques.ques }}</p>
+              <div class="content">
+                <div
+                  class="questions"
+                  v-for="ques in form.slice(40, 42)"
+                  :key="ques.ques_id"
+                >
+                  <p id="ques_title">
+                    {{ ques.ques }}
+                  </p>
                   <div v-for="ch in ques.choice" :key="ch.ans_id">
                     <b-field>
                       <b-radio
@@ -182,14 +100,87 @@
               </div>
             </div>
           </div>
+
+          <div class="card mr-6">
+            <div class="card-content">
+              <div class="content">
+                <div
+                  class="questions"
+                  v-for="ques in form.slice(42, 44)"
+                  :key="ques.ques_id"
+                >
+                  <p id="ques_title">
+                    {{ ques.ques }}
+                  </p>
+                  <div v-for="ch in ques.choice" :key="ch.ans_id">
+                    <b-field>
+                      <b-radio
+                        id="ques.ques_id"
+                        v-model="ques.ans"
+                        :native-value="ch.ans_value"
+                        type="is-info"
+                        @change.native="
+                          e =>
+                            setAns({
+                              id: ques.ques_id,
+                              value: parseInt(e.target.value),
+                              title: ch.ans_title,
+                            })
+                        "
+                      >
+                      </b-radio>
+                      <label id="ques.ques_id" for="">{{ ch.ans_title }}</label>
+                    </b-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card mr-6">
+            <div class="card-content">
+              <div class="content">
+                <div
+                  class="questions"
+                  v-for="ques in form.slice(44, 46)"
+                  :key="ques.ques_id"
+                >
+                  <p id="ques_title">
+                    {{ ques.ques }}
+                  </p>
+                  <div v-for="ch in ques.choice" :key="ch.ans_id">
+                    <b-field>
+                      <b-radio
+                        id="ques.ques_id"
+                        v-model="ques.ans"
+                        :native-value="ch.ans_value"
+                        type="is-info"
+                        @change.native="
+                          e =>
+                            setAns({
+                              id: ques.ques_id,
+                              value: parseInt(e.target.value),
+                              title: ch.ans_title,
+                            })
+                        "
+                      >
+                      </b-radio>
+                      <label id="ques.ques_id" for="">{{ ch.ans_title }}</label>
+                    </b-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="columns mt-4">
             <div class="column is-1">
-              <router-link to="/forms/form1">
+              <router-link to="/forms/form4">
                 <b-button class="mr-2">
                   <b-icon icon="chevron-left"> </b-icon>
                 </b-button>
               </router-link>
-              <router-link to="/forms/form3">
+              <router-link to="/forms/form6">
                 <b-button>
                   <b-icon icon="chevron-right"> </b-icon>
                 </b-button>
@@ -200,11 +191,7 @@
                 <b-button
                   class="back mr-2"
                   type="is-light"
-                  style="
-                    font-family: 'Kanit', sans-serif;
-                    font-weight: 400;
-                    color: #1e3a8a;
-                  "
+                  style="font-family: 'Kanit', sans-serif; font-weight: 400; color: #1E3A8A"
                   >กลับสู่หน้าหลัก</b-button
                 >
               </router-link>
@@ -212,38 +199,34 @@
                 class="assess"
                 type="is-light"
                 @click="sumResult()"
-                style="
-                  font-family: 'Kanit', sans-serif;
-                  font-weight: 400;
-                  color: #047857;
-                "
+                style="font-family: 'Kanit', sans-serif; font-weight: 400; color: #047857"
                 >ประเมินผล</b-button
               >
             </div>
           </div>
         </div>
+
         <b-modal v-model="isEditResult" :width="640">
           <div class="card">
             <header class="card-header">
               <p
                 class="card-header-title"
-                style="color: white; background-color: #1e3a8a"
+                style="color: white; background-color: #1E3A8A"
               >
-                ผลการประเมินช่องปากผู้สูงอายุ
+                ผลการประเมินสุขภาวะทางตา
               </p>
             </header>
             <div class="card-content" style="background-color: #f4f4f4">
-              <div class="content has-text-left ml-6">
-                การแปลผล
-                หากมีความผิดปกติหรือมีความจำเป็นที่จะต้องได้รับการรักษา<br />ในข้อ
-                1 - 5 ของแบบประเมินส่วนที่ 2
-                ให้ทำการส่งต่อเพื่อเข้ารับบริการทางทันตกรรม<br />จากทันตบุคลากร
+              <div class="content has-text-center">
+                การพิจารณา
+                <br />
+                ถ้าตอบ ใช่ ข้อใดข้อหนึ่ง แสดงว่า มีปัญหาการมองเห็น
               </div>
               <div class="card">
                 <div class="card-content">
                   <div class="content">
                     <p class="has-text-centered">
-                      {{ anstitle1 }}
+                      {{ anstitle }}
                     </p>
                   </div>
                 </div>
@@ -253,13 +236,13 @@
               <p
                 class="card-footer-item"
                 @click="isEditResult = false"
-                style="color: #f90000"
+                style="color: #F90000"
               >
                 ย้อนกลับ
               </p>
               <router-link
                 class="card-footer-item"
-                to="/forms/form3"
+                to="/forms/form6"
                 @click="Finish()"
               >
                 <p style="color: #047857">
@@ -275,12 +258,12 @@
 </template>
 <script>
 import Sidebar from '@/components/sidebar.vue'
-import { mapState, mapMutations, mapActions } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 export default {
   components: {
     Sidebar,
   },
-  name: 'Patientlist',
+  name: 'form5',
   data() {
     return {
       order: 'is-right',
@@ -288,62 +271,59 @@ export default {
       prevIcon: 'chevron-left',
       nextIcon: 'chevron-right',
       isEditResult: false,
-      anstitle1: '',
+      anstitle: '',
     }
   },
   computed: {
     ...mapState({
-      count: state => state.count,
-      form: 'json',
+      form: 'questions',
       ans: 'keep_ans',
-      user: 'user',
     }),
-    ...mapState(['formFinish']),
   },
   methods: {
-    ...mapMutations(['setAns', 'setFormFinish', 'setOCA']),
-    ...mapActions(['getUserById']),
+    ...mapMutations(['setAns', 'setEYES']),
     sumResult() {
       console.log(this.ans)
       this.isEditResult = true
-      this.anstitle1 = ''
+      this.anstitle = ''
 
-      if (this.ans[11].ans_value == 1) {
-        this.anstitle1 += ' เนื้อเยื่อในช่องปากผิดปกติ'
+      if (this.ans[38].ans_value == 1) {
+        this.anstitle += ' นับนิ้วในระยะ 3 เมตรได้ถูกต้อง น้อยกว่า 3 ใน 4 ครั้ง'
       }
-      if (this.ans[12].ans_value == 1) {
-        this.anstitle1 += ' เหงือกและอวัยวะปริทันต์ผิดปกติ'
+      if (this.ans[39].ans_value == 1) {
+        this.anstitle += ' อ่านหนังสือพิมพ์หน้าหนึ่งในระยะ 1 ฟุต ไม่ได้'
       }
-      if (this.ans[13].ans_value == 1) {
-        this.anstitle1 += ' ฟันผิดปกติ'
+      if (this.ans[40].ans_value == 1) {
+        this.anstitle += ' ตาข้างซ้ายมัวคล้ายหมอกบัง'
       }
-      if (this.ans[14].ans_value == 1) {
-        this.anstitle1 += ' ปัญหาการเคี้ยวอาหารผิดปกติ'
+      if (this.ans[41].ans_value == 1) {
+        this.anstitle += ' ตาข้างขวามัวคล้ายหมอกบัง'
       }
-      if (this.ans[15].ans_value == 1) {
-        this.anstitle1 += ' ฟันเทียมผิดปกติ'
+      if (this.ans[42].ans_value == 1) {
+        this.anstitle += ' ตาข้างซ้ายมองเห็นชัดแต่ตรงกลาง'
+      }
+      if (this.ans[43].ans_value == 1) {
+        this.anstitle += ' ตาข้างขวามองเห็นชัดแต่ตรงกลาง'
+      }
+      if (this.ans[44].ans_value == 1) {
+        this.anstitle += ' ตาข้างซ้ายมองเห็นจุดดำกลางภาพ'
+      }
+      if (this.ans[45].ans_value == 1) {
+        this.anstitle += ' ตาข้างขวามองเห็นจุดดำกลางภาพ'
       } else if (
-        this.ans[11].ans_value == 0 &&
-        this.ans[12].ans_value == 0 &&
-        this.ans[13].ans_value == 0 &&
-        this.ans[14].ans_value == 0 &&
-        this.ans[15].ans_value == 0
+        this.ans[38].ans_value == 0 &&
+        this.ans[39].ans_value == 0 &&
+        this.ans[40].ans_value == 0 &&
+        this.ans[41].ans_value == 0 &&
+        this.ans[42].ans_value == 0 &&
+        this.ans[43].ans_value == 0 &&
+        this.ans[44].ans_value == 0 &&
+        this.ans[45].ans_value == 0
       ) {
-        this.anstitle1 += 'ไม่มีความผิดปกติด้านสุขภาพช่องปาก'
+        this.anstitle += 'สุขภาวะทางตาปกติ'
       }
-      this.setOCA(this.anstitle1)
+      this.setEYES(this.anstitle)
     },
-    Finish() {
-      this.formFinish.push('OCA')
-      this.setFormFinish(this.formFinish)
-      console.log(this.formFinish)
-    },
-  },
-  beforeRouteEnter(to, from, next) {
-    console.log('before')
-    next(vm => {
-      vm.getUserById()
-    })
   },
 }
 </script>
@@ -396,13 +376,5 @@ p {
 }
 #nextAss {
   margin-bottom: 3vh;
-}
-.quesHeader {
-  margin-top: 2vh;
-  margin-left: 2vw;
-  text-align: left;
-}
-.partTwoQues {
-  margin-left: 1vw;
 }
 </style>

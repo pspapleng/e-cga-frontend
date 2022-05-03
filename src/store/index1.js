@@ -414,7 +414,7 @@ export default new Vuex.Store({
           return Promise.reject(err)
         })
     },
-    getUserById({ state, commit }) {
+    getPatientById({ state, commit }) {
       return Vue.axios
         .get(`http://localhost:3000/api/users/${state.UserId}`)
         .then(user => {

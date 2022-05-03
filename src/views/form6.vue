@@ -9,23 +9,37 @@
         </div>
 
         <div class="column is-11">
-          <div class="assName card mt-6 ml-1 mr-6">
-            <p
-              class="card-header-title"
-              style="color: white; background-color: #1E3A8A"
-            >
-              แบบประเมินภาวะหกล้ม (Fall Risk Assessment Tool)
-            </p>
+          <div class="assName card mr-6">
+            <header class="card-header">
+              <p
+                class="card-header-title"
+                style="color: white; background-color: #1E3A8A"
+              >
+                การคัดกรองโรคข้อเข่าเสื่อมทางคลินิก
+              </p>
+            </header>
+            <div class="card-content">
+              <div class="content">
+                <p>
+                  <u>ข้อแนะนำ</u>
+                  แบบคัดกรองโรคข้อเข่าเสื่อมทางคลินิกใช้ประเมินผู้สูงอายุที่มีอาการปวดเข่าหพื่อค้นหาโอกาสที่จะเป็นโรคข้อเข่าเสื่อม
+                  และส่งต่อแพทย์เพื่อตรวจวินิจฉัยและทำการรักษา
+                </p>
+              </div>
+            </div>
           </div>
+
           <div
             class="questions"
-            v-for="ques in form.slice(18, 28)"
+            v-for="ques in form.slice(157, 162)"
             :key="ques.ques_id"
           >
             <div class="card mr-6">
               <div class="card-content">
                 <div class="content">
-                  <p>{{ ques.ques }}</p>
+                  <p id="ques_title">
+                    {{ ques.ques }}
+                  </p>
                   <div v-for="ch in ques.choice" :key="ch.ans_id">
                     <b-field>
                       <b-radio
@@ -52,19 +66,19 @@
           </div>
           <div class="columns mt-4">
             <div class="column is-1">
-              <router-link to="/forms/form2">
+              <router-link to="/forms/form5">
                 <b-button class="mr-2">
                   <b-icon icon="chevron-left"> </b-icon>
                 </b-button>
               </router-link>
-              <router-link to="/forms/form4">
+              <router-link to="/forms/form7">
                 <b-button>
                   <b-icon icon="chevron-right"> </b-icon>
                 </b-button>
               </router-link>
             </div>
             <div class="column is-11 is-offset-4">
-              <router-link to="/startpage">
+              <router-link to="/dashboard">
                 <b-button
                   class="back mr-2"
                   type="is-light"
@@ -90,24 +104,20 @@
                 class="card-header-title"
                 style="color: white; background-color: #1E3A8A"
               >
-                ผลการประเมินภาวะหกล้ม (Fall Risk Assessment Tool)
+                ผลการประเมินการคัดกรองโรคข้อเข่าเสื่อมทางคลินิก
               </p>
             </header>
             <div class="card-content" style="background-color: #f4f4f4">
-              <div class="content has-text-lefts ml-6">
-                การพิจารณา (คะแนนเต็ม 30 คะแนน)
+              <div class="content has-text-left ml-6">
+                การพิจารณา
                 <br />
-                18 - 30 คะแนน = มีความเสี่ยงที่จะหกล้มสูง
-                <br />
-                8 - 17 คะแนน = มีความเสี่ยงที่จะหกล้มปานกลาง
-                <br />
-                0 - 7 คะแนน = มีความเสี่ยงที่จะหกล้ม ให้ทำการทดสอบ stan test
+                ผู้สูงอายุมีการตอบว่าใช่ 2 ข้อ = มีโอกาสเป็นโรคข้อเข่าเสื่อม
               </div>
               <div class="card">
                 <div class="card-content">
                   <div class="content">
                     <p class="has-text-centered">
-                      ได้คะแนน {{ ansvalue }} คะแนน {{ anstitle }}
+                      {{ anstitle }}
                     </p>
                   </div>
                 </div>
@@ -123,7 +133,7 @@
               </p>
               <router-link
                 class="card-footer-item"
-                to="/forms/form4"
+                to="/forms/form7"
                 @click="Finish()"
               >
                 <p style="color: #047857">
@@ -139,12 +149,12 @@
 </template>
 <script>
 import Sidebar from '@/components/sidebar.vue'
-import { mapState, mapMutations, mapActions } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 export default {
   components: {
     Sidebar,
   },
-  name: 'Patientlist',
+  name: 'form6',
   data() {
     return {
       order: 'is-right',
@@ -153,55 +163,37 @@ export default {
       nextIcon: 'chevron-right',
       isEditResult: false,
       anstitle: '',
-      ansvalue: 0,
-      resultans: '',
+      countans: 0,
     }
   },
   computed: {
     ...mapState({
-      count: state => state.count,
-      form: 'json',
+      form: 'questions',
       ans: 'keep_ans',
-      user: 'user',
     }),
-    ...mapState(['formFinish']),
   },
   methods: {
-    ...mapMutations(['setAns', 'setFormFinish', 'setFallRisk']),
-    ...mapActions(['getUserById']),
+    ...mapMutations(['setAns', 'setKNEE']),
     sumResult() {
+      this.countans = 0
+      this.anstitle = ''
       console.log(this.ans)
       this.isEditResult = true
-      this.anstitle = ''
-      this.ansvalue = 0
-      this.resultans = ''
-
-      for (var i = 0; i < 28; i++) {
-        this.ansvalue += this.ans[i].ans_value
+      for (var i = 157; i < 162; i++) {
+        if (this.ans[i].ans_value == 1) {
+          this.countans += 1
+        }
       }
 
-      if (this.ansvalue >= 0 && this.ansvalue <= 7) {
-        this.anstitle = 'มีความเสี่ยงที่จะหกล้ม ให้ทำการทดสอบ stan test'
-      } else if (this.ansvalue >= 8 && this.ansvalue <= 17) {
-        this.anstitle = 'มีความเสี่ยงที่จะหกล้มปานกลาง'
-      } else if (this.ansvalue >= 18 && this.ansvalue <= 30) {
-        this.anstitle = 'มีความเสี่ยงที่จะหกล้มสูง'
+      if (this.countans >= 2) {
+        this.anstitle =
+          'มีโอกาสที่จะเป็นโรคข้อเข่าเสื่อม ส่งต่อแพทย์ตรวจวินิจฉัยเพื่อยืนยันผลและทำการรักษา'
+      } else {
+        this.anstitle = 'ไม่มีความเสี่ยงที่จะเป็นโรคข้อเข่าเสื่อม'
       }
 
-      this.resultans = 'ได้คะแนน ' + this.ansvalue + ' คะแนน ' + this.anstitle
-      this.setFallRisk(this.resultans)
+      this.setKNEE(this.anstitle)
     },
-    Finish() {
-      this.formFinish.push('FallRisk')
-      this.setFormFinish(this.formFinish)
-      console.log(this.formFinish)
-    },
-  },
-  beforeRouteEnter(to, from, next) {
-    console.log('before')
-    next(vm => {
-      vm.getUserById()
-    })
   },
 }
 </script>
@@ -218,6 +210,7 @@ h1 {
 }
 .content {
   font-size: 1rem;
+  text-align: left;
 }
 .quesContent {
   margin-left: 60px;

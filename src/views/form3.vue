@@ -64,7 +64,7 @@
               </router-link>
             </div>
             <div class="column is-11 is-offset-4">
-              <router-link to="/startpage">
+              <router-link to="/dashboard">
                 <b-button
                   class="back mr-2"
                   type="is-light"
@@ -121,11 +121,7 @@
               >
                 ย้อนกลับ
               </p>
-              <router-link
-                class="card-footer-item"
-                to="/forms/form4"
-                @click="Finish()"
-              >
+              <router-link class="card-footer-item" to="/forms/form4">
                 <p style="color: #047857">
                   ทำแบบประเมินถัดไป
                 </p>
@@ -188,17 +184,6 @@ export default {
       this.resultans = 'ได้คะแนน ' + this.ansvalue + ' คะแนน ' + this.anstitle
       this.setFallRisk(this.resultans)
     },
-    Finish() {
-      this.formFinish.push('FallRisk')
-      this.setFormFinish(this.formFinish)
-      console.log(this.formFinish)
-    },
-  },
-  beforeRouteEnter(to, from, next) {
-    console.log('before')
-    next(vm => {
-      vm.getUserById()
-    })
   },
 }
 </script>

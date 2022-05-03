@@ -44,23 +44,41 @@ export default new Vuex.Store({
     patientId: '',
     patient: {},
     MNA: '',
+    OCA: '',
+    FallRisk: '',
+    TUGT: '',
+    EYES: '',
+    KNEE: '',
+    OSTA: '',
   },
   mutations: {
     setMNA(state, payload) {
       state.MNA = payload
-      console.log(payload)
+    },
+    setOCA(state, payload) {
+      state.OCA = payload
+    },
+    setFallRisk(state, payload) {
+      state.FallRisk = payload
+    },
+    setTUGT(state, payload) {
+      state.TUGT = payload
+    },
+    setEYES(state, payload) {
+      state.EYES = payload
+    },
+    setKNEE(state, payload) {
+      state.KNEE = payload
+    },
+    setOSTA(state, payload) {
+      state.OSTA = payload
     },
     setAns(state, payload) {
       let idd = payload.id
-      // console.log(payload);
-      // console.log(idd);
       let target = state.keep_ans.find(e => e.ques_id === idd)
-      // console.log(target);
       target.ans_value = payload.value
       target.ans_title = payload.title
-      // target.u_id = payload.u_id;
-      target.u_id = state.UserId
-      console.log(target)
+      target.u_id = state.patientId
     },
     setLogin(state, payload) {
       state.login = payload
@@ -315,6 +333,35 @@ export default new Vuex.Store({
         })
         .catch(err => {
           return Promise.reject(err)
+        })
+    },
+    createResult({ state, commit }) {
+      const bodyAdapter = original => ({
+        firstName: original.firstName,
+        lastName: original.lastName,
+        dob: original.dob,
+        gender: original.gender.toLowerCase(),
+        height: +original.height || 0,
+        weight: +original.weight || 0,
+        bmi: +parseFloat(
+          +original.weight / Math.pow(+original.height / 100, 2),
+        ).toFixed(0),
+        waistline: +original.waistline,
+        fallHistory: +original.fall_history,
+      })
+      return Vue.axios
+        .post(
+          `https://my-app-krmt9.ondigitalocean.app/api/result`,
+          bodyAdapter(state.createPatient),
+        )
+        .then(res => {
+          console.log(res)
+          commit('resetCreatePatient')
+          return Promise.resolve()
+        })
+        .catch(e => {
+          console.log(e.response.data)
+          return Promise.reject(e.response.data)
         })
     },
   },

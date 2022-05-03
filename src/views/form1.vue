@@ -39,7 +39,7 @@
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
                               title: ch.ans_title,
-                              u_id: UserId,
+                              u_id: patient,
                             })
                         "
                       >
@@ -85,7 +85,7 @@
                               id: ques.ques_id,
                               value: parseInt(e.target.value),
                               title: ch.ans_title,
-                              u_id: UserId,
+                              u_id: patient,
                             })
                         "
                       >
