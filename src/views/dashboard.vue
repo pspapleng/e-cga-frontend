@@ -875,26 +875,26 @@ export default {
     //   console.log(this.result_id)
     // },
 
-    // DeleteUser(user, index) {
-    //   this.setPatientId(user.u_id)
-    //   let confirmResult = confirm('are you sure!?')
-    //   if (confirmResult) {
-    //     this.deleteUser()
-    //       .then(res => {
-    //         console.log(res)
-    //         var num = this.patientList.length
-    //         for (var i = 0; i < num; i++) {
-    //           if (parseInt(index) === parseInt(this.patientList[i].hn)) {
-    //             this.patientList.splice(i, 1)
-    //           }
-    //         }
-    //       })
-    //       .catch(err => {
-    //         console.log(err)
-    //         alert(err.response.data.message)
-    //       })
-    //   }
-    // },
+    DeleteUser(user, index) {
+      this.setPatientId(user.id)
+      let confirmResult = confirm('are you sure!?')
+      if (confirmResult) {
+        this.deleteUser()
+          .then(res => {
+            console.log(res)
+            var num = this.patientList.length
+            for (var i = 0; i < num; i++) {
+              if (parseInt(index) === parseInt(this.patientList[i].hn)) {
+                this.patientList.splice(i, 1)
+              }
+            }
+          })
+          .catch(err => {
+            console.log(err)
+            alert(err.response.data.message)
+          })
+      }
+    },
     editHistory({ row: data }) {
       console.log(data)
       this.editFirstName = data.first_name

@@ -285,6 +285,18 @@ export default new Vuex.Store({
           return Promise.reject(err)
         })
     },
+    deleteUser({ state }) {
+      return Vue.axios
+        .delete(
+          `https://my-app-krmt9.ondigitalocean.app/api/patient/${state.patientId}`,
+        )
+        .then(res => {
+          return Promise.resolve(res)
+        })
+        .catch(err => {
+          return Promise.reject(err)
+        })
+    },
   },
   modules: {},
 })
