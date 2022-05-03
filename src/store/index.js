@@ -260,6 +260,31 @@ export default new Vuex.Store({
           commit('setPatient', patientAdapter(data.data))
         })
     },
+    editUser({ state }, payload) {
+      const toJSON = p => ({
+        firstName: p.first_name,
+        lastName: p.last_name,
+        dob: new Date(p.dob).toISOString(),
+        gender: p.gender.toLowerCase(),
+        height: +p.height,
+        weight: +p.weight,
+        bmi: +parseFloat(+p.bmi).toFixed(0),
+        waistline: +p.waistline,
+        fallHistory: +p.fall_history,
+      })
+
+      return Vue.axios
+        .patch(
+          `https://my-app-krmt9.ondigitalocean.app/api/patient/${state.patientId}`,
+          toJSON(payload),
+        )
+        .then(res => {
+          return Promise.resolve(res)
+        })
+        .catch(err => {
+          return Promise.reject(err)
+        })
+    },
   },
   modules: {},
 })
