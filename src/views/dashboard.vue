@@ -181,7 +181,11 @@
                   icon-right="pen"
                   icon-pack="fas"
                   size="is-small"
-                  @click="open(user.row.id), (openEditPatient = true)"
+                  @click="
+                    open(user.row.id),
+                      (openEditPatient = true),
+                      editHistory(user)
+                  "
                 />
               </b-table-column>
 
@@ -831,7 +835,7 @@ export default {
     ...mapState({
       patientList: 'patientData',
     }),
-    ...mapState(['patient']),
+    ...mapState(['patient', 'who_login']),
   },
   methods: {
     ...mapMutations(['setSearch', 'setPatientId', 'setResultId']),
@@ -891,58 +895,60 @@ export default {
     //       })
     //   }
     // },
-    // editHistory(data) {
-    //   this.editFirstName = data.first_name
-    //   this.editLastName = data.last_name
-    //   this.editGender = data.gender
-    //   this.editDOB = new Date(data.dob)
-    //   this.editWeight = data.weight
-    //   this.editHeight = data.height
-    //   this.editWaistline = data.waistline
-    //   this.editFallHistory = data.fall_history
-    //   this.setPatientId(data.id)
-    // },
-    // saveHistory(histy) {
-    //   this.$v.$touch()
+    editHistory({ row: data }) {
+      console.log(data)
+      this.editFirstName = data.first_name
+      this.editLastName = data.last_name
+      this.editGender = data.gender
+      this.editDOB = new Date(data.dob)
+      this.editWeight = data.weight || 0
+      this.editHeight = data.height || 0
+      this.editWaistline = data.waistline || 0
+      this.editFallHistory = data.fall_history || 0
+      this.setPatientId(data.id)
+    },
+    saveHistory(histy) {
+      this.$v.$touch()
 
-    //   // เช็คว่าในฟอร์มไม่มี error
-    //   if (!this.$v.$invalid) {
-    //     const payload = {
-    //       first_name: this.editFirstName,
-    //       last_name: this.editLastName,
-    //       gender: this.editGender,
-    //       dob: this.editDOB.toISOString().substring(0, 10),
-    //       weight: this.editWeight,
-    //       height: this.editHeight,
-    //       bmi: parseFloat(
-    //         this.editWeight / Math.pow(this.editHeight / 100, 2),
-    //       ).toFixed(2),
-    //       waistline: this.editWaistline,
-    //       fall_history: this.editFallHistory,
-    //       n_id: this.who_login.n_id,
-    //     }
-    //     this.editUser(payload)
-    //       .then(res => {
-    //         console.log(res)
-    //         histy.first_name = this.editFirstName
-    //         histy.last_name = this.editLastName
-    //         histy.gender = this.editGender
-    //         histy.dob = this.editDOB
-    //         histy.weight = this.editWeight
-    //         histy.height = this.editHeight
-    //         histy.bmi = payload.bmi
-    //         histy.waistline = this.editWaistline
-    //         histy.fall_history = this.editFallHistory
-    //         this.openEditPatient = !this.openEditPatient
-    //       })
-    //       .catch(err => {
-    //         console.log(err)
-    //         alert('ERROR')
-    //       })
-    //   } else {
-    //     alert('โปรดกรอกข้อมูลให้ถูกต้องทุกช่อง')
-    //   }
-    // },
+      // เช็คว่าในฟอร์มไม่มี error
+      if (!this.$v.$invalid) {
+        const payload = {
+          first_name: this.editFirstName,
+          last_name: this.editLastName,
+          gender: this.editGender,
+          dob: this.editDOB.toISOString().substring(0, 10),
+          weight: this.editWeight,
+          height: this.editHeight,
+          bmi: parseFloat(
+            this.editWeight / Math.pow(this.editHeight / 100, 2),
+          ).toFixed(2),
+          waistline: this.editWaistline,
+          fall_history: this.editFallHistory,
+          n_id: this.who_login.id,
+        }
+
+        this.editUser(payload)
+          .then(() => {
+            histy.first_name = this.editFirstName
+            histy.last_name = this.editLastName
+            histy.gender = this.editGender
+            histy.dob = this.editDOB
+            histy.weight = this.editWeight
+            histy.height = this.editHeight
+            histy.bmi = payload.bmi
+            histy.waistline = this.editWaistline
+            histy.fall_history = this.editFallHistory
+            this.openEditPatient = !this.openEditPatient
+            this.getAllPatient()
+          })
+          .catch(err => {
+            console.log(err)
+            alert('ERROR')
+          })
+      } else {
+        alert('โปรดกรอกข้อมูลให้ถูกต้องทุกช่อง')
+      }
+    },
   },
 
   beforeRouteEnter(to, from, next) {
