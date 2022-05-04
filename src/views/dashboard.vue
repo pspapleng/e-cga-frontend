@@ -123,21 +123,6 @@
                   </span>
                 </router-link>
 
-                <span
-                  class="tag is-warning is-light"
-                  @click="seeResult(user.row)"
-                  v-if="
-                    user.row.result != null &&
-                      today.getFullYear() -
-                        new Date(user.row.result_date).getFullYear() >=
-                        1
-                  "
-                >
-                  ประเมินเมื่อ
-                  {{ new Date(user.row.result_date).toLocaleDateString() }}
-                  <router-link to="/results" />
-                </span>
-
                 <span class="tag" v-if="user.row.result == null" disabled>
                   ไม่มีข้อมูลผลประเมิน
                 </span>
