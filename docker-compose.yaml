@@ -1,0 +1,8 @@
+version: '3.7'
+
+
+services:
+  fe:
+    image: ghcr.io/pspapleng/e-cga-api:latest
+    ports:
+      - 80:80
