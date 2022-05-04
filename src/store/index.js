@@ -2,13 +2,15 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import questions from '../assets/questions.json'
 import keep_ans from '../assets/ans.json'
-
+import * as dayjs from 'dayjs'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     questions: questions,
     keep_ans: keep_ans,
+    result: [],
+    result_id: null,
     patientData: [],
     login: {
       username: '',
@@ -52,6 +54,12 @@ export default new Vuex.Store({
     OSTA: '',
   },
   mutations: {
+    setResultId(state, payload) {
+      state.result_id = payload
+    },
+    setAllResult(state, payload) {
+      state.result = payload
+    },
     setMNA(state, payload) {
       state.MNA = payload
     },
@@ -336,24 +344,29 @@ export default new Vuex.Store({
         })
     },
     createResult({ state, commit }) {
-      const bodyAdapter = original => ({
-        firstName: original.firstName,
-        lastName: original.lastName,
-        dob: original.dob,
-        gender: original.gender.toLowerCase(),
-        height: +original.height || 0,
-        weight: +original.weight || 0,
-        bmi: +parseFloat(
-          +original.weight / Math.pow(+original.height / 100, 2),
-        ).toFixed(0),
-        waistline: +original.waistline,
-        fallHistory: +original.fall_history,
-      })
+      /*
+          MNA: '',
+    OCA: '',
+    FallRisk: '',
+    TUGT: '',
+    EYES: '',
+    KNEE: '',
+    OSTA: '',
+     */
+      const body = {
+        result: {
+          MNA: state.MNA,
+          OCA: state.OCA,
+          FallRisk: state.FallRisk,
+          TUGT: state.TUGT,
+          EYES: state.EYES,
+          KNEE: state.KNEE,
+          OSTA: state.OSTA,
+        },
+        patientId: state.patientId,
+      }
       return Vue.axios
-        .post(
-          `https://my-app-krmt9.ondigitalocean.app/api/result`,
-          bodyAdapter(state.createPatient),
-        )
+        .post(`https://my-app-krmt9.ondigitalocean.app/api/result`, body)
         .then(res => {
           console.log(res)
           commit('resetCreatePatient')
@@ -362,6 +375,30 @@ export default new Vuex.Store({
         .catch(e => {
           console.log(e.response.data)
           return Promise.reject(e.response.data)
+        })
+    },
+    getAllResultByUid({ commit }, id) {
+      // console.log("in action", state.UserId);
+      return Vue.axios
+        .get(`https://my-app-krmt9.ondigitalocean.app/api/result`, {
+          params: {
+            patientId: id,
+          },
+        })
+        .then(result => {
+          const resultAdaptee = result.data.map(e => ({
+            result_id: e.id,
+            result_date: dayjs(e.createdAt).toDate(),
+            result: e.result,
+            u_fname: e.patient.firstName,
+            u_lname: e.patient.lastName,
+            n_fname: e.patient.user.firstName,
+            n_lname: e.patient.user.lastName,
+          }))
+          console.log(resultAdaptee)
+          commit('setAllResult', resultAdaptee)
+          commit('setResultId', result.data[0].id)
+          return Promise.resolve()
         })
     },
   },

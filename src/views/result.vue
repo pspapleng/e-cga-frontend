@@ -206,7 +206,7 @@ export default {
     console.log('before')
     next(vm => {
       console.log('before router enter')
-      vm.getAllResultByUid()
+      vm.getAllResultByUid(to.params.id)
     })
   },
 }

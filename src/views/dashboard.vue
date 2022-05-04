@@ -107,7 +107,7 @@
                 width="120"
                 v-slot="user"
               >
-                <router-link to="/results">
+                <router-link :to="`/results/${user.row.id}`">
                   <span
                     class="tag is-success is-light"
                     @click="seeResult(user.row)"
