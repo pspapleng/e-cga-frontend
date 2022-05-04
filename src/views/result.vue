@@ -65,12 +65,7 @@
                       {{
                         result_now.result.OCA
                       }}
-                      <li class="form_title">
-                        แบบประเมินภาวะกลั้นปัสสาวะไม่อยู่
-                      </li>
-                      {{
-                        result_now.result.UIA
-                      }}
+
                       <li class="form_title">แบบประเมินสุขภาวะทางตา</li>
                       {{
                         result_now.result.EYES
@@ -81,16 +76,7 @@
                       {{
                         result_now.result.KNEE
                       }}
-                      <li class="form_title">
-                        แบบประเมินผู้สูงอายุที่ต้องได้รับการดูแลระยะยาว
-                      </li>
-                      {{
-                        result_now.result.LTTA
-                      }}
-                      <li class="form_title">แบบประเมิน MMSE - Thai 2002</li>
-                      {{
-                        result_now.result.MMSE
-                      }}
+
                       <li class="form_title">
                         แบบประเมินความเสี่ยงต่อโรคกระดูกพรุน
                       </li>
@@ -103,24 +89,7 @@
                       {{
                         result_now.result.TUGT
                       }}
-                      <li class="form_title">
-                        แบบประเมินปัญหาการนอน
-                      </li>
-                      {{
-                        result_now.result.SLEEP
-                      }}
-                      <li class="form_title">
-                        แบบประเมินคัดกรองความจำเสื่อมสำหรับผู้สูงอายุไทย
-                      </li>
-                      {{
-                        result_now.result.IQCODE
-                      }}
-                      <li class="form_title">
-                        แบบประเมินความเศร้าในผู้สูงอายุไทย 15 ข้อ
-                      </li>
-                      {{
-                        result_now.result.TGDS15
-                      }}
+
                       <li class="form_title">
                         แบบประเมินภาวะหกล้ม (Fall Risk Assessment Tool)
                       </li>

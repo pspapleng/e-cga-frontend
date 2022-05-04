@@ -35,26 +35,7 @@
         <label for="">แบบประเมินสุขภาวะทางตา</label>
       </a>
     </div>
-    <div class="assChoice">
-      <a href="tgdsAss">
-        <i class="fas fa-check-circle" id="checkIcon"></i>
-        <label for="">แบบประเมินความเศร้าในผู้สูงอายุไทย 15 ข้อ</label>
-      </a>
-    </div>
-    <div class="assChoice">
-      <a href="iqCode">
-        <i class="fas fa-check-circle" id="checkIcon"></i>
-        <label for=""
-          >แบบประเมินคัดกรองความจำเสื่อม <br />สำหรับผู้สูงอายุไทย</label
-        >
-      </a>
-    </div>
-    <div class="assChoice">
-      <a href="mmseAss">
-        <i class="fas fa-check-circle" id="checkIcon"></i>
-        <label for="">แบบประเมิน MMSE - Thai 2002</label>
-      </a>
-    </div>
+
     <div class="assChoice">
       <a href="longtermAss">
         <i class="fas fa-check-circle" id="checkIcon"></i>

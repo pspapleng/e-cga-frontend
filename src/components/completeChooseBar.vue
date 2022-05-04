@@ -43,54 +43,7 @@
           <span class="name-title mx-1">แบบประเมินการคัดกรองสุขภาวะทางตา</span>
         </router-link>
       </div>
-      <div class="name mt-2">
-        <b-icon pack="fas" icon="check-circle" style="color: #047857;">
-        </b-icon>
-        <router-link to="/results/result6">
-          <span class="name-title mx-1"
-            >แบบประเมินความเศร้าในผู้สูงอายุไทย 15 ข้อ (TGDS-15)*</span
-          >
-        </router-link>
-      </div>
-      <div class="name mt-2">
-        <b-icon pack="fas" icon="check-circle" style="color: #047857;">
-        </b-icon>
-        <router-link to="/results/result7">
-          <span class="name-title mx-1"
-            >แบบประเมินคัดกรองความจำเสื่อมสำหรับผู้สูงอายุไทย (IQCODE)</span
-          >
-        </router-link>
-      </div>
-      <div class="name mt-2">
-        <b-icon pack="fas" icon="check-circle" style="color: #047857;">
-        </b-icon>
-        <router-link to="/results/result8">
-          <span class="name-title mx-1">แบบประเมิน MMSE – Thai 2002</span>
-        </router-link>
-      </div>
-      <div class="name mt-2">
-        <b-icon pack="fas" icon="check-circle" style="color: #047857;">
-        </b-icon>
-        <router-link to="/results/result9">
-          <span class="name-title mx-1"
-            >แบบประเมินผู้สูงอายุที่ต้องได้รับการดูแลระยะยาว</span
-          >
-        </router-link>
-      </div>
-      <div class="name mt-2">
-        <b-icon pack="fas" icon="check-circle" style="color: #047857;">
-        </b-icon>
-        <router-link to="/results/result10">
-          <span class="name-title mx-1">แบบประเมินภาวะกลั้นปัสสาวะไม่อยู่</span>
-        </router-link>
-      </div>
-      <div class="name mt-2">
-        <b-icon pack="fas" icon="check-circle" style="color: #047857;">
-        </b-icon>
-        <router-link to="/results/result11">
-          <span class="name-title mx-1">แบบประเมินปัญหาการนอน</span>
-        </router-link>
-      </div>
+
       <div class="name mt-2">
         <b-icon pack="fas" icon="check-circle" style="color: #047857;">
         </b-icon>

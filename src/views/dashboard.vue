@@ -149,12 +149,6 @@
                     style="background-color: #1e3a8a; color: white"
                     size="is-small"
                     @click="doAssessment(user.row.id)"
-                    v-if="
-                      user.row.result == null ||
-                        today.getFullYear() -
-                          new Date(user.row.result_date).getFullYear() >=
-                          1
-                    "
                   >
                     ทำแบบประเมิน
                   </b-button>

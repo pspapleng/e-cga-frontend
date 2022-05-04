@@ -55,11 +55,9 @@
         :auto-close="['outside', 'escape']"
       >
         <template v-slot:content>
-          <router-link to="/profile">
-            <p class="py-2 mx-3">
-              {{ who_login.n_fname }} {{ who_login.n_lname }}
-            </p>
-          </router-link>
+          <p class="py-2 mx-3">
+            {{ who_login.firstName }} {{ who_login.lastName }}
+          </p>
           <b-button
             type="is-danger"
             icon-left="sign-out-alt"
@@ -94,7 +92,7 @@ export default {
   },
   name: 'Sidebar',
   methods: {
-    ...mapActions(['createLogout', 'resetAns']),
+    ...mapActions(['createLogout']),
     logOut() {
       this.createLogout()
         .then(() => {
@@ -105,14 +103,15 @@ export default {
         })
     },
     changeToPatient() {
+      // this.$router.push({ name: 'Dashboard' })
       if (this.haveUserData) {
         // this.keep_ans = JSON.parse(JSON.stringify(this.default_keep_ans));
         // console.log(this.default_keep_ans);
         // console.log(this.keep_ans);
-        this.resetAns()
-        this.keep_result = JSON.parse(JSON.stringify(this.default_keep_results))
+        // this.resetAns()
+        // this.keep_result = JSON.parse(JSON.stringify(this.default_keep_results))
 
-        this.$router.push({ name: 'PatientList' })
+        this.$router.push({ name: 'Dashboard' })
       } else {
         alert("can't")
       }
@@ -121,10 +120,8 @@ export default {
 
   computed: {
     ...mapState([
-      'default_keep_ans',
-      'default_keep_results',
       'who_login',
-      'u_Data',
+      'patient',
       'result_id',
       'keep_ans',
       'keep_result',
@@ -134,12 +131,11 @@ export default {
     },
     isNotAssessment() {
       return (
-        this.$route.name === 'PatientList' ||
-        this.$route.name === 'CreateAccUser'
+        this.$route.name === 'Dashboard' || this.$route.name === 'AddPatient'
       )
     },
     haveUserData() {
-      return this.u_Data !== [] || this.result_id !== null
+      return this.patient !== [] || this.result_id !== null
     },
   },
 }
