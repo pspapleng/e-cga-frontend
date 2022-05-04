@@ -169,7 +169,7 @@
               <router-link
                 class="card-footer-item"
                 to="/dashboard"
-                @click="Finish()"
+                @click.native="Finish"
               >
                 <p style="color: #047857">
                   เสร็จสิ้นการทำแบบประเมิน
@@ -260,9 +260,10 @@ export default {
       this.setOSTA(this.resultans)
     },
     Finish() {
+      console.log('Finish')
       this.createResult()
         .then(() => {
-          this.$router.push({ name: 'Dashboard' })
+          // this.$router.push({ name: 'Dashboard' })
         })
         .catch(e => {
           console.log(e)

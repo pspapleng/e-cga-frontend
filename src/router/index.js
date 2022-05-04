@@ -86,7 +86,7 @@ const routes = [
     component: () => import('../views/form7.vue'),
   },
   {
-    path: '/result',
+    path: '/results/:id',
     name: 'Result',
     // meta: { guess: true },
     meta: { login: true },
