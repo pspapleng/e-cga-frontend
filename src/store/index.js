@@ -160,7 +160,7 @@ export default new Vuex.Store({
     createLogin({ state, commit, dispatch }) {
       return Vue.axios
         .post(
-          `https://my-app-krmt9.ondigitalocean.app/api/auth/sign-in`,
+          `http://api-lb-385001167.us-east-1.elb.amazonaws.com/api/auth/sign-in`,
           state.login,
         )
         .then(res => {
@@ -177,9 +177,12 @@ export default new Vuex.Store({
     getWhoLogin({ commit }) {
       const token = () => localStorage.getItem('token')
       return Vue.axios
-        .get(`https://my-app-krmt9.ondigitalocean.app/api/auth/me`, {
-          headers: { Authorization: 'Bearer ' + token },
-        })
+        .get(
+          `http://api-lb-385001167.us-east-1.elb.amazonaws.com/api/auth/me`,
+          {
+            headers: { Authorization: 'Bearer ' + token },
+          },
+        )
         .then(res => {
           commit('setWhoLogin', res.data)
         })
@@ -187,7 +190,7 @@ export default new Vuex.Store({
     createUser({ state, commit }) {
       return Vue.axios
         .post(
-          `https://my-app-krmt9.ondigitalocean.app/api/user`,
+          `http://api-lb-385001167.us-east-1.elb.amazonaws.com/api/user`,
           state.createUser,
         )
         .then(res => {
@@ -216,7 +219,7 @@ export default new Vuex.Store({
       })
       return Vue.axios
         .post(
-          `https://my-app-krmt9.ondigitalocean.app/api/patient`,
+          `http://api-lb-385001167.us-east-1.elb.amazonaws.com/api/patient`,
           bodyAdapter(state.createPatient),
         )
         .then(res => {
@@ -231,11 +234,14 @@ export default new Vuex.Store({
     },
     getAllPatient({ state, commit }) {
       return Vue.axios
-        .get(`https://my-app-krmt9.ondigitalocean.app/api/patient`, {
-          params: {
-            search: state.search,
+        .get(
+          `http://api-lb-385001167.us-east-1.elb.amazonaws.com/api/patient`,
+          {
+            params: {
+              search: state.search,
+            },
           },
-        })
+        )
         .then(data => {
           const patientAdapter = original => ({
             ...original,
@@ -258,7 +264,7 @@ export default new Vuex.Store({
     getPatientById({ state, commit }) {
       Vue.axios
         .get(
-          `https://my-app-krmt9.ondigitalocean.app/api/patient/${state.patientId}`,
+          `http://api-lb-385001167.us-east-1.elb.amazonaws.com/api/patient/${state.patientId}`,
         )
         .then(data => {
           const patientAdapter = original => ({
@@ -289,7 +295,7 @@ export default new Vuex.Store({
 
       return Vue.axios
         .patch(
-          `https://my-app-krmt9.ondigitalocean.app/api/patient/${state.patientId}`,
+          `http://api-lb-385001167.us-east-1.elb.amazonaws.com/api/patient/${state.patientId}`,
           toJSON(payload),
         )
         .then(res => {
@@ -302,7 +308,7 @@ export default new Vuex.Store({
     deleteUser({ state }) {
       return Vue.axios
         .delete(
-          `https://my-app-krmt9.ondigitalocean.app/api/patient/${state.patientId}`,
+          `http://api-lb-385001167.us-east-1.elb.amazonaws.com/api/patient/${state.patientId}`,
         )
         .then(res => {
           return Promise.resolve(res)
@@ -334,7 +340,10 @@ export default new Vuex.Store({
         patientId: state.patientId,
       }
       return Vue.axios
-        .post(`https://my-app-krmt9.ondigitalocean.app/api/result`, body)
+        .post(
+          `http://api-lb-385001167.us-east-1.elb.amazonaws.com/api/result`,
+          body,
+        )
         .then(res => {
           console.log(res)
           commit('resetCreatePatient')
@@ -348,7 +357,7 @@ export default new Vuex.Store({
     getAllResultByUid({ commit }, id) {
       // console.log("in action", state.UserId);
       return Vue.axios
-        .get(`https://my-app-krmt9.ondigitalocean.app/api/result`, {
+        .get(`http://api-lb-385001167.us-east-1.elb.amazonaws.com/api/result`, {
           params: {
             patientId: id,
           },
