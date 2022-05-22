@@ -2,20 +2,20 @@
   <div class="hero is-fullheight">
     <div class="hero-body py-1">
       <div class="container">
-        <div class="columns">
-          <div class="column is-1 ">
+        <div class="columns is-mobile">
+          <div class="column is-1">
             <Sidebar />
           </div>
-          <div class="column is-5">
-            <h1 class="title pt-6 mt-5">
+          <div class="column is-6">
+            <h1 class="title pt-6 mt-5 ml-2">
               <nobr id="underline">สร้าง</nobr>บัญชีผู้เข้ารับบริการ
             </h1>
           </div>
-          <div class="column is-6">
-            <forUsers class="pr-6" />
+          <div class="column is-4">
+            <forUsers />
           </div>
         </div>
-        <div class="columns has-text-left">
+        <div class="columns has-text-left is-mobile">
           <div class="column is-3 is-offset-1 pl-5">
             <b-field
               class="mb-2"

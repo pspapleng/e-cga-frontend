@@ -1,5 +1,1 @@
-module.exports = {
-  devServer: {
-    host: "localhost"
-  }
-};
+module.exports = {}

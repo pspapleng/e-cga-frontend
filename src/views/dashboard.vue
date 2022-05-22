@@ -1,7 +1,7 @@
 <template>
   <div>
     <section>
-      <div class="columns is-gapless">
+      <div class="columns is-gapless is-mobile">
         <div class="column is-1">
           <Sidebar />
         </div>
@@ -12,13 +12,13 @@
                 font-size: 1.6667rem;
                 text-align: left;
                 font-weight: 600;
-                padding: 20px 0px 0px;
+                padding: 20px 50px 0px;
               "
             >
               รายชื่อผู้ทำแบบประเมิน
             </h1>
           </div>
-          <div style="padding: 20px 0px 0px">
+          <div style="padding: 20px 50px 0px">
             <b-field grouped>
               <b-input
                 v-model="search_word"
@@ -42,7 +42,7 @@
           <!-- ตาราง -->
           <div
             class="column is-12"
-            style="padding-right: 30px; padding-left: 0px"
+            style="padding-right: 30px; padding-left: 50px"
           >
             <b-table
               :data="patientList"
@@ -189,7 +189,7 @@
         <b-modal v-model="openPatient" :can-cancel="false">
           <form class="card">
             <div class="column is-full" style="background-color: #1e3a8a">
-              <div class="columns">
+              <div class="columns is-mobile">
                 <div class="column is-2" style="color: white">
                   <b-icon
                     pack="fas"
@@ -200,7 +200,7 @@
                   </b-icon>
                 </div>
                 <div class="column is-10">
-                  <div class="columns">
+                  <div class="columns is-mobile">
                     <div
                       class="column is-6"
                       style="
@@ -225,7 +225,7 @@
                     </div>
                   </div>
 
-                  <div class="columns">
+                  <div class="columns is-mobile">
                     <div
                       class="column is-3"
                       style="
@@ -258,7 +258,7 @@
             </div>
 
             <div class="column is-full" id="bodybar">
-              <div class="columns">
+              <div class="columns is-mobile">
                 <div
                   class="br column is-6"
                   style="padding: 20px 30px 3px; border-right-style: solid"
@@ -349,7 +349,7 @@
             </div>
 
             <div class="column is-full" id="bodybar">
-              <div class="columns">
+              <div class="columns is-mobile">
                 <div class="column is-5"></div>
                 <div class="column is-2">
                   <b-button
@@ -374,7 +374,7 @@
           >>
           <form class="card">
             <div class="column is-full" style="background-color: #1e3a8a">
-              <div class="columns">
+              <div class="columns is-mobile">
                 <div class="column is-2" style="color: white">
                   <b-icon
                     pack="fas"
@@ -385,7 +385,7 @@
                   </b-icon>
                 </div>
                 <div class="column is-10">
-                  <div class="columns">
+                  <div class="columns is-mobile">
                     <div
                       class="column is-5"
                       style="
@@ -410,7 +410,7 @@
                     </div>
                   </div>
 
-                  <div class="columns">
+                  <div class="columns is-mobile">
                     <div
                       class="column is-3"
                       style="
@@ -443,7 +443,7 @@
             </div>
 
             <div class="column is-full" id="bodybar">
-              <div class="columns">
+              <div class="columns is-mobile">
                 <div
                   class="br column is-6"
                   style="padding: 20px 30px 3px; border-right-style: solid"
@@ -681,7 +681,7 @@
             </div>
 
             <div class="column is-full" id="bodybar">
-              <div class="columns">
+              <div class="columns is-mobile">
                 <div class="column is-4"></div>
                 <div class="column is-2">
                   <b-button

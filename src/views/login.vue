@@ -1,54 +1,57 @@
 <template>
   <div class="hero is-fullheight is-light">
     <div class="hero-body">
-      <div class="container has-text-centered">
+      <div class="container has-text-centered ">
         <p class="title has-text-centered">
           เข้าสู่ระบบ <mark type="is-warning">E-CGA</mark>
         </p>
-        <div class="column is-4 is-offset-4">
-          <p
-            v-if="error"
-            class="px-3 py-2 mb-4 has-text-danger-dark has-background-danger-light"
-          >
-            {{ error }}
-          </p>
-          <b-field
-            class="mb-2"
-            :type="{ 'is-danger': $v.login_form.username.$error }"
-          >
-            <b-input
-              v-model="$v.login_form.username.$model"
-              placeholder="ชื่อบัญชีผู้ใช้"
-            ></b-input>
-          </b-field>
-          <template v-if="$v.login_form.username.$error">
+        <div class="columns is-mobile">
+          <div class="column is-4 is-offset-4">
             <p
-              class="help is-danger has-text-left mb-2"
-              v-if="!$v.login_form.username.required"
+              v-if="error"
+              class="px-3 py-2 mb-4 has-text-danger-dark has-background-danger-light"
             >
-              * กรุณากรอกชื่อบัญชีผู้ใช้
+              {{ error }}
             </p>
-          </template>
-          <b-field
-            class="mb-2"
-            :type="{ 'is-danger': $v.login_form.password.$error }"
-          >
-            <b-input
-              v-model="$v.login_form.password.$model"
-              type="password"
-              placeholder="รหัสผ่าน"
-              password-reveal
-            />
-          </b-field>
-          <template v-if="$v.login_form.password.$error">
-            <p
-              class="help is-danger has-text-left mb-2"
-              v-if="!$v.login_form.password.required"
+            <b-field
+              class="mb-2"
+              :type="{ 'is-danger': $v.login_form.username.$error }"
             >
-              * กรุณากรอกรหัสผ่าน
-            </p>
-          </template>
+              <b-input
+                v-model="$v.login_form.username.$model"
+                placeholder="ชื่อบัญชีผู้ใช้"
+              ></b-input>
+            </b-field>
+            <template v-if="$v.login_form.username.$error">
+              <p
+                class="help is-danger has-text-left mb-2"
+                v-if="!$v.login_form.username.required"
+              >
+                * กรุณากรอกชื่อบัญชีผู้ใช้
+              </p>
+            </template>
+            <b-field
+              class="mb-2"
+              :type="{ 'is-danger': $v.login_form.password.$error }"
+            >
+              <b-input
+                v-model="$v.login_form.password.$model"
+                type="password"
+                placeholder="รหัสผ่าน"
+                password-reveal
+              />
+            </b-field>
+            <template v-if="$v.login_form.password.$error">
+              <p
+                class="help is-danger has-text-left mb-2"
+                v-if="!$v.login_form.password.required"
+              >
+                * กรุณากรอกรหัสผ่าน
+              </p>
+            </template>
+          </div>
         </div>
+
         <b-button
           class="login"
           style="font-family: 'Kanit', sans-serif; font-weight: 400;"
@@ -140,7 +143,7 @@ mark {
 .login {
   color: #ffffff;
   background-color: #1e3a8a;
-  width: 31%;
+  width: 32%;
 }
 .newacc {
   color: #047857;

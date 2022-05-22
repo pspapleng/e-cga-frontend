@@ -1,7 +1,7 @@
 <template>
   <div>
     <section>
-      <div class="columns">
+      <div class="columns is-mobile">
         <div class="column is-1">
           <div>
             <Sidebar />
@@ -9,7 +9,7 @@
         </div>
 
         <div class="column is-11">
-          <div class="assName card mr-6">
+          <div class="assName card ml-6 mr-6">
             <header class="card-header">
               <p
                 class="card-header-title"
@@ -29,7 +29,7 @@
             </div>
           </div>
 
-          <div class="card mr-6">
+          <div class="card ml-6 mr-6">
             <div class="card-content">
               <div class="content">
                 <u>ส่วนที่ 1 แบบคัดกรองภาวะหกล้ม (TIME UP AND GO TEST)</u><br />
@@ -45,7 +45,7 @@
             </div>
           </div>
 
-          <div class="card mr-6">
+          <div class="card ml-6 mr-6">
             <div class="card-content">
               <div class="content">
                 <div
@@ -91,7 +91,7 @@
             v-for="ques in form.slice(29, 30)"
             :key="ques.ques_id"
           >
-            <div class="card mr-6">
+            <div class="card ml-6 mr-6">
               <div class="card-content">
                 <div class="content">
                   <p>{{ ques.ques }}</p>
@@ -125,7 +125,7 @@
             v-for="ques in form.slice(30, 33)"
             :key="ques.ques_id"
           >
-            <div class="card mr-6">
+            <div class="card ml-6 mr-6">
               <div class="card-content">
                 <div class="content">
                   <p>{{ ques.ques }}</p>
@@ -160,7 +160,7 @@
             v-for="ques in form.slice(33, 36)"
             :key="ques.ques_id"
           >
-            <div class="card mr-6">
+            <div class="card ml-6 mr-6">
               <div class="card-content">
                 <div class="content">
                   <p>{{ ques.ques }}</p>
@@ -189,7 +189,7 @@
             </div>
           </div>
 
-          <div class="card">
+          <div class="card ml-6 mr-6">
             <div class="card-content">
               <div class="content has-text-left">
                 <u class="head">ส่วนที่ 2 การประเมิน Full tandem stand </u>
@@ -216,7 +216,7 @@
             v-for="ques in form.slice(36, 37)"
             :key="ques.ques_id"
           >
-            <div class="card mr-6">
+            <div class="card ml-6 mr-6">
               <div class="card-content">
                 <div class="content">
                   <p>{{ ques.ques }}</p>
@@ -257,7 +257,7 @@
             v-for="ques in form.slice(37, 38)"
             :key="ques.ques_id"
           >
-            <div class="card mr-6">
+            <div class="card ml-6 mr-6">
               <div class="card-content">
                 <div class="content">
                   <p>{{ ques.ques }}</p>
@@ -286,8 +286,8 @@
             </div>
           </div>
 
-          <div class="columns mt-4">
-            <div class="column is-1">
+          <div class="columns is-mobile mt-4 mb-4 ml-5">
+            <div class="column is-2">
               <router-link to="/forms/form3">
                 <b-button class="mr-2">
                   <b-icon icon="chevron-left"> </b-icon>
@@ -299,7 +299,7 @@
                 </b-button>
               </router-link>
             </div>
-            <div class="column is-11 is-offset-4">
+            <div class="column is-6 is-offset-4">
               <router-link to="/dashboard">
                 <b-button
                   class="back mr-2"

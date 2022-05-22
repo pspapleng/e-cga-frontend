@@ -1,7 +1,7 @@
 <template>
   <div>
     <section>
-      <div class="columns">
+      <div class="columns is-mobile">
         <div class="column is-1">
           <div>
             <Sidebar />
@@ -9,7 +9,7 @@
         </div>
 
         <div class="column is-11">
-          <div class="assName card mr-6">
+          <div class="assName card mt-6 ml-6 mr-6">
             <header class="card-header">
               <p
                 class="card-header-title"
@@ -33,7 +33,7 @@
             </div>
           </div>
 
-          <div class="card mr-6">
+          <div class="card ml-6 mr-6">
             <div class="card-content">
               <div class="content">
                 <div style="overflow: hidden;">
@@ -53,7 +53,7 @@
             </div>
           </div>
 
-          <div class="card mr-6">
+          <div class="card ml-6 mr-6">
             <div class="card-content">
               <div class="content">
                 <div style="overflow: hidden;">
@@ -97,10 +97,11 @@
             </div>
           </div> -->
 
-          <h1>ตารางประเมินความเสี่ยง</h1>
+          <h1 class="ml-6 mb-4">ตารางประเมินความเสี่ยง</h1>
           <img style="width: 45%; height: 45%;" src="@/assets/ass_table1.png" />
-          <div class="columns mt-4">
-            <div class="column is-1">
+
+          <div class="columns is-mobile mt-4 mb-4 ml-5">
+            <div class="column is-2">
               <router-link to="/forms/form6">
                 <b-button class="mr-2">
                   <b-icon icon="chevron-left"> </b-icon>
@@ -110,7 +111,7 @@
                 <b-icon icon="chevron-right"> </b-icon>
               </b-button>
             </div>
-            <div class="column is-11 is-offset-4">
+            <div class="column is-6 is-offset-4">
               <router-link to="/dashboard">
                 <b-button
                   class="back mr-2"

@@ -2,7 +2,7 @@
   <div class="hero is-fullheight is-light">
     <div class="hero-body py-3">
       <div class="container">
-        <div class="columns">
+        <div class="columns is-mobile">
           <div class="column left is-7 pl-3">
             <h1 class="title ml-6 mb-6 pl-6 py-6">
               <nobr id="underline">สร้าง</nobr>บัญชีพยาบาล

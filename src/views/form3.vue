@@ -1,7 +1,7 @@
 <template>
   <div>
     <section>
-      <div class="columns">
+      <div class="columns is-mobile">
         <div class="column is-1">
           <div>
             <Sidebar />
@@ -9,7 +9,7 @@
         </div>
 
         <div class="column is-11">
-          <div class="assName card mt-6 ml-1 mr-6">
+          <div class="assName card mt-6 ml-6 mr-6">
             <p
               class="card-header-title"
               style="color: white; background-color: #1E3A8A"
@@ -18,7 +18,7 @@
             </p>
           </div>
           <div
-            class="questions"
+            class="questions ml-6 mr-3"
             v-for="ques in form.slice(18, 28)"
             :key="ques.ques_id"
           >
@@ -50,8 +50,8 @@
               </div>
             </div>
           </div>
-          <div class="columns mt-4">
-            <div class="column is-1">
+          <div class="columns is-mobile mt-4 mb-4 ml-5">
+            <div class="column is-2">
               <router-link to="/forms/form2">
                 <b-button class="mr-2">
                   <b-icon icon="chevron-left"> </b-icon>
@@ -63,7 +63,7 @@
                 </b-button>
               </router-link>
             </div>
-            <div class="column is-11 is-offset-4">
+            <div class="column is-6 is-offset-4">
               <router-link to="/dashboard">
                 <b-button
                   class="back mr-2"

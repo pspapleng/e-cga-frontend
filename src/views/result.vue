@@ -2,7 +2,7 @@
   <div class="hero is-fullheight">
     <div class="hero-body">
       <div class="container">
-        <div class="columns">
+        <div class="columns is-mobile">
           <div
             class="column is-8-desktop is-7-tablet is-6-mobile is-offset-1-desktop is-offset-2-tablet is-offset-2-mobile"
           >
